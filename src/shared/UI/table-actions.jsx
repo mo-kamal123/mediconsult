@@ -42,7 +42,7 @@ const TableActions = () => {
       </div>
     
       {/* Action buttons */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between md:justify-normal gap-1 md:gap-4">
         {actions.map(({ key, Icon }) => (
           <Btn key={key} label={key} Icon={Icon} />
         ))}

@@ -107,8 +107,9 @@ const sidebar_url = [
   },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ closeSidebar, isOpen }) => {
   const [active, setActive] = useState('');
+
   const handleOpenDropdown = (item) => {
     if (active && active === item) {
       setActive('');
@@ -117,7 +118,7 @@ const Sidebar = () => {
     }
   };
   return (
-    <aside className="bg-white h-svh w-80 overflow-scroll fixed left-0 pb-30 pt-5 mt-23">
+    <aside className={`bg-white h-svh w-full md:w-80 overflow-scroll fixed ${isOpen ? 'left-0' : '-left-[100%]'}  md:left-0 pb-30 pt-5 mt-23 transition-all duration-300`}>
       <ul className="flex flex-col justify-between gap-3 pl-8">
         {sidebar_url.map((item) => (
           <li className="flex flex-col  gap-1 p-2">
@@ -140,7 +141,11 @@ const Sidebar = () => {
             {active === item.name && (
               <ul className="flex flex-col gap-2 pl-5 transition-all duration-300">
                 {item.sub.map((sub) => (
-                  <Link to={sub.url} className="text-sm text-[#8B8B9B] py-2 transition-all duration-300 hover:text-black">
+                  <Link
+                    to={sub.url}
+                    className="text-sm text-[#8B8B9B] py-2 transition-all duration-300 hover:text-black"
+                    onClick={closeSidebar}
+                  >
                     {sub.name}
                   </Link>
                 ))}
