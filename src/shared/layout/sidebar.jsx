@@ -14,6 +14,7 @@ import {
 import { IoIosArrowDown } from 'react-icons/io';
 import pro from '../imgs/bro.png';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const sidebar_url = [
   {
@@ -46,7 +47,7 @@ const sidebar_url = [
     sub: [
       { name: 'Approvals Management', url: '' },
       { name: 'Canceled Approval Management', url: '' },
-      { name: 'Portals Approvals Requests', url: '' },
+      { name: 'Portals Approvals Requests', url: '/approval-requests' },
       { name: 'Rejected Requests', url: '' },
     ],
   },
@@ -116,7 +117,7 @@ const Sidebar = () => {
     }
   };
   return (
-    <aside className="h-svh w-80 overflow-scroll fixed left-0 pb-30 pt-5 mt-23">
+    <aside className="bg-white h-svh w-80 overflow-scroll fixed left-0 pb-30 pt-5 mt-23">
       <ul className="flex flex-col justify-between gap-3 pl-8">
         {sidebar_url.map((item) => (
           <li className="flex flex-col  gap-1 p-2">
@@ -139,9 +140,9 @@ const Sidebar = () => {
             {active === item.name && (
               <ul className="flex flex-col gap-2 pl-5 transition-all duration-300">
                 {item.sub.map((sub) => (
-                  <li className="text-sm text-[#8B8B9B] py-2 transition-all duration-300 hover:text-black">
+                  <Link to={sub.url} className="text-sm text-[#8B8B9B] py-2 transition-all duration-300 hover:text-black">
                     {sub.name}
-                  </li>
+                  </Link>
                 ))}
               </ul>
             )}

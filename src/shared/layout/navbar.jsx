@@ -11,7 +11,7 @@ const navItems = [
 ];
 const Navbar = () => {
   return (
-    <nav className="fixed top-0 w-full pt-7 pb-3 px-5 flex justify-between items-center border-b border-[#C2C2C2]">
+    <nav className="bg-white fixed top-0 w-full pt-7 pb-3 px-5 flex justify-between items-center border-b border-[#C2C2C2]">
       <Link to={'/'} className="w-50">
         <img src={logo} alt="logo-img" />
       </Link>
