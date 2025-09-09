@@ -4,7 +4,7 @@ const Table = ({ cols, data }) => {
   const columnCount = cols.length + 1; 
 
   return (
-    <div className="overflow-hidden border my-10 border-borders rounded-2xl shadow-sm">
+    <div className="overflow-scroll border my-10 border-borders rounded-2xl shadow-sm">
       <table className="w-full bg-white">
         <thead>
           <tr className="bg-gray-50">
