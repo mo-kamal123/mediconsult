@@ -4,11 +4,11 @@ import Sidebar from '../../shared/layout/sidebar';
 
 const RootLayout = () => {
   return (
-    <main>
+    <main className='bg-body'>
       <Navbar />
       <div className="">
         <Sidebar />
-        <div className="ml-80">
+        <div className="ml-90 pt-30">
           <Outlet />
         </div>
       </div>

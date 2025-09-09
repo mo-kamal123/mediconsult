@@ -3,3 +3,11 @@
 body {
   font-family: 'Rubik', sans-serif;
 }
+
+@theme {
+  --color-body: #f7fafc;
+  --color-borders: #E1E1E4;
+  --color-main: #191919;
+  --color-sec: #d2d6da;
+  --color-dark: #0b0c0c;
+}
