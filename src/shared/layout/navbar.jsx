@@ -3,7 +3,6 @@ import logo from '../../app/assets/mediconsult_logo.png';
 import { IoMenu, IoSettings, IoTicketSharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 
-
 const navItems = [
   { id: 1, icon: <MdEditDocument />, label: 'Request' },
   { id: 2, icon: <IoTicketSharp />, label: 'Ticket' },
@@ -25,9 +24,9 @@ const Navbar = ({ openSidebar }) => {
             </li>
           ))}
         </ul>
-          <p className='text-2xl md:hidden' onClick={openSidebar}>
-            <IoMenu />
-          </p>
+        <p className="text-2xl md:hidden" onClick={openSidebar}>
+          <IoMenu />
+        </p>
       </ul>
     </nav>
   );

@@ -1,7 +1,7 @@
-import ItemStatus from "./item-status";
+import ItemStatus from './item-status';
 
 const Table = ({ cols, data }) => {
-  const columnCount = cols.length + 1; 
+  const columnCount = cols.length + 1;
 
   return (
     <div className="overflow-scroll border my-10 border-borders rounded-2xl shadow-sm">
@@ -9,7 +9,7 @@ const Table = ({ cols, data }) => {
         <thead>
           <tr className="bg-gray-50">
             <th className="p-4 text-center border border-borders bg-[#F4F4F6]">
-              All 
+              All
               <input type="checkbox" className="ml-1" />
             </th>
             {cols.map((col, index) => (
@@ -39,7 +39,7 @@ const Table = ({ cols, data }) => {
 
                 {cols.map((col, colIndex) => (
                   <td key={colIndex} className="p-4 text-gray-600">
-                    {col !== "Status" && row[col] !== undefined ? (
+                    {col !== 'Status' && row[col] !== undefined ? (
                       row[col]
                     ) : (
                       <ItemStatus status={row[col]}>{row[col]}</ItemStatus>

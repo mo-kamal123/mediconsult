@@ -1,14 +1,8 @@
-import { btnStyles } from '../constants/tableBtnStyles';
-
-const Btn = ({ label, Icon }) => {
+const Btn = ({ children }) => {
   return (
-    <div
-      className={`flex items-center gap-3 bg-white md:px-4 p-1 text-sm border rounded cursor-pointer select-none ${btnStyles[label]}`}
-    >
-      {/* Render all Icons in this action side by side */}
-      <Icon className="text-2xl" />
-      <button className=" font-medium">{label}</button>
-    </div>
+    <button className="bg-[#4285F4] text-white w-full p-4 rounded-lg mt-10">
+      {children}
+    </button>
   );
 };
 
