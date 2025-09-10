@@ -2,11 +2,18 @@ import { createBrowserRouter } from 'react-router-dom';
 import Home from '../../features/main/pages/home';
 import RootLayout from '../layouts/root-layout';
 import { approvalsRoutes } from '../../features/approvals/routes/routes.jsx';
+import Authlayout from '../layouts/auth-layout.jsx';
+import { authRoutes } from '../../features/auth/routes/routes.jsx';
 
 export const router = createBrowserRouter([
   {
+    path: '/auth',
+    element: <Authlayout loggedIn={false} />,
+    children: [...authRoutes],
+  },
+  {
     path: '/',
-    element: <RootLayout />,
+    element: <RootLayout loggedIn={false} />,
     children: [{ index: true, element: <Home /> }, ...approvalsRoutes],
   },
 ]);

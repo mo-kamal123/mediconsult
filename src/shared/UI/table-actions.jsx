@@ -1,8 +1,8 @@
 import { HiOutlineRefresh } from 'react-icons/hi';
 import { RiFileExcel2Fill } from 'react-icons/ri';
-import { FiSearch } from "react-icons/fi";
-import Btn from './Btn';
+import { FiSearch } from 'react-icons/fi';
 import { MdDelete, MdFilterAltOff } from 'react-icons/md';
+import TableBtn from './table-Btn';
 
 const actions = [
   {
@@ -29,7 +29,6 @@ const actions = [
 
 const TableActions = () => {
   return (
-
     <div>
       {/* Search with icon */}
       <div className="relative w-full my-5">
@@ -40,15 +39,14 @@ const TableActions = () => {
           className="w-full bg-white p-3 pl-10 border border-borders rounded-lg"
         />
       </div>
-    
+
       {/* Action buttons */}
       <div className="flex items-center justify-between md:justify-normal gap-1 md:gap-4">
         {actions.map(({ key, Icon }) => (
-          <Btn key={key} label={key} Icon={Icon} />
+          <TableBtn key={key} label={key} Icon={Icon} />
         ))}
       </div>
     </div>
-    
   );
 };
 

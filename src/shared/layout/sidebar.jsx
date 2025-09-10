@@ -118,7 +118,9 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
     }
   };
   return (
-    <aside className={`bg-white h-svh w-full md:w-80 overflow-scroll fixed ${isOpen ? 'left-0' : '-left-[100%]'}  md:left-0 pb-30 pt-5 mt-23 transition-all duration-300`}>
+    <aside
+      className={`bg-white h-svh w-full md:w-80 overflow-scroll fixed ${isOpen ? 'left-0' : '-left-[100%]'}  md:left-0 pb-30 pt-5 mt-23 transition-all duration-300`}
+    >
       <ul className="flex flex-col justify-between gap-3 pl-8">
         {sidebar_url.map((item) => (
           <li className="flex flex-col  gap-1 p-2">
