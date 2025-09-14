@@ -5,8 +5,7 @@ import { RiFileExcel2Fill } from 'react-icons/ri';
 import { MdFilterAltOff } from 'react-icons/md';
 import { SiGoogledocs } from 'react-icons/si';
 import { FaUserCheck, FaUserClock, FaUserTimes } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import Modal from '../../../shared/UI/modal';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const tableHeaders = [
   'ID',
@@ -161,7 +160,7 @@ const ClientsManagement = () => {
       key: 'newClient',
       Icon: RiFileExcel2Fill,
       label: 'New Client',
-      onClick: () => navigate('/clients/new'),
+      onClick: () => navigate('new'),
     },
   ];
 
@@ -207,7 +206,8 @@ const ClientsManagement = () => {
           ),
         }}
       />
-      <Modal />
+      <Outlet />
+      {/* <Modal /> */}
     </section>
   );
 };
