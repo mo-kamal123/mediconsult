@@ -1,33 +1,7 @@
-import { HiOutlineRefresh } from 'react-icons/hi';
-import { RiFileExcel2Fill } from 'react-icons/ri';
 import { FiSearch } from 'react-icons/fi';
-import { MdDelete, MdFilterAltOff } from 'react-icons/md';
 import TableBtn from './table-Btn';
 
-const actions = [
-  {
-    key: 'refresh',
-    Icon: HiOutlineRefresh,
-    label: 'Refresh',
-  },
-  {
-    key: 'clearFilter',
-    Icon: MdFilterAltOff,
-    label: 'Clear Filter',
-  },
-  {
-    key: 'delete',
-    Icon: MdDelete,
-    label: 'Delete',
-  },
-  {
-    key: 'export',
-    Icon: RiFileExcel2Fill,
-    label: 'Export',
-  },
-];
-
-const TableActions = () => {
+const TableActions = ({ actions, handleClick }) => {
   return (
     <div>
       {/* Search with icon */}
@@ -42,8 +16,8 @@ const TableActions = () => {
 
       {/* Action buttons */}
       <div className="flex items-center justify-between md:justify-normal gap-1 md:gap-4">
-        {actions.map(({ key, Icon }) => (
-          <TableBtn key={key} label={key} Icon={Icon} />
+        {actions?.map(({ key, Icon, onClick }) => (
+          <TableBtn key={key} label={key} Icon={Icon} handleClick={onClick} />
         ))}
       </div>
     </div>
