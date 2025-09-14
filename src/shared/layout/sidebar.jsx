@@ -22,7 +22,7 @@ const sidebar_url = [
     url: 'sss',
     icon: <FaUsers />,
     sub: [
-      { name: 'New Service Request', url: '' },
+      { name: 'Clients Management', url: '/clients' },
       { name: 'Service Request (SR)' },
       { name: 'Service Request Management', url: '' },
       { name: 'SR Call Back Management', url: '' },
