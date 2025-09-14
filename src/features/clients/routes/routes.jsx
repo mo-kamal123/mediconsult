@@ -1,9 +1,10 @@
+import NewClientModal from '../components/new-client-modal';
 import ClientsManagement from '../pages/clients-management';
 
 export const clientsRoutes = [
   {
-    path: '/clients',
+    path: 'clients',
     element: <ClientsManagement />,
-    Children: [{ path: 'new', element: <ClientsManagement /> }],
+    children: [{ path: 'new', element: <NewClientModal /> }],
   },
 ];
