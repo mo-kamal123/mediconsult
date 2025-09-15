@@ -1,7 +1,7 @@
 import { FiSearch } from 'react-icons/fi';
 import TableBtn from './table-Btn';
 
-const TableActions = ({ actions, handleClick }) => {
+const TableActions = ({ actions }) => {
   return (
     <div>
       {/* Search with icon */}
@@ -15,9 +15,9 @@ const TableActions = ({ actions, handleClick }) => {
       </div>
 
       {/* Action buttons */}
-      <div className="flex items-center justify-between md:justify-normal gap-1 md:gap-4">
-        {actions?.map(({ key, Icon, onClick }) => (
-          <TableBtn key={key} label={key} Icon={Icon} handleClick={onClick} />
+      <div className="flex items-center justify-between md:justify-normal gap-2 md:gap-4 overflow-x-auto bg-white border border-borders p-4 rounded-2xl">
+        {actions?.map(({ type, label, Icon, onClick }) => (
+          <TableBtn key={type} type={type} label={label} Icon={Icon} handleClick={onClick} />
         ))}
       </div>
     </div>
