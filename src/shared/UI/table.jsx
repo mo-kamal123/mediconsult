@@ -1,32 +1,18 @@
 import React from 'react';
 import ItemStatus from './item-status';
 
-const Table = ({
-  cols,
-  data,
-  checkbox = true,
-  leadingData, // 👈 First column (optional)
-  trailingData, // 👈 Last column (optional)
-}) => {
+const Table = ({ cols, data, checkbox = true, leadingData, trailingData }) => {
   const columnCount =
-    cols.length +
-    (checkbox ? 1 : 0) +
-    (leadingData ? 1 : 0) +
-    (trailingData ? 1 : 0);
+  cols.length +
+  (checkbox ? 1 : 0) +
+  (leadingData ? 1 : 0) +
+  (Array.isArray(trailingData) ? trailingData.length : trailingData ? 1 : 0);
 
   return (
     <div className="overflow-x-auto w-full border my-10 border-borders rounded-2xl">
-      <table className="table-auto min-w-max bg-white">
+      <table className="w-full table-auto bg-white text-sm">
         <thead>
           <tr className="bg-gray-50">
-            {/* Leading column header */}
-            {leadingData && (
-              <th className="px-6 py-4 text-left whitespace-nowrap font-semibold text-gray-700 border border-borders bg-[#F4F4F6]">
-                {leadingData.col}
-              </th>
-            )}
-
-            {/* Checkbox column header */}
             {checkbox && (
               <th className="px-6 py-4 text-center whitespace-nowrap border border-borders bg-[#F4F4F6]">
                 All
@@ -34,7 +20,12 @@ const Table = ({
               </th>
             )}
 
-            {/* Dynamic column headers */}
+            {leadingData && (
+              <th className="px-6 py-4 text-left whitespace-nowrap font-semibold text-gray-700 border border-borders bg-[#F4F4F6]">
+                {leadingData.col}
+              </th>
+            )}
+
             {cols.map((col, index) => (
               <th
                 key={index}
@@ -44,12 +35,15 @@ const Table = ({
               </th>
             ))}
 
-            {/* Trailing column header */}
-            {trailingData && (
-              <th className="px-6 py-4 text-left whitespace-nowrap font-semibold text-gray-700 border border-borders bg-[#F4F4F6]">
-                {trailingData.col}
-              </th>
-            )}
+            {Array.isArray(trailingData) &&
+              trailingData.map((td, i) => (
+                <th
+                  key={`trailing-header-${i}`}
+                  className="px-6 py-4 text-left whitespace-nowrap font-semibold text-gray-700 border border-borders bg-[#F4F4F6]"
+                >
+                  {td.col}
+                </th>
+              ))}
           </tr>
         </thead>
 
@@ -60,16 +54,6 @@ const Table = ({
                 key={rowIndex}
                 className="border-b border-gray-200 hover:bg-gray-100 transition-all duration-300"
               >
-                {/* Leading column data */}
-                {leadingData && (
-                  <td className="px-6 py-4 whitespace-nowrap text-left text-gray-600 border border-borders">
-                    {typeof leadingData.render === 'function'
-                      ? leadingData.render(row, rowIndex)
-                      : leadingData.data}
-                  </td>
-                )}
-
-                {/* Checkbox column */}
                 {checkbox && (
                   <td className="px-6 py-4 text-center whitespace-nowrap border border-borders">
                     <input
@@ -79,7 +63,14 @@ const Table = ({
                   </td>
                 )}
 
-                {/* Main data columns */}
+                {leadingData && (
+                  <td className="px-6 py-4 whitespace-nowrap text-left text-gray-600 border border-borders">
+                    {typeof leadingData.render === 'function'
+                      ? leadingData.render(row, rowIndex)
+                      : leadingData.data}
+                  </td>
+                )}
+
                 {cols.map((col, colIndex) => (
                   <td
                     key={colIndex}
@@ -93,14 +84,17 @@ const Table = ({
                   </td>
                 ))}
 
-                {/* Trailing column data */}
-                {trailingData && (
-                  <td className="px-6 py-4 whitespace-nowrap text-left text-gray-600 border border-borders">
-                    {typeof trailingData.render === 'function'
-                      ? trailingData.render(row, rowIndex)
-                      : trailingData.data}
-                  </td>
-                )}
+                {Array.isArray(trailingData) &&
+                  trailingData.map((td, i) => (
+                    <td
+                      key={`trailing-data-${rowIndex}-${i}`}
+                      className="px-6 py-4 whitespace-nowrap text-left text-gray-600 border border-borders"
+                    >
+                      {typeof td.render === 'function'
+                        ? td.render(row, rowIndex)
+                        : td.data}
+                    </td>
+                  ))}
               </tr>
             ))
           ) : (
@@ -115,6 +109,7 @@ const Table = ({
           )}
         </tbody>
       </table>
+      
     </div>
   );
 };

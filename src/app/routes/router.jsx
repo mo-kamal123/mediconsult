@@ -9,12 +9,12 @@ import { clientsRoutes } from '../../features/clients/routes/routes.jsx';
 export const router = createBrowserRouter([
   {
     path: '/auth',
-    element: <Authlayout loggedIn={true} />,
+    element: <Authlayout loggedIn={false} />,
     children: [...authRoutes],
   },
   {
     path: '/',
-    element: <RootLayout loggedIn={true} />,
+    element: <RootLayout loggedIn={false} />,
     children: [
       { index: true, element: <Home /> },
       ...approvalsRoutes,

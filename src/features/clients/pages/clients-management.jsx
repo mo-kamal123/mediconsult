@@ -147,17 +147,17 @@ const ClientsManagement = () => {
 
   const actions = [
     {
-      key: 'clearFilter',
+      type: 'clearFilter',
       Icon: MdFilterAltOff,
       label: 'Clear Filter',
     },
     {
-      key: 'export',
+      type: 'export',
       Icon: RiFileExcel2Fill,
       label: 'Export',
     },
     {
-      key: 'newClient',
+      type: 'newClient',
       Icon: RiFileExcel2Fill,
       label: 'New Client',
       onClick: () => navigate('new'),
@@ -174,8 +174,8 @@ const ClientsManagement = () => {
         checkbox={false}
         leadingData={{
           col: '',
-          render: () => (
-            <p className="text-blue-500 text-xl">
+          render: (row) => (
+            <p onClick={() => navigate('11')} className="text-blue-500 text-xl">
               <SiGoogledocs />
             </p>
           ),

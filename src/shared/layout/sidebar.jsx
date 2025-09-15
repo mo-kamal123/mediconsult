@@ -109,6 +109,7 @@ const sidebar_url = [
 
 const Sidebar = ({ closeSidebar, isOpen }) => {
   const [active, setActive] = useState('');
+  const [subActive, setSubActive] = useState('');
 
   const handleOpenDropdown = (item) => {
     if (active && active === item) {
@@ -126,7 +127,7 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
           <li className="flex flex-col  gap-1 p-2">
             <div
               onClick={() => handleOpenDropdown(item.name)}
-              className={`flex items-center justify-between gap-1 p-2 rounded ${active === item.name && 'bg-[#ECF3FF]'}`}
+              className={`flex items-center justify-between gap-1 p-2 rounded cursor-pointer ${active === item.name && 'bg-[#ECF3FF]'}`}
             >
               <p
                 className={`flex items-center gap-2 ${active === item.name && 'text-[#1F4ED6]'}`}
@@ -145,8 +146,11 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
                 {item.sub.map((sub) => (
                   <Link
                     to={sub.url}
-                    className="text-sm text-[#8B8B9B] py-2 transition-all duration-300 hover:text-black"
-                    onClick={closeSidebar}
+                    className={`text-sm text-[#8B8B9B] py-2 transition-all duration-300 hover:text-black hover:font-semibold ${subActive === sub.name && 'text-black font-semibold'}`}
+                    onClick={() => {
+                      closeSidebar()
+                      setSubActive(sub.name)
+                    }}
                   >
                     {sub.name}
                   </Link>

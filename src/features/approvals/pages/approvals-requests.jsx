@@ -113,17 +113,17 @@ const rows = [
 
 const actions = [
   {
-    key: 'clearFilter',
+    type: 'clearFilter',
     Icon: MdFilterAltOff,
     label: 'Clear Filter',
   },
   {
-    key: 'delete',
+    type: 'delete',
     Icon: MdDelete,
     label: 'Delete',
   },
   {
-    key: 'export',
+    type: 'export',
     Icon: RiFileExcel2Fill,
     label: 'Export',
   },
