@@ -40,7 +40,7 @@ const rows = [
     Mobile: '01003414384',
   },
   {
-    ID: 2171,
+    ID: 2172,
     Name: 'Nada Mohamed Ahmed Ali',
     OldID: 2066176,
     Birthday: '04 Mar 1983',
@@ -52,7 +52,7 @@ const rows = [
     Mobile: '01003414384',
   },
   {
-    ID: 2171,
+    ID: 2173,
     Name: 'Nada Mohamed Ahmed Ali',
     OldID: 2066176,
     Birthday: '04 Mar 1983',
@@ -64,7 +64,7 @@ const rows = [
     Mobile: '01003414384',
   },
   {
-    ID: 2171,
+    ID: 2174,
     Name: 'Nada Mohamed Ahmed Ali',
     OldID: 2066176,
     Birthday: '04 Mar 1983',
@@ -76,7 +76,7 @@ const rows = [
     Mobile: '01003414384',
   },
   {
-    ID: 2171,
+    ID: 2175,
     Name: 'Nada Mohamed Ahmed Ali',
     OldID: 2066176,
     Birthday: '04 Mar 1983',
@@ -173,7 +173,7 @@ const actions = [
 const MembersInfo = () => {
   return (
     <div>
-      <TableActions actions={actions} />
+      <TableActions actions={actions} tableheaders={tableHeaders} />
       <Table
         cols={tableHeaders}
         data={rows}

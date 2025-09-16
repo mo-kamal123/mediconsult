@@ -167,7 +167,7 @@ const ClientsManagement = () => {
   return (
     <section className="w-[90%] m-auto">
       <MainHeader>Clients Management</MainHeader>
-      <TableActions actions={actions} />
+      <TableActions actions={actions} tableheaders={tableHeaders} />
       <Table
         cols={tableHeaders}
         data={rows}
