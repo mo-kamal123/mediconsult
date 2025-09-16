@@ -2,10 +2,12 @@ import { Navigate, Outlet } from 'react-router-dom';
 import Navbar from '../../shared/layout/navbar';
 import Sidebar from '../../shared/layout/sidebar';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-const RootLayout = ({ loggedIn }) => {
+const RootLayout = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
-
+  const loggedIn = useSelector((state) => state.auth.isAuthenticated);
+  
   const openSidebar = () => {
     setToggleSidebar(!toggleSidebar);
   };
