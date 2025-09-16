@@ -7,4 +7,5 @@ export const btnStyles = {
   AssignProgram: 'text-[#4285F4]',
   NewMember: 'text-[#4285F4]',
   More: 'text-[#4285F4]',
+  search: 'text-[#4285F4]'
 };

@@ -134,7 +134,7 @@ const ApprovalsRequests = () => {
     <div className="w-[90%] m-auto">
       <MainHeader>Portals Approvals Requests</MainHeader>
       <Table cols={tableHeaders} />
-      <TableActions actions={actions} />
+      <TableActions actions={actions} tableheaders={tableHeaders} />
       <Table cols={tableHeaders} data={rows} />
     </div>
   );

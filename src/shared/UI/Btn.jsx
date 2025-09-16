@@ -1,6 +1,6 @@
 const Btn = ({ children, className, props }) => {
   return (
-    <button className={`bg-[#4285F4] text-white p-2 md:p-4 rounded-lg mt-10 ${className}`} {...props}>
+    <button className={`bg-[#4285F4] text-white p-2 md:p-4 rounded-lg ${className}`} {...props}>
       {children}
     </button>
   );
