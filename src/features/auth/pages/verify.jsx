@@ -4,19 +4,33 @@ import khusm from '../../../app/assets/Khusm.png';
 import AuthForm from '../components/auth-form';
 import Input from '../../../shared/UI/input';
 import Btn from '../../../shared/UI/Btn';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 const Verify = () => {
+  const [phone, setPhone] = useState('');
+  const navigate = useNavigate();
+  const handleChange = (value) => {
+    setPhone(value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!phone) {
+      alert('Please enter your phone number');
+      return;
+    } else {
+      navigate('/auth/reset-password');
+    }
+  };
   return (
     <div className="flex flex-col items-center justify-between gap-20">
       <img src={logo} alt="logo-img" className="w-80" />
       <AuthForm
+        onSubmit={handleSubmit}
         type={'OTP'}
         description={'Enter we send OTP to your phone number check your SMS.'}
       >
-        <Input type={'text'} name={'Code'} />
-        <Link to={'/auth/reset-password'}>
+        <Input type={'text'} name={'Code'} onChange={(e) => handleChange(e.target.value)} />
           <Btn>Submit</Btn>
-        </Link>
       </AuthForm>
     </div>
   );
