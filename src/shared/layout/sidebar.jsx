@@ -120,7 +120,7 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
   };
   return (
     <aside
-      className={`bg-white h-svh w-full md:w-80 overflow-scroll fixed ${isOpen ? 'left-0' : '-left-[100%]'}  md:left-0 pb-30 pt-5 mt-23 transition-all duration-300`}
+      className={`bg-white h-svh w-full z-50 md:w-80 overflow-scroll shadow-xl fixed ${isOpen ? 'left-0' : '-left-[100%]'}   pb-30 pt-5 mt-23 transition-all duration-300`}
     >
       <ul className="flex flex-col justify-between gap-3 pl-8">
         {sidebar_url.map((item) => (
@@ -148,8 +148,8 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
                     to={sub.url}
                     className={`text-sm text-[#8B8B9B] py-2 transition-all duration-300 hover:text-black hover:font-semibold ${subActive === sub.name && 'text-black font-semibold'}`}
                     onClick={() => {
-                      closeSidebar()
-                      setSubActive(sub.name)
+                      closeSidebar(true);
+                      setSubActive(sub.name);
                     }}
                   >
                     {sub.name}
