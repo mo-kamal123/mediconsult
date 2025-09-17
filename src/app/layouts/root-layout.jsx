@@ -11,23 +11,22 @@ const RootLayout = () => {
   const openSidebar = () => {
     setToggleSidebar(!toggleSidebar);
   };
-  const closeSidebar = () => {
-    setToggleSidebar(false);
+  const closeSidebar = (mobile = false) => {
+    if(mobile) return setToggleSidebar(!toggleSidebar);
   };
   return loggedIn ? (
     <main className="bg-body">
-      <Navbar openSidebar={openSidebar} />
+      <Navbar openSidebar={openSidebar} isOpen={toggleSidebar}/>
       <div className="">
         <Sidebar closeSidebar={closeSidebar} isOpen={toggleSidebar} />
-        <div className="md:ml-90 md:pt-30">
-          {toggleSidebar && <div className="bg-black w-full h-svh"></div>}
+        <div className={`${toggleSidebar ? 'md:ml-90' : 'md:ml-0'} transition-all duration-300 `}>
           <Outlet />
         </div>
       </div>
     </main>
   ) : (
     <Navigate to={'/auth'} replace />
-  );
-};
+  )
+}
 
-export default RootLayout;
+export default RootLayout

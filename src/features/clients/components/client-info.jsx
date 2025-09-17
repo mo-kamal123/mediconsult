@@ -63,7 +63,7 @@ const ClientInfo = () => {
               { value: "corp", label: "corp" },
               { value: "ind", label: "ind" },
             ]}
-            className="flex-1 min-w-[200px]"
+            className="flex-1 p-6 mt-4 min-w-[200px]"
           />
           <Input name="clientName" type="text" className="flex-1 min-w-[200px]" />
         </div>
@@ -77,7 +77,7 @@ const ClientInfo = () => {
               { value: "active", label: "Active" },
               { value: "inactive", label: "Inactive" },
             ]}
-            className="flex-1 min-w-[200px]"
+            className="flex-1 p-6 mt-4 min-w-[200px]"
           />
           <Input name="reimbursementDueDays" type="text" className="flex-1 min-w-[200px]" />
         </div>

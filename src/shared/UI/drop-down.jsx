@@ -1,27 +1,43 @@
-const DropDown = ({ data, label, type = '', className = "", ...props }) => {
-    return (
-      <div className="flex flex-col gap-1 w-full">
-        <label className="text-sm font-medium text-gray-700">{label}</label>
-        <select
-          className={`border p-4 border-[#C2C2C2] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
-          {...props}
-        >
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+const DropDown = ({ data, label, type = '', className = '', placeholder = "Select an option...", onValueChange, ...props }) => {
+  return (
+    <div className="w-full">
+      {/* Label */}
+      {label && (
+        <label className="text-sm font-medium text-gray-700 mb-2 block">{label}</label>
+      )}
+      
+      {/* Select Component */}
+      <Select onValueChange={onValueChange} {...props}>
+        <SelectTrigger className={`w-full ${className}`}>
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
+        <SelectContent>
+          {/* Add "All" option for search type */}
           {type === 'search' && (
-            <option value={'all'}>
-              All
-            </option>
+            <SelectItem value="all">All</SelectItem>
           )}
-          {data.map((item, index) => (
-            <>
-              <option key={index} value={item.value} className="p-2 border-b border-borders">
-                {item.label || item}
-              </option>
-            </>
+          
+          {/* Map through data options */}
+          {data?.map((item, index) => (
+            <SelectItem 
+              key={index} 
+              value={item.value || item}
+            >
+              {item.label || item}
+            </SelectItem>
           ))}
-        </select>
-      </div>
-    );
-  };
-  
-  export default DropDown;
-  
+        </SelectContent>
+      </Select>
+    </div>
+  );
+};
+
+export default DropDown;
