@@ -8,10 +8,10 @@ import {
 
 const DropDown = ({ data, label, type = '', className = '', placeholder = "Select an option...", onValueChange, ...props }) => {
   return (
-    <div className="w-full">
+    <div className="w-full mt-2">
       {/* Label */}
       {label && (
-        <label className="text-sm font-medium text-gray-700 mb-2 block">{label}</label>
+        <label className="text-sm font-medium text-gray-700 mt-1 block">{label}</label>
       )}
       
       {/* Select Component */}

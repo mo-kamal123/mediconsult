@@ -5,7 +5,7 @@ import ClientData from '../layouts/client-data';
 import ClientInfo from '../views/client-info';
 import ContactInfo from '../views/contact-info';
 import BranchInfo from '../views/branch-info';
-import Members from '../views/members-info';
+import Members from '../views/members';
 import ContractsInfo from '../views/contracts-nfo';
 
 export const clientsRoutes = [

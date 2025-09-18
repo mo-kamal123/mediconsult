@@ -19,7 +19,6 @@ import { Link } from 'react-router-dom';
 const sidebar_url = [
   {
     name: 'Clients',
-    url: 'sss',
     icon: <FaUsers />,
     sub: [
       { name: 'Clients Management', url: '/clients' },
@@ -148,7 +147,7 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
                     to={sub.url}
                     className={`text-sm text-[#8B8B9B] py-2 transition-all duration-300 hover:text-black hover:font-semibold ${subActive === sub.name && 'text-black font-semibold'}`}
                     onClick={() => {
-                      closeSidebar(true);
+                      closeSidebar();
                       setSubActive(sub.name);
                     }}
                   >

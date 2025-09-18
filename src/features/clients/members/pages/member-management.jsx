@@ -1,5 +1,5 @@
 import MainHeader from '../../../../shared/UI/main-header';
-import MembersInfo from '../../client-management/views/members-info';
+import MembersInfo from '../../client-management/views/members';
 
 const MemberManagement = () => {
   return (
