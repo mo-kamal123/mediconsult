@@ -1,8 +1,8 @@
-const Input = ({ name, type = "text", className = "", ...props }) => {
+const Input = ({ name, type = "text", className = "", label, ...props }) => {
   return (
     <div className="flex flex-col gap-1 mt-3 w-full">
       <label htmlFor={name} className="text-sm font-medium text-gray-700">
-        {name}
+        {label}
       </label>
       <input
         type={type}

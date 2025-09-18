@@ -2,26 +2,11 @@ import { FaImage } from "react-icons/fa";
 import { FiUpload } from "react-icons/fi";
 import DropDown from "../../../../shared/UI/drop-down";
 import Input from "../../../../shared/UI/input";
+import Form from "../../../../shared/UI/from";
 
 const ClientInfo = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-
-    console.log("FormData contents:");
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}:`, value);
-    }
-    const formObject = Object.fromEntries(formData.entries());
-    console.log("As object:", formObject);
-  };
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-10 mb-10 bg-white border border-borders p-6 rounded-2xl"
-    >
-
+    <Form>
       {/* Client Logo */}
       <div className="flex flex-col gap-4">
         <h3 className="font-semibold text-lg text-[#1F4ED6]">Client Logo</h3>
@@ -55,7 +40,7 @@ const ClientInfo = () => {
         <h3 className="font-semibold text-lg text-[#1F4ED6]">Client Info</h3>
 
         <div className="flex flex-wrap md:flex-nowrap gap-4">
-          <Input name="clientInfo" type="text" className="flex-1 min-w-[200px]" />
+          <Input label={'Client Info'} name="clientInfo" type="text" className="flex-1 min-w-[200px]" />
           <DropDown
             label="Client Category"
             name="clientCategory"
@@ -63,13 +48,13 @@ const ClientInfo = () => {
               { value: "corp", label: "corp" },
               { value: "ind", label: "ind" },
             ]}
-            className="flex-1 p-6 mt-4 min-w-[200px]"
+            className="flex-1 p-6 mt-1 min-w-[200px]"
           />
-          <Input name="clientName" type="text" className="flex-1 min-w-[200px]" />
+          <Input label={'Client Name'} name="clientName" type="text" className="flex-1 min-w-[200px]" />
         </div>
 
         <div className="flex flex-wrap md:flex-nowrap gap-4">
-          <Input name="clientType" type="text" className="flex-1 min-w-[200px]" />
+          <Input label={'Client Type'} name="clientType" type="text" className="flex-1 min-w-[200px]" />
           <DropDown
             label="Status"
             name="status"
@@ -77,14 +62,14 @@ const ClientInfo = () => {
               { value: "active", label: "Active" },
               { value: "inactive", label: "Inactive" },
             ]}
-            className="flex-1 p-6 mt-4../ min-w-[200px]"
+            className="flex-1 p-6 mt-1 min-w-[200px]"
           />
-          <Input name="reimbursementDueDays" type="text" className="flex-1 min-w-[200px]" />
+          <Input label={'Client Type'} name="reimbursementDueDays" type="text" className="flex-1 min-w-[200px]" />
         </div>
 
         <div className="flex flex-wrap md:flex-nowrap gap-4">
-          <Input name="ibmNotesId" type="text" className="flex-1 min-w-[200px]" />
-          <Input name="clientShortName" type="text" className="flex-1 min-w-[200px]" />
+          <Input label={'IBM Notes Id'} name="ibmNotesId" type="text" className="flex-1 min-w-[200px]" />
+          <Input label={'Client Short Name'} name="clientShortName" type="text" className="flex-1 min-w-[200px]" />
           <div className="flex-1 min-w-[200px]" />
         </div>
       </div>
@@ -94,9 +79,9 @@ const ClientInfo = () => {
         <h3 className="font-semibold text-lg text-[#1F4ED6]">Policy Info</h3>
 
         <div className="flex flex-wrap md:flex-nowrap gap-4">
-          <Input name="policyId" type="text" className="flex-1 min-w-[200px]" />
-          <Input name="policyStart" type="date" className="flex-1 min-w-[200px]" />
-          <Input name="policyExpire" type="date" className="flex-1 min-w-[200px]" />
+          <Input label={'Policy ID'} name="policyId" type="text" className="flex-1 min-w-[200px]" />
+          <Input label={'Policy Start'} name="policyStart" type="date" className="flex-1 min-w-[200px]" />
+          <Input label={'Policy Expire'} name="policyExpire" type="date" className="flex-1 min-w-[200px]" />
         </div>
       </div>
 
@@ -115,7 +100,7 @@ const ClientInfo = () => {
           Save
         </button>
       </div>
-    </form>
+    </Form>
   );
 };
 
