@@ -1,4 +1,4 @@
-import Table from "../../../shared/UI/table";
+import Table from "../../../../shared/UI/table";
 
 const ContractsInfo = () => {
   const headers = [

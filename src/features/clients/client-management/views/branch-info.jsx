@@ -1,5 +1,5 @@
-import Btn from "../../../shared/UI/Btn";
-import Table from "../../../shared/UI/table";
+import Btn from "../../../../shared/UI/Btn";
+import Table from "../../../../shared/UI/table";
 
 const BranchInfo = () => {
     const headers = ["ID", "Branch Name", "Members Count", "Branch Status"];

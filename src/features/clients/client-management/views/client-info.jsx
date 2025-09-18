@@ -1,7 +1,7 @@
 import { FaImage } from "react-icons/fa";
 import { FiUpload } from "react-icons/fi";
-import DropDown from "../../../shared/UI/drop-down";
-import Input from "../../../shared/UI/input";
+import DropDown from "../../../../shared/UI/drop-down";
+import Input from "../../../../shared/UI/input";
 
 const ClientInfo = () => {
   const handleSubmit = (e) => {
@@ -77,7 +77,7 @@ const ClientInfo = () => {
               { value: "active", label: "Active" },
               { value: "inactive", label: "Inactive" },
             ]}
-            className="flex-1 p-6 mt-4 min-w-[200px]"
+            className="flex-1 p-6 mt-4../ min-w-[200px]"
           />
           <Input name="reimbursementDueDays" type="text" className="flex-1 min-w-[200px]" />
         </div>

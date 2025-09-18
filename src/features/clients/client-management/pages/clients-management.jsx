@@ -1,6 +1,6 @@
-import MainHeader from '../../../shared/UI/main-header';
-import Table from '../../../shared/UI/table';
-import TableActions from '../../../shared/UI/table-actions';
+import MainHeader from '../../../../shared/UI/main-header';
+import Table from '../../../../shared/UI/table';
+import TableActions from '../../../../shared/UI/table-actions';
 import { RiFileExcel2Fill } from 'react-icons/ri';
 import { MdFilterAltOff } from 'react-icons/md';
 import { SiGoogledocs } from 'react-icons/si';
@@ -175,7 +175,7 @@ const ClientsManagement = () => {
         leadingData={{
           col: '',
           render: (row) => (
-            <p onClick={() => navigate('11')} className="text-blue-500 text-xl">
+            <p onClick={() => navigate('120')} className="text-blue-500 text-xl">
               <SiGoogledocs />
             </p>
           ),

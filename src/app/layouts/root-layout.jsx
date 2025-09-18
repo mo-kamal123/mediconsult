@@ -20,9 +20,8 @@ const RootLayout = () => {
       <Navbar openSidebar={openSidebar} isOpen={toggleSidebar} />
       <div className="">
         <Sidebar closeSidebar={closeSidebar} isOpen={toggleSidebar} />
-        <div
-          className={`${toggleSidebar ? 'md:ml-90' : 'md:ml-0'} flex flex-col justify-between gap-10 transition-all duration-300 `}
-        >
+        <div className={`${toggleSidebar ? 'md:ml-90' : 'md:ml-0'} pt-30 transition-all duration-300 `}>
+
           <Outlet />
           <div className="w-[95%] m-auto md:flex items-center justify-between px-10 bg-white border border-borders rounded-2xl my-5 p-5">
             <div>
