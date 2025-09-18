@@ -1,5 +1,6 @@
-import Btn from "../../../shared/UI/Btn";
-import Table from "../../../shared/UI/table"
+import Btn from "../../../../shared/UI/Btn";
+import Table from "../../../../shared/UI/table";
+
 
 const ContactInfo = () => {
     const headers = ["Name", "Job Title", "Email", "Mobile", "Address", "Note"];

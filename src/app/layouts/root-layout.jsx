@@ -19,7 +19,7 @@ const RootLayout = () => {
       <Navbar openSidebar={openSidebar} isOpen={toggleSidebar}/>
       <div className="">
         <Sidebar closeSidebar={closeSidebar} isOpen={toggleSidebar} />
-        <div className={`${toggleSidebar ? 'md:ml-90' : 'md:ml-0'} transition-all duration-300 `}>
+        <div className={`${toggleSidebar ? 'md:ml-90' : 'md:ml-0'} pt-30 transition-all duration-300 `}>
           <Outlet />
         </div>
       </div>

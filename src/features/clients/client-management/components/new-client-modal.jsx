@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import Input from "../../../shared/UI/input";
-import DropDown from "../../../shared/UI/drop-down";
+import Input from "../../../../shared/UI/input";
+import DropDown from "../../../../shared/UI/drop-down";
 import { FaImage } from "react-icons/fa";
 
 const NewClientModal = () => {

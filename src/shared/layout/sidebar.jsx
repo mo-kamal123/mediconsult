@@ -23,12 +23,12 @@ const sidebar_url = [
     icon: <FaUsers />,
     sub: [
       { name: 'Clients Management', url: '/clients' },
-      { name: 'Service Request (SR)' },
-      { name: 'Service Request Management', url: '' },
-      { name: 'SR Call Back Management', url: '' },
-      { name: 'Inpatient Follow up Management', url: '' },
-      { name: 'Providers Locations', url: '' },
-      { name: 'Insurance Transfer Management', url: '' },
+      { name: 'Members Management', url: 'members' },
+      { name: 'Deactivated Members Management', url: '' },
+      { name: 'Members History', url: '' },
+      { name: 'Policy Management', url: '' },
+      { name: 'TOB Viewer', url: '' },
+      { name: 'TOB Builder', url: '' },
     ],
   },
   {

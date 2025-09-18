@@ -4,14 +4,15 @@ import {
   FaUserPlus,
   FaUserTimes,
 } from 'react-icons/fa';
-import Table from '../../../shared/UI/table';
 import { SiGoogledocs } from 'react-icons/si';
-import TableActions from '../../../shared/UI/table-actions';
 import { MdDelete, MdFilterAltOff } from 'react-icons/md';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
 import { GrDocumentUser } from 'react-icons/gr';
 import { CgDetailsMore } from 'react-icons/cg';
-import TablePagiation from '../../../shared/UI/table-pagiation';
+import { useNavigate, useParams } from 'react-router-dom';
+import Table from '../../../../shared/UI/table';
+import TableActions from '../../../../shared/UI/table-actions';
+import TablePagiation from '../../../../shared/UI/table-pagiation';
 
 const tableHeaders = [
   'ID',
@@ -170,8 +171,10 @@ const actions = [
   },
 ];
 
-const MembersInfo = () => {
-  return (
+const Members = () => {
+  const navigate = useNavigate();
+  const {clientId} = useParams()
+  return ( 
     <div>
       <TableActions actions={actions} tableheaders={tableHeaders} />
       <Table
@@ -181,7 +184,7 @@ const MembersInfo = () => {
         leadingData={{
           col: '',
           render: (row) => (
-            <p onClick={() => navigate('11')} className="text-blue-500 text-xl">
+            <p onClick={() => navigate(`/clients/${clientId}/members/${row.ID}`)} className="text-blue-500 text-xl">
               <SiGoogledocs />
             </p>
           ),
@@ -230,4 +233,4 @@ const MembersInfo = () => {
   );
 };
 
-export default MembersInfo;
+export default Members;
