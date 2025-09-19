@@ -1,8 +1,8 @@
-import { FaImage } from "react-icons/fa";
-import { FiUpload } from "react-icons/fi";
-import DropDown from "../../../../shared/UI/drop-down";
-import Input from "../../../../shared/UI/input";
-import Form from "../../../../shared/UI/from";
+import { FaImage } from 'react-icons/fa';
+import { FiUpload } from 'react-icons/fi';
+import DropDown from '../../../../shared/UI/drop-down';
+import Input from '../../../../shared/UI/input';
+import Form from '../../../../shared/UI/from';
 
 const ClientInfo = () => {
   return (
@@ -29,7 +29,8 @@ const ClientInfo = () => {
               Upload
             </button>
             <p className="text-sm text-[#8B8B9B] max-w-sm">
-              Please upload a JPG or PNG file with a minimum dimension of 200x200, not exceeding 3MB.
+              Please upload a JPG or PNG file with a minimum dimension of
+              200x200, not exceeding 3MB.
             </p>
           </div>
         </div>
@@ -40,36 +41,66 @@ const ClientInfo = () => {
         <h3 className="font-semibold text-lg text-[#1F4ED6]">Client Info</h3>
 
         <div className="flex flex-wrap md:flex-nowrap gap-4">
-          <Input label={'Client Info'} name="clientInfo" type="text" className="flex-1 min-w-[200px]" />
+          <Input
+            label={'Client Info'}
+            name="clientInfo"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
           <DropDown
             label="Client Category"
             name="clientCategory"
             data={[
-              { value: "corp", label: "corp" },
-              { value: "ind", label: "ind" },
+              { value: 'corp', label: 'corp' },
+              { value: 'ind', label: 'ind' },
             ]}
             className="flex-1 p-6 mt-1 min-w-[200px]"
           />
-          <Input label={'Client Name'} name="clientName" type="text" className="flex-1 min-w-[200px]" />
+          <Input
+            label={'Client Name'}
+            name="clientName"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
         </div>
 
         <div className="flex flex-wrap md:flex-nowrap gap-4">
-          <Input label={'Client Type'} name="clientType" type="text" className="flex-1 min-w-[200px]" />
+          <Input
+            label={'Client Type'}
+            name="clientType"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
           <DropDown
             label="Status"
             name="status"
             data={[
-              { value: "active", label: "Active" },
-              { value: "inactive", label: "Inactive" },
+              { value: 'active', label: 'Active' },
+              { value: 'inactive', label: 'Inactive' },
             ]}
             className="flex-1 p-6 mt-1 min-w-[200px]"
           />
-          <Input label={'Client Type'} name="reimbursementDueDays" type="text" className="flex-1 min-w-[200px]" />
+          <Input
+            label={'Client Type'}
+            name="reimbursementDueDays"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
         </div>
 
         <div className="flex flex-wrap md:flex-nowrap gap-4">
-          <Input label={'IBM Notes Id'} name="ibmNotesId" type="text" className="flex-1 min-w-[200px]" />
-          <Input label={'Client Short Name'} name="clientShortName" type="text" className="flex-1 min-w-[200px]" />
+          <Input
+            label={'IBM Notes Id'}
+            name="ibmNotesId"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
+          <Input
+            label={'Client Short Name'}
+            name="clientShortName"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
           <div className="flex-1 min-w-[200px]" />
         </div>
       </div>
@@ -79,9 +110,24 @@ const ClientInfo = () => {
         <h3 className="font-semibold text-lg text-[#1F4ED6]">Policy Info</h3>
 
         <div className="flex flex-wrap md:flex-nowrap gap-4">
-          <Input label={'Policy ID'} name="policyId" type="text" className="flex-1 min-w-[200px]" />
-          <Input label={'Policy Start'} name="policyStart" type="date" className="flex-1 min-w-[200px]" />
-          <Input label={'Policy Expire'} name="policyExpire" type="date" className="flex-1 min-w-[200px]" />
+          <Input
+            label={'Policy ID'}
+            name="policyId"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
+          <Input
+            label={'Policy Start'}
+            name="policyStart"
+            type="date"
+            className="flex-1 min-w-[200px]"
+          />
+          <Input
+            label={'Policy Expire'}
+            name="policyExpire"
+            type="date"
+            className="flex-1 min-w-[200px]"
+          />
         </div>
       </div>
 

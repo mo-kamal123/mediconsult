@@ -8,12 +8,15 @@ import { clientsRoutes } from '../../features/clients/client-management/routes/r
 import { memberRoutes } from '../../features/clients/members/routes/routes.jsx';
 // import { memberRoutes } from '../../features/clients/members/routes/memberRoutes.jsx';
 
+// this is where we define our routes for the application
 export const router = createBrowserRouter([
+  // Auth routes
   {
     path: '/auth',
     element: <Authlayout loggedIn={false} />,
     children: [...authRoutes],
   },
+  // Main app routes
   {
     path: '/',
     element: <RootLayout loggedIn={false} />,
@@ -26,6 +29,7 @@ export const router = createBrowserRouter([
           </>
         ),
       },
+      // features routes
       ...approvalsRoutes,
       ...clientsRoutes,
       ...memberRoutes,

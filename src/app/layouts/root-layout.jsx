@@ -6,22 +6,26 @@ import { useSelector } from 'react-redux';
 import khusm from '../assets/Khusm.png';
 
 const RootLayout = () => {
-  const [toggleSidebar, setToggleSidebar] = useState(false);
-  const loggedIn = useSelector((state) => state.auth.isAuthenticated);
-  
+  const [toggleSidebar, setToggleSidebar] = useState(false); // state to manage sidebar toggle
+  const loggedIn = useSelector((state) => state.auth.isAuthenticated); // get the auth state from redux store
+
+  // function to toggle sidebar
   const openSidebar = () => {
     setToggleSidebar(!toggleSidebar);
   };
+  // function to close sidebar on mobile
   const closeSidebar = (mobile = false) => {
-    if(mobile) return setToggleSidebar(!toggleSidebar);
+    if (mobile) return setToggleSidebar(!toggleSidebar);
   };
+  // if logged in show the main layout
   return loggedIn ? (
     <main className="bg-body">
       <Navbar openSidebar={openSidebar} isOpen={toggleSidebar} />
       <div className="">
         <Sidebar closeSidebar={closeSidebar} isOpen={toggleSidebar} />
-        <div className={`${toggleSidebar ? 'md:ml-90' : 'md:ml-0'} pt-30 transition-all duration-300 `}>
-
+        <div
+          className={`${toggleSidebar ? 'md:ml-90' : 'md:ml-0'} pt-30 transition-all duration-300 `}
+        >
           <Outlet />
           <div className="w-[95%] m-auto md:flex items-center justify-between px-10 bg-white border border-borders rounded-2xl my-5 p-5">
             <div>
@@ -36,8 +40,9 @@ const RootLayout = () => {
       </div>
     </main>
   ) : (
+    // if not logged in redirect to auth page
     <Navigate to={'/auth'} replace />
   );
-}
+};
 
-export default RootLayout
+export default RootLayout;

@@ -16,6 +16,7 @@ import pro from '../imgs/bro.png';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+// sidebar items data
 const sidebar_url = [
   {
     name: 'Clients',
@@ -107,9 +108,10 @@ const sidebar_url = [
 ];
 
 const Sidebar = ({ closeSidebar, isOpen }) => {
-  const [active, setActive] = useState('');
-  const [subActive, setSubActive] = useState('');
+  const [active, setActive] = useState(''); // track active main menu item
+  const [subActive, setSubActive] = useState(''); // track active sub menu item
 
+  // handle dropdown open/close
   const handleOpenDropdown = (item) => {
     if (active && active === item) {
       setActive('');
@@ -122,6 +124,7 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
       className={`bg-white h-svh w-full z-50 md:w-80 overflow-scroll shadow-xl fixed ${isOpen ? 'left-0' : '-left-[100%]'}   pb-30 pt-5 mt-23 transition-all duration-300`}
     >
       <ul className="flex flex-col justify-between gap-3 pl-8">
+        {/* sidebar items */}
         {sidebar_url.map((item) => (
           <li className="flex flex-col  gap-1 p-2">
             <div
@@ -140,8 +143,10 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
                 <IoIosArrowDown />
               </p>
             </div>
+            {/* render sub menu if exists */}
             {active === item.name && (
               <ul className="flex flex-col gap-2 pl-5 transition-all duration-300">
+                {/* render sub items */}
                 {item.sub.map((sub) => (
                   <Link
                     to={sub.url}
