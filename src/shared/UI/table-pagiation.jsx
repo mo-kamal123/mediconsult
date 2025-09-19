@@ -1,10 +1,9 @@
-import { useState } from "react"
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io"
+import { useState } from 'react';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const TablePagiation = () => {
-    const totalPages = 239
-    const [curr, setCurr] = useState(1)
-    
+  const totalPages = 239;
+  const [curr, setCurr] = useState(1); // current page
 
   return (
     <div className="bg-white border border-borders rounded-2xl flex flex-col md:flex-row items-center gap-4 md:gap-10 px-5 py-3 mb-5">
@@ -16,6 +15,7 @@ const TablePagiation = () => {
         <p>
           <IoIosArrowBack />
         </p>
+        {/* display page numbers */}
         {[...Array(totalPages).keys()].slice(curr - 1, curr + 6).map((num) => (
           <p
             onClick={() => setCurr(num + 1)}
@@ -24,6 +24,7 @@ const TablePagiation = () => {
             {num + 1}
           </p>
         ))}
+        {/* show ellipsis and last 3 pages if current page is less than totalPages - 7 */}
         {curr < totalPages - 7 && (
           <>
             <p className="hidden md:block">. . . . . . . .</p>
@@ -43,6 +44,6 @@ const TablePagiation = () => {
       </div>
     </div>
   );
-}
+};
 
-export default TablePagiation
+export default TablePagiation;

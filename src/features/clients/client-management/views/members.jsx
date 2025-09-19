@@ -14,6 +14,7 @@ import Table from '../../../../shared/UI/table';
 import TableActions from '../../../../shared/UI/table-actions';
 import TablePagiation from '../../../../shared/UI/table-pagiation';
 
+// Table headers
 const tableHeaders = [
   'ID',
   'Name',
@@ -27,6 +28,7 @@ const tableHeaders = [
   'Mobile',
 ];
 
+// Sample data rows
 const rows = [
   {
     ID: 2171,
@@ -138,6 +140,7 @@ const rows = [
   },
 ];
 
+// Actions for the table
 const actions = [
   {
     type: 'AddColumn',
@@ -173,22 +176,27 @@ const actions = [
 
 const Members = () => {
   const navigate = useNavigate();
-  const {clientId} = useParams()
-  return ( 
+  const { clientId } = useParams(); // assuming route like /clients/:clientId/members
+  return (
     <div>
       <TableActions actions={actions} tableheaders={tableHeaders} />
       <Table
         cols={tableHeaders}
         data={rows}
         checkbox={true}
+        // handle leading data rendering
         leadingData={{
           col: '',
           render: (row) => (
-            <p onClick={() => navigate(`/clients/${clientId}/members/${row.ID}`)} className="text-blue-500 text-xl">
+            <p
+              onClick={() => navigate(`/clients/${clientId}/members/${row.ID}`)}
+              className="text-blue-500 text-xl"
+            >
               <SiGoogledocs />
             </p>
           ),
         }}
+        // handle trailing data rendering
         trailingData={[
           {
             col: 'Change Status',

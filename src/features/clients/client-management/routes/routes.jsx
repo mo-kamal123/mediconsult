@@ -8,6 +8,7 @@ import BranchInfo from '../views/branch-info';
 import Members from '../views/members';
 import ContractsInfo from '../views/contracts-nfo';
 
+// Clients Routes
 export const clientsRoutes = [
   {
     path: 'clients',

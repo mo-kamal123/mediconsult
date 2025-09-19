@@ -1,8 +1,5 @@
-
 const MemberHistory = () => {
-  return (
-    <div>MemberHistory</div>
-  )
-}
+  return <div>MemberHistory</div>;
+};
 
-export default MemberHistory
+export default MemberHistory;

@@ -12,13 +12,17 @@ const ResetPassword = () => {
   const [password, setPassword] = useState({
     password: '',
     passwordConfirmation: '',
-  });
+  }); // reset password state
   const dispatch = useDispatch();
+  // handle input change
   const handleChange = (name, value) => {
     setPassword((password) => ({ ...password, [name]: value }));
   };
+
+  // handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
+    // simple validation
     if (!password.password || !password.passwordConfirmation) {
       alert('Please enter your phone number');
       return;

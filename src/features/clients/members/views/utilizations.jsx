@@ -1,8 +1,5 @@
-
 const Utilizations = () => {
-  return (
-    <div>Utilizations</div>
-  )
-}
+  return <div>Utilizations</div>;
+};
 
-export default Utilizations
+export default Utilizations;
