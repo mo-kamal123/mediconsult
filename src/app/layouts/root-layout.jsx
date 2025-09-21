@@ -8,20 +8,21 @@ import khusm from '../assets/Khusm.png';
 const RootLayout = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const loggedIn = useSelector((state) => state.auth.isAuthenticated);
-  
+
   const openSidebar = () => {
     setToggleSidebar(!toggleSidebar);
   };
   const closeSidebar = (mobile = false) => {
-    if(mobile) return setToggleSidebar(!toggleSidebar);
+    if (mobile) return setToggleSidebar(!toggleSidebar);
   };
   return loggedIn ? (
     <main className="bg-body">
       <Navbar openSidebar={openSidebar} isOpen={toggleSidebar} />
       <div className="">
         <Sidebar closeSidebar={closeSidebar} isOpen={toggleSidebar} />
-        <div className={`${toggleSidebar ? 'md:ml-90' : 'md:ml-0'} pt-30 transition-all duration-300 `}>
-
+        <div
+          className={`${toggleSidebar ? 'md:ml-90' : 'md:ml-0'} pt-30 transition-all duration-300 `}
+        >
           <Outlet />
           <div className="w-[95%] m-auto md:flex items-center justify-between px-10 bg-white border border-borders rounded-2xl my-5 p-5">
             <div>
@@ -38,6 +39,6 @@ const RootLayout = () => {
   ) : (
     <Navigate to={'/auth'} replace />
   );
-}
+};
 
-export default RootLayout
+export default RootLayout;

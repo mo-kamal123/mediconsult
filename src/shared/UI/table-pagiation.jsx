@@ -1,10 +1,9 @@
-import { useState } from "react"
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io"
+import { useState } from 'react';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const TablePagiation = () => {
-    const totalPages = 239
-    const [curr, setCurr] = useState(1)
-    
+  const totalPages = 239;
+  const [curr, setCurr] = useState(1);
 
   return (
     <div className="bg-white border border-borders rounded-2xl flex flex-col md:flex-row items-center gap-4 md:gap-10 px-5 py-3 mb-5">
@@ -43,6 +42,6 @@ const TablePagiation = () => {
       </div>
     </div>
   );
-}
+};
 
-export default TablePagiation
+export default TablePagiation;

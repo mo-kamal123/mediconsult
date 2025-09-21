@@ -175,7 +175,10 @@ const ClientsManagement = () => {
         leadingData={{
           col: '',
           render: (row) => (
-            <p onClick={() => navigate('120')} className="text-blue-500 text-xl">
+            <p
+              onClick={() => navigate('120')}
+              className="text-blue-500 text-xl"
+            >
               <SiGoogledocs />
             </p>
           ),

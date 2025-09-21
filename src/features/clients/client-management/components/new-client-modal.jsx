@@ -1,9 +1,9 @@
-import { useRef } from "react";
-import { IoClose } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
-import Input from "../../../../shared/UI/input";
-import DropDown from "../../../../shared/UI/drop-down";
-import { FaImage } from "react-icons/fa";
+import { useRef } from 'react';
+import { IoClose } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
+import Input from '../../../../shared/UI/input';
+import DropDown from '../../../../shared/UI/drop-down';
+import { FaImage } from 'react-icons/fa';
 
 const NewClientModal = () => {
   const navigate = useNavigate();
@@ -52,8 +52,8 @@ const NewClientModal = () => {
             <DropDown
               label="Client Type"
               data={[
-                { value: "corp", label: "corp" },
-                { value: "ind", label: "ind" },
+                { value: 'corp', label: 'corp' },
+                { value: 'ind', label: 'ind' },
               ]}
             />
           </div>
@@ -62,8 +62,8 @@ const NewClientModal = () => {
             <DropDown
               label="Client Category"
               data={[
-                { value: "corp", label: "corp" },
-                { value: "ind", label: "ind" },
+                { value: 'corp', label: 'corp' },
+                { value: 'ind', label: 'ind' },
               ]}
             />
             <Input name="Refund Due Days" type="text" />

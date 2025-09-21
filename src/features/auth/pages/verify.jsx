@@ -29,8 +29,12 @@ const Verify = () => {
         type={'OTP'}
         description={'Enter we send OTP to your phone number check your SMS.'}
       >
-        <Input type={'text'} name={'Code'} onChange={(e) => handleChange(e.target.value)} />
-          <Btn>Submit</Btn>
+        <Input
+          type={'text'}
+          name={'Code'}
+          onChange={(e) => handleChange(e.target.value)}
+        />
+        <Btn>Submit</Btn>
       </AuthForm>
     </div>
   );

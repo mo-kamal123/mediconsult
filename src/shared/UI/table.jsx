@@ -4,28 +4,28 @@ import ItemStatus from './item-status';
 const Table = ({ cols, data, checkbox = true, leadingData, trailingData }) => {
   const [checkedRows, setCheckedRows] = useState([]);
   const columnCount =
-  cols.length +
-  (checkbox ? 1 : 0) +
-  (leadingData ? 1 : 0) +
-  (Array.isArray(trailingData) ? trailingData.length : trailingData ? 1 : 0);
+    cols.length +
+    (checkbox ? 1 : 0) +
+    (leadingData ? 1 : 0) +
+    (Array.isArray(trailingData) ? trailingData.length : trailingData ? 1 : 0);
 
   const handleChecked = (rowId) => {
     setCheckedRows((prev) => {
       if (prev.includes(rowId)) {
-        return prev.filter(id => id !== rowId)
+        return prev.filter((id) => id !== rowId);
       } else {
-        return [...prev, rowId]
+        return [...prev, rowId];
       }
-    })
-  }
+    });
+  };
   const handleCheckAll = () => {
     if (checkedRows.length === data.length) {
       setCheckedRows([]);
     } else {
-      const allRowIds = data.map(row => row.ID);
+      const allRowIds = data.map((row) => row.ID);
       setCheckedRows(allRowIds);
     }
-  }
+  };
   console.log(checkedRows);
   return (
     <div className="overflow-x-auto w-full border my-10 border-borders rounded-2xl">
@@ -35,7 +35,11 @@ const Table = ({ cols, data, checkbox = true, leadingData, trailingData }) => {
             {checkbox && (
               <th className="px-6 py-4 text-center whitespace-nowrap border border-borders bg-[#F4F4F6]">
                 All
-                <input type="checkbox" className="ml-2" onChange={() => handleCheckAll()}/>
+                <input
+                  type="checkbox"
+                  className="ml-2"
+                  onChange={() => handleCheckAll()}
+                />
               </th>
             )}
 
@@ -79,7 +83,7 @@ const Table = ({ cols, data, checkbox = true, leadingData, trailingData }) => {
                       type="checkbox"
                       className="w-5 h-5 text-green-600 rounded border-gray-300"
                       onChange={() => handleChecked(row.ID)}
-                      checked={checkedRows.includes(row.ID) } 
+                      checked={checkedRows.includes(row.ID)}
                     />
                   </td>
                 )}
@@ -130,7 +134,6 @@ const Table = ({ cols, data, checkbox = true, leadingData, trailingData }) => {
           )}
         </tbody>
       </table>
-      
     </div>
   );
 };

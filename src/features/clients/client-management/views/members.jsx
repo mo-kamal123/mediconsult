@@ -173,8 +173,8 @@ const actions = [
 
 const Members = () => {
   const navigate = useNavigate();
-  const {clientId} = useParams()
-  return ( 
+  const { clientId } = useParams();
+  return (
     <div>
       <TableActions actions={actions} tableheaders={tableHeaders} />
       <Table
@@ -184,7 +184,10 @@ const Members = () => {
         leadingData={{
           col: '',
           render: (row) => (
-            <p onClick={() => navigate(`/clients/${clientId}/members/${row.ID}`)} className="text-blue-500 text-xl">
+            <p
+              onClick={() => navigate(`/clients/${clientId}/members/${row.ID}`)}
+              className="text-blue-500 text-xl"
+            >
               <SiGoogledocs />
             </p>
           ),

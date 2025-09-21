@@ -13,23 +13,31 @@ const navItems = [
 const Navbar = ({ openSidebar, isOpen }) => {
   return (
     <nav className="bg-white fixed top-0 z-50 w-full pt-7 pb-3 px-5 flex justify-between items-center border-b border-[#C2C2C2]">
-      <div className='flex items-center gap-20'>
+      <div className="flex items-center gap-20">
         <Link to={'/'} className="w-50">
           <img src={logo} alt="logo-img" />
         </Link>
-        <p className={`text-2xl cursor-pointer ${isOpen && "rotate-180"} hidden md:block transition-all duration-300`} onClick={openSidebar}><LuPanelLeftClose /></p>
+        <p
+          className={`text-2xl cursor-pointer ${isOpen && 'rotate-180'} hidden md:block transition-all duration-300`}
+          onClick={openSidebar}
+        >
+          <LuPanelLeftClose />
+        </p>
       </div>
       <ul className="flex items-center justify-between gap-10">
-  {navItems.map((item) => (
-    <li key={item.id} className="hidden md:flex flex-col items-center gap-1">
-      <p className="text-xl">{item.icon}</p>
-      <p>{item.label}</p>
-    </li>
-  ))}
-  <li className="text-2xl md:hidden cursor-pointer" onClick={openSidebar}>
-    <IoMenu />
-  </li>
-</ul>
+        {navItems.map((item) => (
+          <li
+            key={item.id}
+            className="hidden md:flex flex-col items-center gap-1"
+          >
+            <p className="text-xl">{item.icon}</p>
+            <p>{item.label}</p>
+          </li>
+        ))}
+        <li className="text-2xl md:hidden cursor-pointer" onClick={openSidebar}>
+          <IoMenu />
+        </li>
+      </ul>
     </nav>
   );
 };

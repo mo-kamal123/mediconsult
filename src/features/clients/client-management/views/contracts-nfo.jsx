@@ -1,4 +1,4 @@
-import Table from "../../../../shared/UI/table";
+import Table from '../../../../shared/UI/table';
 
 const ContractsInfo = () => {
   const headers = [
@@ -91,7 +91,7 @@ const ContractsInfo = () => {
       'Insurance Company': 'NovaCare Insurance',
     },
   ];
-  
+
   return (
     <div>
       {/* <div className="flex justify-end">

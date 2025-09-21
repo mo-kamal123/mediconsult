@@ -4,7 +4,7 @@ import DropDown from './drop-down';
 import Btn from './Btn';
 import { useState } from 'react';
 
-const TableActions = ({ actions, tableheaders }) => {
+const TableActions = ({ actions, tableheaders, children }) => {
   const [search, setSearch] = useState({ searchTerm: '', filterBy: '' });
 
   const handlesearchChange = (name, value) => {
@@ -24,14 +24,14 @@ const TableActions = ({ actions, tableheaders }) => {
           className="w-full bg-white p-3 pl-10 border border-borders rounded-lg"
           onChange={(e) => handlesearchChange('searchTerm', e.target.value)}
         />
-        <div className='flex gap-5'>
+        <div className="flex gap-5">
           <DropDown
             data={tableheaders || []}
             className="py-6"
             type="search"
             value={search.filterBy}
             onValueChange={(value) => handlesearchChange('filterBy', value)}
-            placeholder='Filter By'
+            placeholder="Filter By"
           />
           <TableBtn label={'search'} Icon={FiSearch} type="search" />
         </div>
@@ -39,6 +39,8 @@ const TableActions = ({ actions, tableheaders }) => {
 
       {/* Action buttons */}
       <div className="flex items-center justify-between md:justify-normal gap-2 md:gap-4 overflow-x-auto bg-white border border-borders p-4 rounded-2xl shadow-sm">
+        {children}
+
         {actions?.map(({ type, label, Icon, onClick }) => (
           <TableBtn
             key={type}

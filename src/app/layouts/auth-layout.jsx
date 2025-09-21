@@ -4,7 +4,7 @@ import khusm from '../assets/Khusm.png';
 import { useSelector } from 'react-redux';
 
 const Authlayout = () => {
-  const loggedIn = useSelector((state) => state.auth.isAuthenticated )
+  const loggedIn = useSelector((state) => state.auth.isAuthenticated);
   return loggedIn ? (
     <Navigate to={'/'} replace />
   ) : (

@@ -11,10 +11,10 @@ import { login } from '../store/auth-slice';
 
 const Login = () => {
   const [credential, setCredential] = useState({ phone: '', password: '' });
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleChange = (name, value) => {
     setCredential({ ...credential, [name]: value });
-  }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -23,8 +23,8 @@ const Login = () => {
       return;
     }
     // Dispatch login action here
-    dispatch(login())
-  }
+    dispatch(login());
+  };
 
   return (
     <div className="flex flex-col items-center justify-between gap-20">
@@ -34,8 +34,16 @@ const Login = () => {
         onSubmit={handleSubmit}
         description={'Enter your credential to access your account.'}
       >
-        <Input type={'text'} name={'Phone'} onChange={(e) => handleChange('phone', e.target.value)}/>
-        <Input type={'password'} name={'Password'} onChange={(e) => handleChange('password', e.target.value)}/>
+        <Input
+          type={'text'}
+          name={'Phone'}
+          onChange={(e) => handleChange('phone', e.target.value)}
+        />
+        <Input
+          type={'password'}
+          name={'Password'}
+          onChange={(e) => handleChange('password', e.target.value)}
+        />
         <div className="flex justify-between">
           <div className="flex gap-1">
             <input type="checkbox" name="remember me" />

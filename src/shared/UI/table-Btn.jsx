@@ -2,16 +2,17 @@ import { btnStyles } from '../constants/tableBtnStyles';
 
 const TableBtn = ({ label, Icon, type, handleClick }) => {
   return (
-<div
-  className={`flex items-center gap-4 bg-white w-fit md:pr-3 md:py-2 px-2 py-1 text-xs md:text-sm border rounded cursor-pointer select-none ${btnStyles[type]}`}
->
-  <Icon className="text-lg md:text-2xl" />
-  <button onClick={handleClick} className="md:font-medium text-left">
-    {label}
-  </button>
-</div>
-
-
+    <div
+      className={`flex items-center gap-2 bg-white w-fit px-2 py-1 md:px-3 md:py-2 text-xs md:text-sm border rounded cursor-pointer select-none ${btnStyles[type]}`}
+    >
+      <Icon className="text-lg md:text-2xl" />
+      <button
+        onClick={handleClick}
+        className="font-medium text-left whitespace-nowrap"
+      >
+        {label}
+      </button>
+    </div>
   );
 };
 
