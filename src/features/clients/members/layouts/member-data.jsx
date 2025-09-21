@@ -1,6 +1,7 @@
 import { Outlet, useParams } from 'react-router-dom';
 import MainHeader from '../../../../shared/UI/main-header';
 import Tabs from '../../../../shared/UI/tabs';
+// Tabs data
 const membersTabs = [
   { label: 'Member Info', path: '' },
   { label: 'Family Members', path: 'family-members' },
@@ -18,6 +19,7 @@ const MemberData = () => {
         id={memberId}
       />
       <div>
+        {/* Render nested routes here */}
         <Outlet />
       </div>
     </section>

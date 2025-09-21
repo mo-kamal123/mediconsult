@@ -4,10 +4,13 @@ import khusm from '../assets/Khusm.png';
 import { useSelector } from 'react-redux';
 
 const Authlayout = () => {
-  const loggedIn = useSelector((state) => state.auth.isAuthenticated);
+  const loggedIn = useSelector((state) => state.auth.isAuthenticated); // get the auth state from redux store
+  
+  // if logged in redirect to home page
   return loggedIn ? (
     <Navigate to={'/'} replace />
   ) : (
+    // if not logged in show the auth layout
     <>
       <section className="flex items-center justify-around ">
         <div className="flex flex-col justify-around gap-5 md:w-1/2 h-svh">
@@ -17,6 +20,7 @@ const Authlayout = () => {
             <img src={khusm} alt="khusm-logo" className="w-50" />
           </div>
         </div>
+        {/* right side image for large screens */}
         <div className="w-1/2 hidden lg:block">
           <img
             src={auth_img}

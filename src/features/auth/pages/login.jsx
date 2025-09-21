@@ -10,14 +10,17 @@ import { useDispatch } from 'react-redux';
 import { login } from '../store/auth-slice';
 
 const Login = () => {
-  const [credential, setCredential] = useState({ phone: '', password: '' });
+  const [credential, setCredential] = useState({ phone: '', password: '' }); // form state
   const dispatch = useDispatch();
+
+  // handle input change
   const handleChange = (name, value) => {
     setCredential({ ...credential, [name]: value });
   };
+  // handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    // simple validation
     if (!credential.phone || !credential.password) {
       alert('Please fill in all fields');
       return;

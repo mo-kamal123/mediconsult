@@ -3,6 +3,7 @@ import MainHeader from '../../../../shared/UI/main-header';
 import { useState } from 'react';
 import Tabs from '../../../../shared/UI/tabs';
 
+// Tabs data for client management
 const clientTabs = [
   { label: 'Client Info', path: '' },
   { label: 'Contact Info', path: 'contact-info' },

@@ -2,6 +2,7 @@ import Btn from '../../../../shared/UI/Btn';
 import Table from '../../../../shared/UI/table';
 
 const ContactInfo = () => {
+  // Table headers
   const headers = ['Name', 'Job Title', 'Email', 'Mobile', 'Address', 'Note'];
   return (
     <div>

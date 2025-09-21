@@ -3,6 +3,7 @@ import ApprovalsRequests from '../pages/approvals-requests';
 import CanceledApprovals from '../pages/canceled-approval';
 import RejectedRequests from '../pages/rejected-requests';
 
+//  Approvals Routes
 export const approvalsRoutes = [
   { path: '/approvals-management', element: <ApprovalsManagement /> },
   { path: '/canceled-approval', element: <CanceledApprovals /> },

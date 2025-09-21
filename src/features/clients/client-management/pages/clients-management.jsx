@@ -7,6 +7,7 @@ import { SiGoogledocs } from 'react-icons/si';
 import { FaUserCheck, FaUserClock, FaUserTimes } from 'react-icons/fa';
 import { Outlet, useNavigate } from 'react-router-dom';
 
+// Table headers
 const tableHeaders = [
   'ID',
   'Name',
@@ -18,6 +19,7 @@ const tableHeaders = [
   'Status',
 ];
 
+// Sample data rows
 const rows = [
   {
     ID: 2171,
@@ -145,6 +147,7 @@ const rows = [
 const ClientsManagement = () => {
   const navigate = useNavigate();
 
+  // Define actions for the table
   const actions = [
     {
       type: 'clearFilter',
@@ -172,6 +175,7 @@ const ClientsManagement = () => {
         cols={tableHeaders}
         data={rows}
         checkbox={false}
+        // Customize leading column with Google Docs icon
         leadingData={{
           col: '',
           render: (row) => (
@@ -183,6 +187,7 @@ const ClientsManagement = () => {
             </p>
           ),
         }}
+        // Customize trailing column with action buttons
         trailingData={{
           col: 'Change Status',
           render: (row) => (
@@ -209,8 +214,8 @@ const ClientsManagement = () => {
           ),
         }}
       />
-      <Outlet />
       {/* <Modal /> */}
+      <Outlet />
     </section>
   );
 };

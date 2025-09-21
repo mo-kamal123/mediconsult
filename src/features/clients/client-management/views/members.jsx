@@ -14,6 +14,7 @@ import Table from '../../../../shared/UI/table';
 import TableActions from '../../../../shared/UI/table-actions';
 import TablePagiation from '../../../../shared/UI/table-pagiation';
 
+// Table headers
 const tableHeaders = [
   'ID',
   'Name',
@@ -27,6 +28,7 @@ const tableHeaders = [
   'Mobile',
 ];
 
+// Sample data rows
 const rows = [
   {
     ID: 2171,
@@ -138,6 +140,7 @@ const rows = [
   },
 ];
 
+// Actions for the table
 const actions = [
   {
     type: 'AddColumn',
@@ -173,7 +176,7 @@ const actions = [
 
 const Members = () => {
   const navigate = useNavigate();
-  const { clientId } = useParams();
+  const { clientId } = useParams(); // assuming route like /clients/:clientId/members
   return (
     <div>
       <TableActions actions={actions} tableheaders={tableHeaders} />
@@ -181,6 +184,7 @@ const Members = () => {
         cols={tableHeaders}
         data={rows}
         checkbox={true}
+        // handle leading data rendering
         leadingData={{
           col: '',
           render: (row) => (
@@ -192,6 +196,7 @@ const Members = () => {
             </p>
           ),
         }}
+        // handle trailing data rendering
         trailingData={[
           {
             col: 'Change Status',

@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Tabs = ({ tabsData, route, id }) => {
-  const [active, setActive] = useState(tabsData[0].label);
+  const [active, setActive] = useState(tabsData[0].label); // state to track active tab
 
   return (
     <div className="flex items-center gap-10 bg-white p-4 rounded-2xl border border-borders overflow-x-auto">
+      {/* // Render tabs */}
       {tabsData.map((tab) => (
         <Link
           key={tab.path}

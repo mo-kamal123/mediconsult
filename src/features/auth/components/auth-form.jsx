@@ -1,5 +1,3 @@
-import Input from '../../../shared/UI/input';
-
 const AuthForm = ({ children, type, description, handleSubmit, ...props }) => {
   return (
     <form className="flex flex-col gap-3 md:w-[60%]" {...props}>

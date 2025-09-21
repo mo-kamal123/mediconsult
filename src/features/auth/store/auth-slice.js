@@ -5,21 +5,23 @@ import {
   removeFromLocalStorage,
 } from '../../../shared/utils/localStorage-actions';
 
-const isAuthenticated = getFromLocalStorage('isLogged');
+const isAuthenticated = getFromLocalStorage('isLogged'); // initial auth state from localStorage
 const initialState = {
   isAuthenticated: isAuthenticated,
-};
+}; // initial state
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    // action to log in the user
     login(state) {
-      addToLocalStorage('isLogged', true);
+      addToLocalStorage('isLogged', true); // persist auth state in localStorage
       state.isAuthenticated = true;
     },
+    // action to log out the user
     logout(state) {
-      removeFromLocalStorage('isLogged');
+      removeFromLocalStorage('isLogged'); // remove auth state from localStorage
       state.isAuthenticated = false;
     },
   },

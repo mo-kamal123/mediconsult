@@ -8,13 +8,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const ForgetPassword = () => {
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState(''); // phone number to send OTP
   const navigate = useNavigate();
+
+  // handle input change
   const handleChange = (value) => {
     setPhone(value);
   };
+
+  // handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
+    // simple validation
     if (!phone) {
       alert('Please enter your phone number');
       return;

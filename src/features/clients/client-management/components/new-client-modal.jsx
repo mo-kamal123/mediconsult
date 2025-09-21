@@ -7,8 +7,9 @@ import { FaImage } from 'react-icons/fa';
 
 const NewClientModal = () => {
   const navigate = useNavigate();
-  const modalRef = useRef(null);
+  const modalRef = useRef(null); // Reference to the modal content
 
+  // Handle click outside the modal to close it
   const handleOutsideClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       navigate(-1); // Close modal

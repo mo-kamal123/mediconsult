@@ -4,6 +4,7 @@ import { IoMenu, IoSettings, IoTicketSharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { LuPanelLeftClose } from 'react-icons/lu';
 
+// nav items data
 const navItems = [
   { id: 1, icon: <MdEditDocument />, label: 'Request' },
   { id: 2, icon: <IoTicketSharp />, label: 'Ticket' },
@@ -13,6 +14,8 @@ const navItems = [
 const Navbar = ({ openSidebar, isOpen }) => {
   return (
     <nav className="bg-white fixed top-0 z-50 w-full pt-7 pb-3 px-5 flex justify-between items-center border-b border-[#C2C2C2]">
+
+      {/* logo and sidebar toggle */}
       <div className="flex items-center gap-20">
         <Link to={'/'} className="w-50">
           <img src={logo} alt="logo-img" />
@@ -24,6 +27,7 @@ const Navbar = ({ openSidebar, isOpen }) => {
           <LuPanelLeftClose />
         </p>
       </div>
+      {/* nav items */}
       <ul className="flex items-center justify-between gap-10">
         {navItems.map((item) => (
           <li
@@ -34,6 +38,8 @@ const Navbar = ({ openSidebar, isOpen }) => {
             <p>{item.label}</p>
           </li>
         ))}
+
+        {/* menu icon for mobile */}
         <li className="text-2xl md:hidden cursor-pointer" onClick={openSidebar}>
           <IoMenu />
         </li>

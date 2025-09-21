@@ -1,6 +1,7 @@
 import Table from '../../../../shared/UI/table';
 
 const ContractsInfo = () => {
+  // Table headers
   const headers = [
     'Id',
     'Start Date',
@@ -9,6 +10,7 @@ const ContractsInfo = () => {
     'Total Members',
     'Insurance Company',
   ];
+  // Sample data rows
   const rows = [
     {
       Id: 1001,

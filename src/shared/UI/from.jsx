@@ -1,8 +1,9 @@
 const Form = ({ children }) => {
+  // Handle form submission
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
+    e.preventDefault(); // Prevent default form submission behavior
+    const form = e.target; // Get the form element
+    const formData = new FormData(form); // Create FormData object from the form
 
     console.log('FormData contents:');
     for (let [key, value] of formData.entries()) {

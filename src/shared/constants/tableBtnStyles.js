@@ -1,3 +1,4 @@
+// Description: This file contains the styles for the buttons in the table.
 export const btnStyles = {
   newClient: 'text-[#4285F4]',
   clearFilter: 'text-black/20',
