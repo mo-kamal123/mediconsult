@@ -4,6 +4,7 @@ import DropDown from './drop-down';
 import Btn from './Btn';
 import { useState } from 'react';
 
+
 const TableActions = ({ actions, tableheaders }) => {
   const [search, setSearch] = useState({ searchTerm: '', filterBy: '' }); // state to hold search term and filter column
 
@@ -40,6 +41,8 @@ const TableActions = ({ actions, tableheaders }) => {
 
       {/* Action buttons */}
       <div className="flex items-center justify-between md:justify-normal gap-2 md:gap-4 overflow-x-auto bg-white border border-borders p-4 rounded-2xl shadow-sm">
+        {children}
+
         {actions?.map(({ type, label, Icon, onClick }) => (
           <TableBtn
             key={type}

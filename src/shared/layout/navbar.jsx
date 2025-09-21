@@ -14,6 +14,7 @@ const navItems = [
 const Navbar = ({ openSidebar, isOpen }) => {
   return (
     <nav className="bg-white fixed top-0 z-50 w-full pt-7 pb-3 px-5 flex justify-between items-center border-b border-[#C2C2C2]">
+
       {/* logo and sidebar toggle */}
       <div className="flex items-center gap-20">
         <Link to={'/'} className="w-50">
@@ -37,6 +38,7 @@ const Navbar = ({ openSidebar, isOpen }) => {
             <p>{item.label}</p>
           </li>
         ))}
+
         {/* menu icon for mobile */}
         <li className="text-2xl md:hidden cursor-pointer" onClick={openSidebar}>
           <IoMenu />

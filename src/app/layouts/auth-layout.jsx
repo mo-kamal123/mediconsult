@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 const Authlayout = () => {
   const loggedIn = useSelector((state) => state.auth.isAuthenticated); // get the auth state from redux store
+  
   // if logged in redirect to home page
   return loggedIn ? (
     <Navigate to={'/'} replace />

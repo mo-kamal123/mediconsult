@@ -13,6 +13,7 @@ const DropDown = ({
   className = '',
   placeholder = 'Select an option...',
   onValueChange,
+  value,
   ...props
 }) => {
   return (
@@ -25,7 +26,7 @@ const DropDown = ({
       )}
 
       {/* Select Component */}
-      <Select onValueChange={onValueChange} {...props}>
+      <Select onValueChange={onValueChange} value={value} {...props}>
         <SelectTrigger className={`w-full ${className}`}>
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>

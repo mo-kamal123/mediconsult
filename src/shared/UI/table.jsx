@@ -7,6 +7,7 @@ const Table = ({ cols, data, checkbox = true, leadingData, trailingData }) => {
     cols.length +
     (checkbox ? 1 : 0) +
     (leadingData ? 1 : 0) +
+
     (Array.isArray(trailingData) ? trailingData.length : trailingData ? 1 : 0); // Total number of columns
 
   // Handle individual row checkbox toggle
@@ -19,6 +20,7 @@ const Table = ({ cols, data, checkbox = true, leadingData, trailingData }) => {
       }
     });
   };
+
   // Handle "Select All" checkbox toggle
   const handleCheckAll = () => {
     if (checkedRows.length === data.length) {
@@ -92,6 +94,7 @@ const Table = ({ cols, data, checkbox = true, leadingData, trailingData }) => {
                       type="checkbox"
                       className="w-5 h-5 text-green-600 rounded border-gray-300"
                       onChange={() => handleChecked(row.ID)}
+
                       checked={checkedRows.includes(row.ID)} // Set checked state based on whether row ID is in checkedRows array
                     />
                   </td>
