@@ -12,8 +12,8 @@ const ContactInfo = () => {
         </Btn>
       </div>
       <Table cols={headers} data={[]}></Table>
-      <div className="flex justify-end gap-5">
-        <Btn className="!bg-[#1F4ED6] px-5 !py-[1px]">Save</Btn>
+      <div className="flex items-center justify-end gap-5">
+        <Btn className="!bg-[#1F4ED6] px-5">Save</Btn>
         <Btn className="!bg-white border border-red-400 !text-red-400">
           cancel
         </Btn>

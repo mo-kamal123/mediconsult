@@ -5,15 +5,13 @@ import Btn from './Btn';
 import { useState } from 'react';
 
 
-const TableActions = ({ actions, tableheaders }) => {
+const TableActions = ({ actions, tableheaders, children }) => {
   const [search, setSearch] = useState({ searchTerm: '', filterBy: '' }); // state to hold search term and filter column
 
   // handle search input change
   const handlesearchChange = (name, value) => {
     setSearch((search) => ({ ...search, [name]: value }));
   };
-
-  console.log(search);
 
   return (
     <div>
@@ -26,10 +24,10 @@ const TableActions = ({ actions, tableheaders }) => {
           className="w-full bg-white p-3 pl-10 border border-borders rounded-lg"
           onChange={(e) => handlesearchChange('searchTerm', e.target.value)}
         />
-        <div className="flex gap-5">
+        <div className="flex items-center justify-between gap-5">
           <DropDown
             data={tableheaders || []}
-            className="py-6"
+            className="py-6 -mt-2"
             type="search"
             value={search.filterBy}
             onValueChange={(value) => handlesearchChange('filterBy', value)}

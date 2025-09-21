@@ -25,7 +25,7 @@ export const clientsRoutes = [
         path: ':clientId',
         element: <ClientData />,
         children: [
-          { index: true, element: <ClientInfo /> },
+          { path: 'client-info', element: <ClientInfo /> },
           { path: 'contact-info', element: <ContactInfo /> },
           { path: 'branch-info', element: <BranchInfo /> },
           { path: 'contracts-info', element: <ContractsInfo /> },

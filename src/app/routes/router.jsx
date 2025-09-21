@@ -6,6 +6,7 @@ import Authlayout from '../layouts/auth-layout.jsx';
 import { authRoutes } from '../../features/auth/routes/routes.jsx';
 import { clientsRoutes } from '../../features/clients/client-management/routes/routes.jsx';
 import { memberRoutes } from '../../features/clients/members/routes/routes.jsx';
+import RouteErrorPage from '../components/route-error-page.jsx';
 // import { memberRoutes } from '../../features/clients/members/routes/memberRoutes.jsx';
 
 // this is where we define our routes for the application
@@ -13,13 +14,15 @@ export const router = createBrowserRouter([
   // Auth routes
   {
     path: '/auth',
-    element: <Authlayout loggedIn={false} />,
+    element: <Authlayout />,
+    errorElement: <RouteErrorPage />,
     children: [...authRoutes],
   },
   // Main app routes
   {
     path: '/',
-    element: <RootLayout loggedIn={false} />,
+    element: <RootLayout />,
+    errorElement: <RouteErrorPage />,
     children: [
       {
         index: true,

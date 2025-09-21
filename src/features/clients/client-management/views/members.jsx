@@ -13,6 +13,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Table from '../../../../shared/UI/table';
 import TableActions from '../../../../shared/UI/table-actions';
 import TablePagiation from '../../../../shared/UI/table-pagiation';
+import { useSelector } from 'react-redux';
 
 // Table headers
 const tableHeaders = [
@@ -28,117 +29,7 @@ const tableHeaders = [
   'Mobile',
 ];
 
-// Sample data rows
-const rows = [
-  {
-    ID: 2171,
-    Name: 'Nada Mohamed Ahmed Ali',
-    OldID: 2066176,
-    Birthday: '04 Mar 1983',
-    Age: 41,
-    Client: 'Galala University',
-    Branch: 'Galala University',
-    Program: 'Gold-A',
-    Status: 'Activated',
-    Mobile: '01003414384',
-  },
-  {
-    ID: 2172,
-    Name: 'Nada Mohamed Ahmed Ali',
-    OldID: 2066176,
-    Birthday: '04 Mar 1983',
-    Age: 41,
-    Client: 'Galala University',
-    Branch: 'Galala University',
-    Program: 'Gold-A',
-    Status: 'Activated',
-    Mobile: '01003414384',
-  },
-  {
-    ID: 2173,
-    Name: 'Nada Mohamed Ahmed Ali',
-    OldID: 2066176,
-    Birthday: '04 Mar 1983',
-    Age: 41,
-    Client: 'Galala University',
-    Branch: 'Galala University',
-    Program: 'Gold-A',
-    Status: 'Activated',
-    Mobile: '01003414384',
-  },
-  {
-    ID: 2174,
-    Name: 'Nada Mohamed Ahmed Ali',
-    OldID: 2066176,
-    Birthday: '04 Mar 1983',
-    Age: 41,
-    Client: 'Galala University',
-    Branch: 'Galala University',
-    Program: 'Gold-A',
-    Status: 'Activated',
-    Mobile: '01003414384',
-  },
-  {
-    ID: 2175,
-    Name: 'Nada Mohamed Ahmed Ali',
-    OldID: 2066176,
-    Birthday: '04 Mar 1983',
-    Age: 41,
-    Client: 'Galala University',
-    Branch: 'Galala University',
-    Program: 'Gold-A',
-    Status: 'Activated',
-    Mobile: '01003414384',
-  },
-  {
-    ID: 2171,
-    Name: 'Nada Mohamed Ahmed Ali',
-    OldID: 2066176,
-    Birthday: '04 Mar 1983',
-    Age: 41,
-    Client: 'Galala University',
-    Branch: 'Galala University',
-    Program: 'Gold-A',
-    Status: 'Activated',
-    Mobile: '01003414384',
-  },
-  {
-    ID: 2171,
-    Name: 'Nada Mohamed Ahmed Ali',
-    OldID: 2066176,
-    Birthday: '04 Mar 1983',
-    Age: 41,
-    Client: 'Galala University',
-    Branch: 'Galala University',
-    Program: 'Gold-A',
-    Status: 'Activated',
-    Mobile: '01003414384',
-  },
-  {
-    ID: 2171,
-    Name: 'Nada Mohamed Ahmed Ali',
-    OldID: 2066176,
-    Birthday: '04 Mar 1983',
-    Age: 41,
-    Client: 'Galala University',
-    Branch: 'Galala University',
-    Program: 'Gold-A',
-    Status: 'Activated',
-    Mobile: '01003414384',
-  },
-  {
-    ID: 2171,
-    Name: 'Nada Mohamed Ahmed Ali',
-    OldID: 2066176,
-    Birthday: '04 Mar 1983',
-    Age: 41,
-    Client: 'Galala University',
-    Branch: 'Galala University',
-    Program: 'Gold-A',
-    Status: 'Activated',
-    Mobile: '01003414384',
-  },
-];
+
 
 // Actions for the table
 const actions = [
@@ -176,6 +67,7 @@ const actions = [
 
 const Members = () => {
   const navigate = useNavigate();
+  const rows = useSelector((state) => state.members);
   const { clientId } = useParams(); // assuming route like /clients/:clientId/members
   return (
     <div>

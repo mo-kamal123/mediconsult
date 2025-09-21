@@ -6,7 +6,7 @@ const TablePagiation = () => {
   const [curr, setCurr] = useState(1); // current page
 
   return (
-    <div className="bg-white border border-borders rounded-2xl flex flex-col md:flex-row items-center gap-4 md:gap-10 px-5 py-3 mb-5">
+    <div className="bg-white border border-borders rounded-2xl flex flex-col lg:flex-row items-center gap-4 md:gap-10 px-5 py-3 mb-5">
       <div className="flex items-center gap-2">
         <p>page 1 of 239</p>
         <p>(2389 Items)</p>
@@ -18,6 +18,7 @@ const TablePagiation = () => {
         {/* display page numbers */}
         {[...Array(totalPages).keys()].slice(curr - 1, curr + 6).map((num) => (
           <p
+            key={num}
             onClick={() => setCurr(num + 1)}
             className={`${curr === num + 1 ? 'bg-blue-400' : 'bg-white'} w-7 h-7  md:w-10 md:h-10 flex items-center justify-center border border-borders rounded-lg cursor-pointer`}
           >
@@ -30,6 +31,7 @@ const TablePagiation = () => {
             <p className="hidden md:block">. . . . . . . .</p>
             {[...Array(totalPages).keys()].slice(-3).map((num) => (
               <p
+                key={num}
                 onClick={() => setCurr(num + 1)}
                 className={`${curr === num + 1 ? 'bg-blue-400' : 'bg-white'} hidden md:flex  w-10 h-10  items-center justify-center border border-borders rounded-lg cursor-pointer`}
               >
