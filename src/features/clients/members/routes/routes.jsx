@@ -10,10 +10,10 @@ export const memberRoutes = [
   {
     path: 'clients/:clientId/members', // relative path
     children: [
-      {
-        index: true,
-        element: <MemberManagement />,
-      },
+      // {
+      //   index: true,
+      //   element: <MemberManagement />,
+      // },
       {
         path: ':memberId',
         element: <MemberData />,

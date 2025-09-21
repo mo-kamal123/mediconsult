@@ -6,6 +6,7 @@ import { MdFilterAltOff } from 'react-icons/md';
 import { SiGoogledocs } from 'react-icons/si';
 import { FaUserCheck, FaUserClock, FaUserTimes } from 'react-icons/fa';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // Table headers
 const tableHeaders = [
@@ -20,133 +21,134 @@ const tableHeaders = [
 ];
 
 // Sample data rows
-const rows = [
-  {
-    ID: 2171,
-    Name: 'Mercure Ismailia Hotel',
-    OldID: 'CO-0371',
-    Category: 'Hotels',
-    Type: 'Corporate',
-    Member: 136,
-    Branch: 1,
-    Status: 'Activated',
-    'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
-  },
-  {
-    ID: 2171,
-    Name: 'Mercure Ismailia Hotel',
-    OldID: 'CO-0371',
-    Category: 'Hotels',
-    Type: 'Corporate',
-    Member: 136,
-    Branch: 1,
-    Status: 'Activated',
-    'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
-  },
-  {
-    ID: 2171,
-    Name: 'Mercure Ismailia Hotel',
-    OldID: 'CO-0371',
-    Category: 'Hotels',
-    Type: 'Corporate',
-    Member: 136,
-    Branch: 1,
-    Status: 'Activated',
-    'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
-  },
-  {
-    ID: 2171,
-    Name: 'Mercure Ismailia Hotel',
-    OldID: 'CO-0371',
-    Category: 'Hotels',
-    Type: 'Corporate',
-    Member: 136,
-    Branch: 1,
-    Status: 'Activated',
-    'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
-  },
-  {
-    ID: 2171,
-    Name: 'Mercure Ismailia Hotel',
-    OldID: 'CO-0371',
-    Category: 'Hotels',
-    Type: 'Corporate',
-    Member: 136,
-    Branch: 1,
-    Status: 'Activated',
-    'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
-  },
-  {
-    ID: 2171,
-    Name: 'Mercure Ismailia Hotel',
-    OldID: 'CO-0371',
-    Category: 'Hotels',
-    Type: 'Corporate',
-    Member: 136,
-    Branch: 1,
-    Status: 'Activated',
-    'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
-  },
-  {
-    ID: 2171,
-    Name: 'Mercure Ismailia Hotel',
-    OldID: 'CO-0371',
-    Category: 'Hotels',
-    Type: 'Corporate',
-    Member: 136,
-    Branch: 1,
-    Status: 'Activated',
-    'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
-  },
-  {
-    ID: 2171,
-    Name: 'Mercure Ismailia Hotel',
-    OldID: 'CO-0371',
-    Category: 'Hotels',
-    Type: 'Corporate',
-    Member: 136,
-    Branch: 1,
-    Status: 'Activated',
-    'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
-  },
-  {
-    ID: 2171,
-    Name: 'Mercure Ismailia Hotel',
-    OldID: 'CO-0371',
-    Category: 'Hotels',
-    Type: 'Corporate',
-    Member: 136,
-    Branch: 1,
-    Status: 'Activated',
-    'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
-  },
-  {
-    ID: 2171,
-    Name: 'Mercure Ismailia Hotel',
-    OldID: 'CO-0371',
-    Category: 'Hotels',
-    Type: 'Corporate',
-    Member: 136,
-    Branch: 1,
-    Status: 'Activated',
-    'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
-  },
-  {
-    ID: 2171,
-    Name: 'Mercure Ismailia Hotel',
-    OldID: 'CO-0371',
-    Category: 'Hotels',
-    Type: 'Corporate',
-    Member: 136,
-    Branch: 1,
-    Status: 'Activated',
-    'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
-  },
-];
+// const rows = [
+//   {
+//     ID: 2171,
+//     Name: 'Mercure Ismailia Hotel',
+//     OldID: 'CO-0371',
+//     Category: 'Hotels',
+//     Type: 'Corporate',
+//     Member: 136,
+//     Branch: 1,
+//     Status: 'Activated',
+//     'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
+//   },
+//   {
+//     ID: 2171,
+//     Name: 'Mercure Ismailia Hotel',
+//     OldID: 'CO-0371',
+//     Category: 'Hotels',
+//     Type: 'Corporate',
+//     Member: 136,
+//     Branch: 1,
+//     Status: 'Activated',
+//     'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
+//   },
+//   {
+//     ID: 2171,
+//     Name: 'Mercure Ismailia Hotel',
+//     OldID: 'CO-0371',
+//     Category: 'Hotels',
+//     Type: 'Corporate',
+//     Member: 136,
+//     Branch: 1,
+//     Status: 'Activated',
+//     'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
+//   },
+//   {
+//     ID: 2171,
+//     Name: 'Mercure Ismailia Hotel',
+//     OldID: 'CO-0371',
+//     Category: 'Hotels',
+//     Type: 'Corporate',
+//     Member: 136,
+//     Branch: 1,
+//     Status: 'Activated',
+//     'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
+//   },
+//   {
+//     ID: 2171,
+//     Name: 'Mercure Ismailia Hotel',
+//     OldID: 'CO-0371',
+//     Category: 'Hotels',
+//     Type: 'Corporate',
+//     Member: 136,
+//     Branch: 1,
+//     Status: 'Activated',
+//     'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
+//   },
+//   {
+//     ID: 2171,
+//     Name: 'Mercure Ismailia Hotel',
+//     OldID: 'CO-0371',
+//     Category: 'Hotels',
+//     Type: 'Corporate',
+//     Member: 136,
+//     Branch: 1,
+//     Status: 'Activated',
+//     'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
+//   },
+//   {
+//     ID: 2171,
+//     Name: 'Mercure Ismailia Hotel',
+//     OldID: 'CO-0371',
+//     Category: 'Hotels',
+//     Type: 'Corporate',
+//     Member: 136,
+//     Branch: 1,
+//     Status: 'Activated',
+//     'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
+//   },
+//   {
+//     ID: 2171,
+//     Name: 'Mercure Ismailia Hotel',
+//     OldID: 'CO-0371',
+//     Category: 'Hotels',
+//     Type: 'Corporate',
+//     Member: 136,
+//     Branch: 1,
+//     Status: 'Activated',
+//     'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
+//   },
+//   {
+//     ID: 2171,
+//     Name: 'Mercure Ismailia Hotel',
+//     OldID: 'CO-0371',
+//     Category: 'Hotels',
+//     Type: 'Corporate',
+//     Member: 136,
+//     Branch: 1,
+//     Status: 'Activated',
+//     'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
+//   },
+//   {
+//     ID: 2171,
+//     Name: 'Mercure Ismailia Hotel',
+//     OldID: 'CO-0371',
+//     Category: 'Hotels',
+//     Type: 'Corporate',
+//     Member: 136,
+//     Branch: 1,
+//     Status: 'Activated',
+//     'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
+//   },
+//   {
+//     ID: 2171,
+//     Name: 'Mercure Ismailia Hotel',
+//     OldID: 'CO-0371',
+//     Category: 'Hotels',
+//     Type: 'Corporate',
+//     Member: 136,
+//     Branch: 1,
+//     Status: 'Activated',
+//     'Change Status': ['Green', 'Red', 'Yellow', 'Blue'],
+//   },
+// ];
 
 const ClientsManagement = () => {
   const navigate = useNavigate();
-
+  const rows = useSelector((state) => state.clients)
+  
   // Define actions for the table
   const actions = [
     {
@@ -180,7 +182,7 @@ const ClientsManagement = () => {
           col: '',
           render: (row) => (
             <p
-              onClick={() => navigate('120')}
+              onClick={() => navigate('120/client-info')}
               className="text-blue-500 text-xl"
             >
               <SiGoogledocs />

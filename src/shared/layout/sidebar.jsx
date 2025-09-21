@@ -14,7 +14,7 @@ import {
 import { IoIosArrowDown } from 'react-icons/io';
 import pro from '../imgs/bro.png';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 // sidebar items data
 const sidebar_url = [
@@ -121,22 +121,22 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
   };
   return (
     <aside
-      className={`bg-white h-svh w-full z-50 md:w-80 overflow-scroll shadow-xl fixed ${isOpen ? 'left-0' : '-left-[100%]'}   pb-30 pt-5 mt-23 transition-all duration-300`}
+      className={`bg-white h-svh w-full z-50 md:w-82 overflow-scroll shadow-xl fixed ${isOpen ? 'left-0' : '-left-[100%]'}   pb-30 pt-5 mt-23 transition-all duration-300`}
     >
       <ul className="flex flex-col justify-between gap-3 pl-8">
         {/* sidebar items */}
-        {sidebar_url.map((item) => (
-          <li className="flex flex-col  gap-1 p-2">
+        {sidebar_url.map((item, i) => (
+          <li key={i} className="flex flex-col  gap-1 p-2">
             <div
               onClick={() => handleOpenDropdown(item.name)}
               className={`flex items-center justify-between gap-1 p-2 rounded cursor-pointer ${active === item.name && 'bg-[#ECF3FF]'}`}
             >
-              <p
+              <div
                 className={`flex items-center gap-2 ${active === item.name && 'text-[#1F4ED6]'}`}
               >
                 <p>{item.icon}</p>
                 <p>{item.name}</p>
-              </p>
+              </div>
               <p
                 className={`${active === item.name && 'rotate-180 text-[#1F4ED6]'} transition-all duration-300`}
               >
@@ -148,22 +148,29 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
               <ul className="flex flex-col gap-2 pl-5 transition-all duration-300">
                 {/* render sub items */}
                 {item.sub.map((sub) => (
-                  <Link
+                  <NavLink
+                    key={sub.name}
                     to={sub.url}
-                    className={`text-sm text-[#8B8B9B] py-2 transition-all duration-300 hover:text-black hover:font-semibold ${subActive === sub.name && 'text-black font-semibold'}`}
+                    className={({ isActive }) =>
+                      `text-sm py-2 transition-all duration-300 hover:text-black hover:font-semibold ${
+                        isActive ? 'text-black font-semibold' : 'text-[#8B8B9B]'
+                      }`
+                    }
                     onClick={() => {
-                      closeSidebar();
-                      setSubActive(sub.name);
+                      if (window.innerWidth < 768) {
+                        closeSidebar(true);
+                      }
+                      setSubActive(sub.name); // optional, but NavLink manages active styling anyway
                     }}
                   >
                     {sub.name}
-                  </Link>
+                  </NavLink>
                 ))}
               </ul>
             )}
           </li>
         ))}
-        <li className="w-40">
+        <li className="w-40 ml-8">
           <img src={pro} alt="side-img" />
         </li>
       </ul>

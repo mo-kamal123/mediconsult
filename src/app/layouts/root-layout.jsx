@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import khusm from '../assets/Khusm.png';
 
 const RootLayout = () => {
-  const [toggleSidebar, setToggleSidebar] = useState(false); // state to manage sidebar toggle
+  const [toggleSidebar, setToggleSidebar] = useState(window.innerWidth > 500); // state to manage sidebar toggle
   const loggedIn = useSelector((state) => state.auth.isAuthenticated); // get the auth state from redux store
 
   // function to toggle sidebar

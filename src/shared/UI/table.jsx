@@ -30,7 +30,6 @@ const Table = ({ cols, data, checkbox = true, leadingData, trailingData }) => {
       setCheckedRows(allRowIds);
     }
   };
-  console.log(checkedRows);
   return (
     <div className="overflow-x-auto w-full border my-10 border-borders rounded-2xl">
       <table className="w-full table-auto bg-white text-sm">

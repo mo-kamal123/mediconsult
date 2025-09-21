@@ -5,7 +5,7 @@ import Tabs from '../../../../shared/UI/tabs';
 
 // Tabs data for client management
 const clientTabs = [
-  { label: 'Client Info', path: '' },
+  { label: 'Client Info', path: 'client-info' },
   { label: 'Contact Info', path: 'contact-info' },
   { label: 'Branch Info', path: 'branch-info' },
   { label: 'Contracts Info', path: 'contracts-info' },
