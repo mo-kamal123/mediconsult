@@ -10,6 +10,6 @@ export const store = configureStore({
     auth: authSlice,
     clients: clientsSlice,
     members: membersSlice,
-    providers: providersSlice 
+    providers: providersSlice,
   },
 });

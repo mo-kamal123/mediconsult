@@ -147,8 +147,8 @@ const tableHeaders = [
 
 const ClientsManagement = () => {
   const navigate = useNavigate();
-  const rows = useSelector((state) => state.clients)
-  
+  const rows = useSelector((state) => state.clients);
+
   // Define actions for the table
   const actions = [
     {

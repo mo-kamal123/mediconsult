@@ -39,7 +39,7 @@ const ProviderDiscount = () => {
           <input type="checkbox" />
           <label> Apply after data entry</label>
         </div>
-        <div className='flex gap-6'>
+        <div className="flex gap-6">
           <button
             className="border border-[#F56C6C] text-[#F56C6C] py-2 px-6 rounded-lg"
             type="submit"

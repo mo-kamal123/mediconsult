@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 // Sample data rows
-const initialState =  [
+const initialState = [
   {
     ID: 2171,
     Name: 'Nada Mohamed Ahmed Ali',
@@ -113,15 +113,14 @@ const initialState =  [
 ];
 
 const membersSlice = createSlice({
-    name : 'members',
-    initialState,
-    reducers : {
-        changeMembersData:(state,action)=>{
-            state = action.payload;
-        }
-    }
-})
-
+  name: 'members',
+  initialState,
+  reducers: {
+    changeMembersData: (state, action) => {
+      state = action.payload;
+    },
+  },
+});
 
 export const { changeMembersData } = membersSlice.actions;
 export default membersSlice.reducer;

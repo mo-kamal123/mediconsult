@@ -26,7 +26,12 @@ const DropDown = ({
       )}
 
       {/* Select Component */}
-      <Select className={''} onValueChange={onValueChange} value={value} {...props}>
+      <Select
+        className={''}
+        onValueChange={onValueChange}
+        value={value}
+        {...props}
+      >
         <SelectTrigger className={`w-full border-[#C2C2C2] ${className}`}>
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>

@@ -7,19 +7,15 @@ import { FaUserPlus } from 'react-icons/fa';
 import { CgDetailsMore } from 'react-icons/cg';
 import Table from '../../../shared/UI/table';
 import { ImAttachment } from 'react-icons/im';
-import {
-    FaUserCheck,
-    FaUserClock,
-    FaUserTimes,
-  } from 'react-icons/fa';
+import { FaUserCheck, FaUserClock, FaUserTimes } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import TablePagiation from '../../../shared/UI/table-pagiation';
 import { Icon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const ProvidersManagement = () => {
-    const navigate = useNavigate()
-    const tableRows = useSelector((state) => state.providers); // Get providers data from Redux store
+  const navigate = useNavigate();
+  const tableRows = useSelector((state) => state.providers); // Get providers data from Redux store
   // Table headers
   const tableHeaders = [
     'ID',
@@ -77,8 +73,13 @@ const ProvidersManagement = () => {
         leadingData={{
           col: '',
           render: (row) => (
-            <p className="text-blue-500 underline cursor-pointer" onClick={() => navigate(`${row.ID}/locations`)}>view</p>
-          ), 
+            <p
+              className="text-blue-500 underline cursor-pointer"
+              onClick={() => navigate(`${row.ID}/locations`)}
+            >
+              view
+            </p>
+          ),
         }}
       />
       <TablePagiation />

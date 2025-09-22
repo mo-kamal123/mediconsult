@@ -29,8 +29,6 @@ const tableHeaders = [
   'Mobile',
 ];
 
-
-
 // Actions for the table
 const actions = [
   {

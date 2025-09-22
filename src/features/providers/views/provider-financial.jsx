@@ -1,19 +1,21 @@
-import Table from "../../../shared/UI/table";
-import TableActions from "../../../shared/UI/table-actions";
-import { BsFillPlusSquareFill } from "react-icons/bs";
+import Table from '../../../shared/UI/table';
+import TableActions from '../../../shared/UI/table-actions';
+import { BsFillPlusSquareFill } from 'react-icons/bs';
 
 const ProviderFinancial = () => {
-    const tableHeaders = ['Clearance Date'];
-    const actions = [
-      {
-        type: 'AddColumn',
-        Icon: BsFillPlusSquareFill,
-        label: 'Add New',
-      },
-    ];
+  const tableHeaders = ['Clearance Date'];
+  const actions = [
+    {
+      type: 'AddColumn',
+      Icon: BsFillPlusSquareFill,
+      label: 'Add New',
+    },
+  ];
   return (
     <div>
-      <h3 className="font-semibold text-lg text-[#1F4ED6]">Financial clearance</h3>
+      <h3 className="font-semibold text-lg text-[#1F4ED6]">
+        Financial clearance
+      </h3>
 
       <TableActions tableheaders={tableHeaders} actions={actions} />
       <Table
@@ -34,21 +36,21 @@ const ProviderFinancial = () => {
       />
       {/* Buttons */}
       <div className="flex gap-6 justify-end">
-          <button
-            className="border border-[#F56C6C] text-[#F56C6C] py-2 px-6 rounded-lg"
-            type="submit"
-          >
-            Delete
-          </button>
-          <button
-            className="bg-blue-500 py-2 px-6 text-white rounded-lg"
-            type="submit"
-          >
-            Save
-          </button>
+        <button
+          className="border border-[#F56C6C] text-[#F56C6C] py-2 px-6 rounded-lg"
+          type="submit"
+        >
+          Delete
+        </button>
+        <button
+          className="bg-blue-500 py-2 px-6 text-white rounded-lg"
+          type="submit"
+        >
+          Save
+        </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProviderFinancial
+export default ProviderFinancial;

@@ -60,7 +60,7 @@ const ProviderForm = () => {
         </div>
 
         <div className="flex flex-wrap md:flex-nowrap gap-6">
-        <DropDown
+          <DropDown
             label="Category"
             name="providerCategory"
             data={[
@@ -69,7 +69,7 @@ const ProviderForm = () => {
             ]}
             className="flex-1 p-6 mt-1 min-w-[200px]"
           />
-        <DropDown
+          <DropDown
             label="General Specialist"
             name="generalSpecialist"
             data={[
@@ -78,94 +78,87 @@ const ProviderForm = () => {
             ]}
             className="flex-1 p-6 mt-1 min-w-[200px]"
           />
-        <DropDown
+          <DropDown
             label="Sub Specialist"
             name="subSpecialist"
             data={[
-                { value: 'corp', label: 'corp' },
-                { value: 'ind', label: 'ind' },
+              { value: 'corp', label: 'corp' },
+              { value: 'ind', label: 'ind' },
             ]}
             className="flex-1 p-6 mt-1 min-w-[200px]"
           />
-
-
         </div>
         <div className="flex flex-wrap md:flex-nowrap gap-6">
-            <Input
-              label={'Comercial Name'}
-              name="comercialName"
-              type="text"
-              className="flex-1 min-w-[200px]"
-            />
-            <Input
-              label={'Hotline'}
-              name="hotline"
-              type="text"
-              className="flex-1 min-w-[200px]"
-            />
-            <Input
-              label={'IBM Notes Id'}
-              name="iBMNotesId"
-              type="text"
-              className="flex-1 min-w-[200px]"
-            />
-
+          <Input
+            label={'Comercial Name'}
+            name="comercialName"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
+          <Input
+            label={'Hotline'}
+            name="hotline"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
+          <Input
+            label={'IBM Notes Id'}
+            name="iBMNotesId"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
         </div>
         <div className="flex flex-wrap md:flex-nowrap gap-6">
-            <Input
-              label={'Batch Due Days'}
-              name="batchDueDays"
-              type="text"
-              className="flex-1 min-w-[200px]"
-            />
-            <Input
-              label={'Provider Class'}
-              name="providerClass"
-              type="text"
-              className="flex-1 min-w-[200px]"
-            />
-        <DropDown
+          <Input
+            label={'Batch Due Days'}
+            name="batchDueDays"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
+          <Input
+            label={'Provider Class'}
+            name="providerClass"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
+          <DropDown
             label="Priority"
             name="priority"
             data={[
-                { value: 'corp', label: 'corp' },
-                { value: 'ind', label: 'ind' },
+              { value: 'corp', label: 'corp' },
+              { value: 'ind', label: 'ind' },
             ]}
             className="flex-1 p-6 mt-1 min-w-[200px]"
           />
-
         </div>
         <div className="flex flex-wrap md:flex-nowrap gap-6">
-        <DropDown
+          <DropDown
             label="Status"
             name="status"
             data={[
-                { value: 'active', label: 'Active' },
-                { value: 'inactive', label: 'Inactive' },
+              { value: 'active', label: 'Active' },
+              { value: 'inactive', label: 'Inactive' },
             ]}
             className="flex-1 p-6 mt-1 min-w-[200px]"
           />
-            <Input
-              label={'Local Discount'}
-              name="localDiscount"
-              type="text"
-              className="flex-1 min-w-[200px]"
-            />
-            <Input
-              label={'Imported Discount'}
-              name="importedDiscount"
-              type="text"
-              className="flex-1 min-w-[200px]"
-            />
-
+          <Input
+            label={'Local Discount'}
+            name="localDiscount"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
+          <Input
+            label={'Imported Discount'}
+            name="importedDiscount"
+            type="text"
+            className="flex-1 min-w-[200px]"
+          />
         </div>
         <div>
-            <input type="checkbox" />
-            <label> Allow Chronic On Portal</label>
+          <input type="checkbox" />
+          <label> Allow Chronic On Portal</label>
         </div>
-
       </div>
-
 
       {/* Buttons */}
       <div className="flex gap-6 justify-end">
@@ -182,7 +175,8 @@ const ProviderForm = () => {
           Save
         </button>
       </div>
-    </Form>  )
-}
+    </Form>
+  );
+};
 
-export default ProviderForm
+export default ProviderForm;

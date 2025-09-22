@@ -1,15 +1,17 @@
-import DropDown from "../../../shared/UI/drop-down";
-import Form from "../../../shared/UI/from";
-import Input from "../../../shared/UI/input";
+import DropDown from '../../../shared/UI/drop-down';
+import Form from '../../../shared/UI/from';
+import Input from '../../../shared/UI/input';
 
 const ProviderExtraFinance = () => {
   return (
     <Form>
       <div className="flex flex-col gap-6">
-        <h3 className="font-semibold text-lg text-[#1F4ED6]">Extra Finance Info </h3>
+        <h3 className="font-semibold text-lg text-[#1F4ED6]">
+          Extra Finance Info{' '}
+        </h3>
 
         <div className="flex flex-wrap md:flex-nowrap gap-6">
-          <Input 
+          <Input
             label={'Provider Type'}
             name="providerType"
             type="text"

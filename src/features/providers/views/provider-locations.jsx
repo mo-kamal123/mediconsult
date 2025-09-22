@@ -70,17 +70,22 @@ const ProviderLocations = () => {
   return (
     <div>
       <TableActions tableheaders={tableheaders} actions={actions} />
-      <Table cols={tableheaders} data={rows} checkbox={false} leadingData={{
-        col: 'Actions',
-        render: (row) => (
-                <button
-                className="text-[#DC0600] pl-2 "
-                onClick={() => alert(`delete ${row['EN Address']}`)}
-                >
-                Delete
-                </button>
-        )
-      }}/>
+      <Table
+        cols={tableheaders}
+        data={rows}
+        checkbox={false}
+        leadingData={{
+          col: 'Actions',
+          render: (row) => (
+            <button
+              className="text-[#DC0600] pl-2 "
+              onClick={() => alert(`delete ${row['EN Address']}`)}
+            >
+              Delete
+            </button>
+          ),
+        }}
+      />
     </div>
   );
 };

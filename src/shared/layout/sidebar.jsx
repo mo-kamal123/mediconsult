@@ -39,12 +39,16 @@ const sidebar_url = [
       { name: 'Providers Locations', url: '/providers/locations' },
       { name: 'Providers Finance Report', url: '/providers/finance-report' },
       { name: 'Pricelists Management', url: '/providers/pricelists' },
-      { name: 'Archived Pricelists Management', url: '/providers/pricelists/archived' },
+      {
+        name: 'Archived Pricelists Management',
+        url: '/providers/pricelists/archived',
+      },
       { name: 'Master CPT Management', url: '/providers/master-cpt' },
       { name: 'Not Found Acts Management', url: '/providers/not-found-acts' },
       { name: 'CDT Acts Management', url: '/providers/cdt-acts' },
       { name: 'Files Checker', url: '/providers/files-checker' },
-    ]  },
+    ],
+  },
   {
     name: 'Service Request (SR)',
     icon: <FaFolderOpen />,
@@ -173,9 +177,7 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
                     to={sub.url}
                     className={({ isActive }) =>
                       `text-sm py-2 block transition-all duration-300 hover:text-black hover:font-semibold ${
-                        isActive
-                          ? 'text-black font-semibold'
-                          : 'text-[#8B8B9B]'
+                        isActive ? 'text-black font-semibold' : 'text-[#8B8B9B]'
                       }`
                     }
                     onClick={() => {
