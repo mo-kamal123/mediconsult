@@ -1,6 +1,4 @@
-import auth_img from '../imgs/health-insurance-reuse 1.png';
 import logo from '../../../app/assets/mediconsult_logo.png';
-import khusm from '../../../app/assets/Khusm.png';
 import AuthForm from '../components/auth-form';
 import Input from '../../../shared/UI/input';
 import { Link } from 'react-router-dom';

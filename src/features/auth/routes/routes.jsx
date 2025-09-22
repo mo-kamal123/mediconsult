@@ -1,12 +1,17 @@
-import ForgetPassword from '../pages/forget-password';
-import Login from '../pages/login';
-import ResetPassword from '../pages/reset-password';
-import Verify from '../pages/verify';
+// src/features/auth/routes/authRoutes.jsx
+import { lazy } from 'react';
+import withSuspense from '../../../app/components/with-suspense';
+
+// Lazy-loaded pages
+const Login = lazy(() => import('../pages/login'));
+const ForgetPassword = lazy(() => import('../pages/forget-password'));
+const ResetPassword = lazy(() => import('../pages/reset-password'));
+const Verify = lazy(() => import('../pages/verify'));
 
 // Auth Routes
 export const authRoutes = [
-  { index: true, element: <Login /> },
-  { path: 'forget-password', element: <ForgetPassword /> },
-  { path: 'verify', element: <Verify /> },
-  { path: 'reset-password', element: <ResetPassword /> },
+  { index: true, element: withSuspense(Login) },
+  { path: 'forget-password', element: withSuspense(ForgetPassword) },
+  { path: 'verify', element: withSuspense(Verify) },
+  { path: 'reset-password', element: withSuspense(ResetPassword) },
 ];

@@ -1,27 +1,34 @@
-import MemberManagement from '../pages/member-management';
-import MemberData from '../layouts/member-data';
-import MemberInfo from '../views/member-info';
-import FamilyMembers from '../views/family-members';
-import MemberHistory from '../views/member-history';
-import Utilizations from '../views/utilizations';
+// src/features/clients/members/routes/memberRoutes.jsx
 
-// Members Routes
+import { lazy } from 'react';
+import withSuspense from '@/app/components/with-suspense';
+
+// Lazy-loaded components
+const MemberManagement = lazy(() => import('../pages/member-management'));
+const MemberData = lazy(() => import('../layouts/member-data'));
+
+const MemberInfo = lazy(() => import('../views/member-info'));
+const FamilyMembers = lazy(() => import('../views/family-members'));
+const MemberHistory = lazy(() => import('../views/member-history'));
+const Utilizations = lazy(() => import('../views/utilizations'));
+
 export const memberRoutes = [
   {
-    path: 'clients/:clientId/members', // relative path
+    path: 'clients/:clientId/members',
     children: [
+      // Uncomment if you need this route:
       // {
       //   index: true,
-      //   element: <MemberManagement />,
+      //   element: withSuspense(MemberManagement),
       // },
       {
         path: ':memberId',
-        element: <MemberData />,
+        element: withSuspense(MemberData),
         children: [
-          { index: true, element: <MemberInfo /> },
-          { path: 'family-members', element: <FamilyMembers /> },
-          { path: 'member-history', element: <MemberHistory /> },
-          { path: 'utilizations', element: <Utilizations /> },
+          { index: true, element: withSuspense(MemberInfo) },
+          { path: 'family-members', element: withSuspense(FamilyMembers) },
+          { path: 'member-history', element: withSuspense(MemberHistory) },
+          { path: 'utilizations', element: withSuspense(Utilizations) },
         ],
       },
     ],

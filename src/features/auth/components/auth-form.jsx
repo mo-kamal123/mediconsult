@@ -1,4 +1,4 @@
-const AuthForm = ({ children, type, description, handleSubmit, ...props }) => {
+const AuthForm = ({ children, type, description, ...props }) => {
   return (
     <form className="flex flex-col gap-3 md:w-[60%]" {...props}>
       <div className="flex flex-col items-center justify-between gap-3">

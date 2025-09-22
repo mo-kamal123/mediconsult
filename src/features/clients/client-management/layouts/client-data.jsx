@@ -1,6 +1,5 @@
-import { Outlet, NavLink, useParams, Link } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import MainHeader from '../../../../shared/UI/main-header';
-import { useState } from 'react';
 import Tabs from '../../../../shared/UI/tabs';
 
 // Tabs data for client management
