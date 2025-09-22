@@ -34,8 +34,17 @@ const sidebar_url = [
   {
     name: 'Providers',
     icon: <FaClipboard />,
-    sub: [],
-  },
+    sub: [
+      { name: 'Providers Management', url: '/providers' },
+      { name: 'Providers Locations', url: '/providers/locations' },
+      { name: 'Providers Finance Report', url: '/providers/finance-report' },
+      { name: 'Pricelists Management', url: '/providers/pricelists' },
+      { name: 'Archived Pricelists Management', url: '/providers/pricelists/archived' },
+      { name: 'Master CPT Management', url: '/providers/master-cpt' },
+      { name: 'Not Found Acts Management', url: '/providers/not-found-acts' },
+      { name: 'CDT Acts Management', url: '/providers/cdt-acts' },
+      { name: 'Files Checker', url: '/providers/files-checker' },
+    ]  },
   {
     name: 'Service Request (SR)',
     icon: <FaFolderOpen />,
