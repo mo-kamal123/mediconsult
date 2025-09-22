@@ -180,7 +180,7 @@ const ClientsManagement = () => {
         // Customize leading column with Google Docs icon
         leadingData={{
           col: '',
-          render: (row) => (
+          render: () => (
             <p
               onClick={() => navigate('120/client-info')}
               className="text-blue-500 text-xl"

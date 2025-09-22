@@ -1,11 +1,11 @@
 import { SiGoogledocs } from 'react-icons/si';
 import Table from '../../../../shared/UI/table';
-import TableActions from '../../../../shared/UI/table-actions';
 import DropDown from '../../../../shared/UI/drop-down';
 import { RiFileExcel2Fill } from 'react-icons/ri';
 import { MdFilterAltOff } from 'react-icons/md';
 import TableBtn from '../../../../shared/UI/table-Btn';
 import TablePagiation from '../../../../shared/UI/table-pagiation';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const tableHeaders = [
   'Member',
@@ -49,6 +49,8 @@ const actions = [
 ];
 
 const MemberHistory = () => {
+  const navigate = useNavigate();
+  const { clientId } = useParams()
   return (
     <div>
       <div className="bg-white border border-borders p-4 rounded-2xl shadow-sm">

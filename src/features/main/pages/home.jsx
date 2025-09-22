@@ -1,5 +1,4 @@
 import logo from '../../../app/assets/mediconsult_logo.png';
-import khusm from '../../../app/assets/Khusm.png';
 
 const Home = () => {
   return (

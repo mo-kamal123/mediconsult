@@ -1,35 +1,38 @@
-import ClientsManagement from '../pages/clients-management';
-import NewClientModal from '../components/new-client-modal';
+import { lazy } from 'react';
+import withSuspense from '@/app/components/with-suspense';
 
-import ClientData from '../layouts/client-data';
-import ClientInfo from '../views/client-info';
-import ContactInfo from '../views/contact-info';
-import BranchInfo from '../views/branch-info';
-import Members from '../views/members';
-import ContractsInfo from '../views/contracts-nfo';
+// Lazy-loaded pages
+const ClientsManagement = lazy(() => import('../pages/clients-management'));
+const NewClientModal = lazy(() => import('../components/new-client-modal'));
+const ClientData = lazy(() => import('../layouts/client-data'));
 
-// Clients Routes
+const ClientInfo = lazy(() => import('../views/client-info'));
+const ContactInfo = lazy(() => import('../views/contact-info'));
+const BranchInfo = lazy(() => import('../views/branch-info'));
+const ContractsInfo = lazy(() => import('../views/contracts-nfo'));
+const Members = lazy(() => import('../views/members'));
+
 export const clientsRoutes = [
   {
     path: 'clients',
     children: [
       {
         index: true,
-        element: <ClientsManagement />,
+        element: withSuspense(ClientsManagement),
       },
       {
         path: 'new',
-        element: <NewClientModal />,
+        element: withSuspense(NewClientModal),
       },
       {
         path: ':clientId',
-        element: <ClientData />,
+        element: withSuspense(ClientData),
         children: [
-          { path: 'client-info', element: <ClientInfo /> },
-          { path: 'contact-info', element: <ContactInfo /> },
-          { path: 'branch-info', element: <BranchInfo /> },
-          { path: 'contracts-info', element: <ContractsInfo /> },
-          { path: 'members', element: <Members /> },
+          { path: 'client-info', element: withSuspense(ClientInfo) },
+          { path: 'contact-info', element: withSuspense(ContactInfo) },
+          { path: 'branch-info', element: withSuspense(BranchInfo) },
+          { path: 'contracts-info', element: withSuspense(ContractsInfo) },
+          { path: 'members', element: withSuspense(Members) },
         ],
       },
     ],
