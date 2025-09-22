@@ -4,7 +4,6 @@ import DropDown from './drop-down';
 import Btn from './Btn';
 import { useState } from 'react';
 
-
 const TableActions = ({ actions, tableheaders, children }) => {
   const [search, setSearch] = useState({ searchTerm: '', filterBy: '' }); // state to hold search term and filter column
 

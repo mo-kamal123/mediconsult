@@ -15,7 +15,7 @@ const Form = ({ children }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-10 mb-10 bg-white border border-borders p-6 rounded-2xl"
+      className="flex flex-col gap-10 mb-10 bg-white border border-borders p-6 rounded-2xl overflow-x-auto"
     >
       {children}
     </form>
