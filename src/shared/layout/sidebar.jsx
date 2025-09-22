@@ -14,9 +14,9 @@ import {
 import { IoIosArrowDown } from 'react-icons/io';
 import pro from '../imgs/bro.png';
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-// sidebar items data
+// Sidebar items data
 const sidebar_url = [
   {
     name: 'Clients',
@@ -24,11 +24,11 @@ const sidebar_url = [
     sub: [
       { name: 'Clients Management', url: '/clients' },
       { name: 'Members Management', url: 'members' },
-      { name: 'Deactivated Members Management', url: '' },
-      { name: 'Members History', url: '' },
-      { name: 'Policy Management', url: '' },
-      { name: 'TOB Viewer', url: '' },
-      { name: 'TOB Builder', url: '' },
+      { name: 'Deactivated Members Management', url: 'Deactivated' },
+      { name: 'Members History', url: 'History' },
+      { name: 'Policy Management', url: 'Policy' },
+      { name: 'TOB Viewer', url: 'Viewer' },
+      { name: 'TOB Builder', url: 'Builder' },
     ],
   },
   {
@@ -108,59 +108,72 @@ const sidebar_url = [
 ];
 
 const Sidebar = ({ closeSidebar, isOpen }) => {
-  const [active, setActive] = useState(''); // track active main menu item
-  const [subActive, setSubActive] = useState(''); // track active sub menu item
+  const [active, setActive] = useState('');
+  const [subActive, setSubActive] = useState('');
 
-  // handle dropdown open/close
-  const handleOpenDropdown = (item) => {
-    if (active && active === item) {
-      setActive('');
-    } else {
-      setActive(item);
-    }
+  const handleOpenDropdown = (itemName) => {
+    setActive((prev) => (prev === itemName ? '' : itemName));
   };
+
   return (
     <aside
-      className={`bg-white h-svh w-full z-50 md:w-82 overflow-scroll shadow-xl fixed ${isOpen ? 'left-0' : '-left-[100%]'}   pb-30 pt-5 mt-23 transition-all duration-300`}
+      className={`bg-white h-svh w-full z-50 md:w-89 overflow-y-auto shadow-xl fixed transition-all duration-300 pb-30 pt-5 mt-23 ${
+        isOpen ? 'left-0' : '-left-[100%]'
+      }`}
     >
-      <ul className="flex flex-col justify-between gap-3 pl-8">
-        {/* sidebar items */}
+      <ul className="flex flex-col gap-3 pl-8 pr-4">
         {sidebar_url.map((item, i) => (
-          <li key={i} className="flex flex-col  gap-1 p-2">
+          <li key={i} className="flex flex-col gap-1 p-2">
             <div
               onClick={() => handleOpenDropdown(item.name)}
-              className={`flex items-center justify-between gap-1 p-2 rounded cursor-pointer ${active === item.name && 'bg-[#ECF3FF]'}`}
+              className={`flex items-center justify-between gap-1 p-2 rounded cursor-pointer transition-colors ${
+                active === item.name ? 'bg-[#ECF3FF]' : ''
+              }`}
             >
               <div
-                className={`flex items-center gap-2 ${active === item.name && 'text-[#1F4ED6]'}`}
+                className={`flex items-center gap-3 text-sm md:text-base  ${
+                  active === item.name ? 'text-[#1F4ED6]' : ''
+                }`}
               >
-                <p>{item.icon}</p>
-                <p>{item.name}</p>
+                <span>{item.icon}</span>
+                <span>{item.name}</span>
               </div>
-              <p
-                className={`${active === item.name && 'rotate-180 text-[#1F4ED6]'} transition-all duration-300`}
-              >
-                <IoIosArrowDown />
-              </p>
+              {item.sub.length > 0 && (
+                <span
+                  className={`transition-transform duration-300 ${
+                    active === item.name ? 'rotate-180 text-[#1F4ED6]' : ''
+                  }`}
+                >
+                  <IoIosArrowDown />
+                </span>
+              )}
             </div>
-            {/* render sub menu if exists */}
-            {active === item.name && (
-              <ul className="flex flex-col gap-2 pl-5 transition-all duration-300">
-                {/* render sub items */}
+
+            {/* Submenu */}
+            {item.sub.length > 0 && (
+              <ul
+                className={`overflow-hidden pl-5 transition-all duration-300 ${
+                  active === item.name
+                    ? 'max-h-96 opacity-100'
+                    : 'max-h-0 opacity-0'
+                }`}
+              >
                 {item.sub.map((sub) => (
                   <NavLink
                     key={sub.name}
                     to={sub.url}
                     className={({ isActive }) =>
-                      `text-sm py-2 transition-all duration-300 hover:text-black hover:font-semibold ${
-                        isActive ? 'text-black font-semibold' : 'text-[#8B8B9B]'
+                      `text-sm py-2 block transition-all duration-300 hover:text-black hover:font-semibold ${
+                        isActive
+                          ? 'text-black font-semibold'
+                          : 'text-[#8B8B9B]'
                       }`
                     }
                     onClick={() => {
                       if (window.innerWidth < 768) {
                         closeSidebar(true);
                       }
-                      setSubActive(sub.name); // optional, but NavLink manages active styling anyway
+                      setSubActive(sub.name);
                     }}
                   >
                     {sub.name}
@@ -170,8 +183,10 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
             )}
           </li>
         ))}
-        <li className="w-40 ml-8">
-          <img src={pro} alt="side-img" />
+
+        {/* Sidebar image */}
+        <li className="w-40 ml-8 mt-4">
+          <img src={pro} alt="sidebar illustration" />
         </li>
       </ul>
     </aside>
