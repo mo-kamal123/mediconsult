@@ -15,12 +15,13 @@ import { IoIosArrowDown } from 'react-icons/io';
 import pro from '../imgs/bro.png';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import SidebarItem from '../UI/sidebar-item';
 
 // Sidebar items data
 const sidebar_url = [
   {
     name: 'Clients',
-    icon: <FaUsers />,
+    icon: FaUsers,
     sub: [
       { name: 'Clients Management', url: '/clients' },
       { name: 'Members Management', url: 'members' },
@@ -33,7 +34,7 @@ const sidebar_url = [
   },
   {
     name: 'Providers',
-    icon: <FaClipboard />,
+    icon: FaClipboard,
     sub: [
       { name: 'Providers Management', url: '/providers' },
       { name: 'Providers Locations', url: '/providers/locations' },
@@ -51,12 +52,12 @@ const sidebar_url = [
   },
   {
     name: 'Service Request (SR)',
-    icon: <FaFolderOpen />,
+    icon: FaFolderOpen,
     sub: [],
   },
   {
     name: 'Approvals',
-    icon: <FaDatabase />,
+    icon: FaDatabase,
     sub: [
       { name: 'Approvals Management', url: '' },
       { name: 'Canceled Approval Management', url: '' },
@@ -67,55 +68,55 @@ const sidebar_url = [
   {
     name: 'Chronic Approval',
     url: 'sss',
-    icon: <FaDatabase />,
+    icon: FaDatabase,
     sub: [],
   },
   {
     name: 'Batch',
     url: 'sss',
-    icon: <FaBoxes />,
+    icon: FaBoxes,
     sub: [],
   },
   {
     name: 'Reimbursement',
     url: 'sss',
-    icon: <FaFileAlt />,
+    icon: FaFileAlt,
     sub: [],
   },
   {
     name: 'Medicines',
     url: 'sss',
-    icon: <FaRegFileAlt />,
+    icon: FaRegFileAlt,
     sub: [],
   },
   {
     name: 'Account Manager',
     url: 'sss',
-    icon: <FaUserAlt />,
+    icon: FaUserAlt,
     sub: [],
   },
   {
     name: 'Data Mapping',
     url: 'sss',
-    icon: <FaChartBar />,
+    icon: FaChartBar,
     sub: [],
   },
   {
     name: 'Data Analysis',
     url: 'sss',
-    icon: <FaChartBar />,
+    icon: FaChartBar,
     sub: [],
   },
   {
     name: 'Administrator',
     url: 'sss',
-    icon: <FaCog />,
+    icon: FaCog,
     sub: [],
   },
   {
     name: 'Reports',
     url: 'sss',
-    icon: <FaRegNewspaper />,
+    icon: FaRegNewspaper,
     sub: [],
   },
 ];
@@ -136,63 +137,15 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
     >
       <ul className="flex flex-col gap-3 pl-8 pr-4">
         {sidebar_url.map((item, i) => (
-          <li key={i} className="flex flex-col gap-1 p-2">
-            <div
-              onClick={() => handleOpenDropdown(item.name)}
-              className={`flex items-center justify-between gap-1 p-2 rounded cursor-pointer transition-colors ${
-                active === item.name ? 'bg-[#ECF3FF]' : ''
-              }`}
-            >
-              <div
-                className={`flex items-center gap-3 text-sm md:text-base  ${
-                  active === item.name ? 'text-[#1F4ED6]' : ''
-                }`}
-              >
-                <span>{item.icon}</span>
-                <span>{item.name}</span>
-              </div>
-              {item.sub.length > 0 && (
-                <span
-                  className={`transition-transform duration-300 ${
-                    active === item.name ? 'rotate-180 text-[#1F4ED6]' : ''
-                  }`}
-                >
-                  <IoIosArrowDown />
-                </span>
-              )}
-            </div>
-
-            {/* Submenu */}
-            {item.sub.length > 0 && (
-              <ul
-                className={`overflow-hidden pl-5 transition-all duration-300 ${
-                  active === item.name
-                    ? 'max-h-96 opacity-100'
-                    : 'max-h-0 opacity-0'
-                }`}
-              >
-                {item.sub.map((sub) => (
-                  <NavLink
-                    key={sub.name}
-                    to={sub.url}
-                    className={({ isActive }) =>
-                      `text-sm py-2 block transition-all duration-300 hover:text-black hover:font-semibold ${
-                        isActive ? 'text-black font-semibold' : 'text-[#8B8B9B]'
-                      }`
-                    }
-                    onClick={() => {
-                      if (window.innerWidth < 768) {
-                        closeSidebar(true);
-                      }
-                      setSubActive(sub.name);
-                    }}
-                  >
-                    {sub.name}
-                  </NavLink>
-                ))}
-              </ul>
-            )}
-          </li>
+          <SidebarItem
+            key={i}
+            item={item}
+            isActive={active === item.name}
+            onToggle={handleOpenDropdown}
+            closeSidebar={closeSidebar}
+            subActive={subActive}
+            setSubActive={setSubActive}
+          />
         ))}
 
         {/* Sidebar image */}

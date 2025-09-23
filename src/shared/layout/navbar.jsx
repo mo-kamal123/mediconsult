@@ -17,7 +17,7 @@ const Navbar = ({ openSidebar, isOpen }) => {
       {/* logo and sidebar toggle */}
       <div className="flex items-center gap-20">
         <Link to={'/'} className="w-50">
-          <img src={logo} alt="logo-img" />
+          <img src={logo} alt="logo-img" fetchpriority="high"/>
         </Link>
         <p
           className={`text-2xl cursor-pointer ${isOpen && 'rotate-180'} hidden md:block transition-all duration-300`}
