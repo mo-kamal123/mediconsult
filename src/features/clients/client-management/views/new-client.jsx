@@ -5,35 +5,20 @@ import Input from '../../../../shared/UI/input';
 import DropDown from '../../../../shared/UI/drop-down';
 import { FaImage } from 'react-icons/fa';
 
-const NewClientModal = () => {
+const NewClient = () => {
   const navigate = useNavigate();
   const modalRef = useRef(null); // Reference to the modal content
 
-  // Handle click outside the modal to close it
-  const handleOutsideClick = (e) => {
-    if (modalRef.current && !modalRef.current.contains(e.target)) {
-      navigate(-1); // Close modal
-    }
-  };
 
   return (
-    <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-      onClick={handleOutsideClick}
-    >
+    <div className="h-svh flex items-center justify-center -mt-30">
       <div
         ref={modalRef}
-        className="bg-white rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/2 p-6"
+        className="bg-white border border-borders p-8 rounded-2xl shadow-sm w-[95%] m-auto"
       >
         {/* Modal Header */}
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl text-[#1F4ED6] font-semibold">New Client</h2>
-          <button
-            onClick={() => navigate(-1)}
-            className="text-white bg-gray-400 text-lg p-1 rounded-lg hover:bg-red-400 transition-all duration-300"
-          >
-            <IoClose />
-          </button>
         </div>
 
         {/* Modal Content */}
@@ -49,8 +34,9 @@ const NewClientModal = () => {
 
           {/* Form Columns */}
           <div className="flex flex-col gap-4 flex-1 min-w-[180px]">
-            <Input name="Client" type="text" />
+            <Input name="Client" type="text" label="Client" />
             <DropDown
+              className="p-6"
               label="Client Type"
               data={[
                 { value: 'corp', label: 'corp' },
@@ -61,13 +47,14 @@ const NewClientModal = () => {
 
           <div className="flex flex-col gap-4 flex-1 min-w-[180px]">
             <DropDown
+              className="p-6"
               label="Client Category"
               data={[
                 { value: 'corp', label: 'corp' },
                 { value: 'ind', label: 'ind' },
               ]}
             />
-            <Input name="Refund Due Days" type="text" />
+            <Input name="Refund Due Days" type="text" label="Refund Due Days" />
           </div>
         </div>
 
@@ -85,4 +72,4 @@ const NewClientModal = () => {
   );
 };
 
-export default NewClientModal;
+export default NewClient;

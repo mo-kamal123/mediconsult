@@ -3,7 +3,7 @@ import withSuspense from '@/app/components/with-suspense';
 
 // Lazy-loaded pages
 const ClientsManagement = lazy(() => import('../pages/clients-management'));
-const NewClientModal = lazy(() => import('../components/new-client-modal'));
+const NewClient = lazy(() => import('../views/new-client'));
 const ClientData = lazy(() => import('../layouts/client-data'));
 
 const ClientInfo = lazy(() => import('../views/client-info'));
@@ -17,12 +17,12 @@ export const clientsRoutes = [
     path: 'clients',
     children: [
       {
-        index: true,
+        path: '',
         element: withSuspense(ClientsManagement),
       },
       {
         path: 'new',
-        element: withSuspense(NewClientModal),
+        element: withSuspense(NewClient),
       },
       {
         path: ':clientId',
