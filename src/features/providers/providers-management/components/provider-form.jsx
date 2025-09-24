@@ -1,8 +1,8 @@
 import { FaImage } from 'react-icons/fa';
 import { FiUpload } from 'react-icons/fi';
-import DropDown from '../../../shared/UI/drop-down';
-import Input from '../../../shared/UI/input';
-import Form from '../../../shared/UI/from';
+import DropDown from '../../../../shared/UI/drop-down';
+import Input from '../../../../shared/UI/input';
+import Form from '../../../../shared/UI/from';
 const ProviderForm = () => {
   return (
     <Form>

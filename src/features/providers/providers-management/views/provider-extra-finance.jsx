@@ -1,6 +1,6 @@
-import DropDown from '../../../shared/UI/drop-down';
-import Form from '../../../shared/UI/from';
-import Input from '../../../shared/UI/input';
+import DropDown from '../../../../shared/UI/drop-down';
+import Form from '../../../../shared/UI/from';
+import Input from '../../../../shared/UI/input';
 
 const ProviderExtraFinance = () => {
   return (

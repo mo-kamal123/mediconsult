@@ -1,6 +1,6 @@
 import { Outlet, useParams } from 'react-router-dom';
-import MainHeader from '../../../shared/UI/main-header';
-import Tabs from '../../../shared/UI/tabs';
+import MainHeader from '../../../../shared/UI/main-header';
+import Tabs from '../../../../shared/UI/tabs';
 import ProviderForm from '../components/provider-form';
 
 const ProviderData = () => {

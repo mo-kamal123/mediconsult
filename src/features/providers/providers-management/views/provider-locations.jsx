@@ -1,7 +1,7 @@
 import { BsFillPlusSquareFill } from 'react-icons/bs';
-import TableActions from '../../../shared/UI/table-actions';
+import TableActions from '../../../../shared/UI/table-actions';
 import { CiImport } from 'react-icons/ci';
-import Table from '../../../shared/UI/table';
+import Table from '../../../../shared/UI/table';
 
 const ProviderLocations = () => {
   const tableheaders = [
