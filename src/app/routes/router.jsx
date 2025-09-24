@@ -7,7 +7,7 @@ import { authRoutes } from '../../features/auth/routes/routes.jsx';
 import { clientsRoutes } from '../../features/clients/client-management/routes/routes.jsx';
 import { memberRoutes } from '../../features/clients/members/routes/routes.jsx';
 import RouteErrorPage from '../components/route-error-page.jsx';
-import { providersRoutes } from '../../features/providers/routes/routes.jsx';
+import { providersRoutes } from '../../features/providers/providers-management/routes/routes.jsx';
 // import { memberRoutes } from '../../features/clients/members/routes/memberRoutes.jsx';
 
 // this is where we define our routes for the application

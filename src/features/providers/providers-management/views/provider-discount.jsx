@@ -1,6 +1,6 @@
 import { BsFillPlusSquareFill } from 'react-icons/bs';
-import TableActions from '../../../shared/UI/table-actions';
-import Table from '../../../shared/UI/table';
+import TableActions from '../../../../shared/UI/table-actions';
+import Table from '../../../../shared/UI/table';
 
 const ProviderDiscount = () => {
   const tableHeaders = ['From', 'To', 'Local Discount %', 'Import Discount %'];

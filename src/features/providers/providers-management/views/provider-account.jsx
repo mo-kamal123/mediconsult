@@ -1,5 +1,5 @@
-import Form from '../../../shared/UI/from';
-import Input from '../../../shared/UI/input';
+import Form from '../../../../shared/UI/from';
+import Input from '../../../../shared/UI/input';
 
 const ProviderAccount = () => {
   return (
