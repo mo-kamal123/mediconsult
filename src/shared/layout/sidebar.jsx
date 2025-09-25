@@ -44,7 +44,7 @@ const sidebar_url = [
         name: 'Archived Pricelists Management',
         url: '/providers/pricelists/archived',
       },
-      { name: 'Master CPT Management', url: '/providers/master-cpt' },
+      { name: 'Master CPT Management', url: '/providers/CPT-management' },
       { name: 'Not Found Acts Management', url: '/providers/not-found-acts' },
       { name: 'CDT Acts Management', url: '/providers/cdt-acts' },
       { name: 'Files Checker', url: '/providers/files-checker' },
