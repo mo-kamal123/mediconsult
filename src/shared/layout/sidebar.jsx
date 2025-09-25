@@ -131,7 +131,7 @@ const Sidebar = ({ closeSidebar, isOpen }) => {
 
   return (
     <aside
-      className={`bg-white h-svh w-full z-50 md:w-89 overflow-y-auto shadow-xl fixed transition-all duration-300 pb-30 pt-5 mt-23 ${
+      className={`bg-white h-svh w-full z-40 md:w-89 overflow-y-auto shadow-xl fixed transition-all duration-300 pb-30 pt-5 mt-21 ${
         isOpen ? 'left-0' : '-left-[100%]'
       }`}
     >
