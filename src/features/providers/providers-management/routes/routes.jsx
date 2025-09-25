@@ -3,6 +3,7 @@
 import { lazy } from 'react';
 import withSuspense from '@/app/components/with-suspense';
 import { providersLocationsRoutes } from '../../providers-locations/routes/routes';
+import { providersPricelistRoutes } from '../../providers-pricelist/routes/routes';
 
 // Lazy-loaded components
 const ProvidersManagement = lazy(() => import('../pages/providers-management'));
@@ -38,7 +39,9 @@ export const providersRoutes = [
           { path: 'extra-Finance-Info', element: withSuspense(ProviderExtraFinance) },
         ],
       },
-      ...providersLocationsRoutes
+      ...providersLocationsRoutes,
+      ...providersPricelistRoutes
+
     ],
   },
 ];
