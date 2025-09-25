@@ -4,6 +4,7 @@ import { lazy } from 'react';
 import withSuspense from '@/app/components/with-suspense';
 import { providersLocationsRoutes } from '../../providers-locations/routes/routes';
 import { providersPricelistRoutes } from '../../providers-pricelist/routes/routes';
+import { ProvidersCPTManagementRoutes } from '../../CPT-managment/routes/routes';
 
 // Lazy-loaded components
 const ProvidersManagement = lazy(() => import('../pages/providers-management'));
@@ -40,7 +41,8 @@ export const providersRoutes = [
         ],
       },
       ...providersLocationsRoutes,
-      ...providersPricelistRoutes
+      ...providersPricelistRoutes,
+      ...ProvidersCPTManagementRoutes,
 
     ],
   },

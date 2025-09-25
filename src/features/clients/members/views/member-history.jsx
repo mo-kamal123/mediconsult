@@ -58,7 +58,7 @@ const MemberHistory = () => {
         <div className="flex items-center justify-between gap-10 ">
           <DropDown
             data={['moo', 'bar', 'baz']}
-            className="p-5"
+            classNamex="p-5"
             value="moo" // ✅ Matches an item in the list
             onValueChange={(val) => console.log(val)} // Optional
           />
