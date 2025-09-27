@@ -6,48 +6,65 @@ import Btn from '../../../shared/UI/Btn';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../store/auth-slice';
+import { useForm } from 'react-hook-form';
+import { loginSchema } from '../validation/auth-validation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 
 const Login = () => {
-  const [credential, setCredential] = useState({ phone: '', password: '' }); // form state
   const dispatch = useDispatch();
 
-  // handle input change
-  const handleChange = (name, value) => {
-    setCredential({ ...credential, [name]: value });
-  };
-  // handle form submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // simple validation
-    if (!credential.phone || !credential.password) {
-      alert('Please fill in all fields');
-      return;
-    }
-    // Dispatch login action here
-    dispatch(login());
-  };
+  // react hook form setup
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      phone: '',
+      password: '',
+      rememberMe: false,
+    },
+  }); // form validation
 
+  // handle form submit
+  // handle form submit
+  const onSubmit = (data) => {
+    console.log('Form data:', data);
+
+    // dispatch redux login
+    dispatch(login(data));
+
+    // ✅ success toast
+    toast.success('Login successful!', {
+      description: 'Welcome back 👋',
+    });
+  };
   return (
     <div className="flex flex-col items-center justify-between gap-20">
       <img src={logo} alt="logo-img" className="w-80" />
       <AuthForm
         type={'Login'}
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         description={'Enter your credential to access your account.'}
       >
         <Input
           type={'text'}
-          name={'Phone'}
-          onChange={(e) => handleChange('phone', e.target.value)}
+          {...register('phone')}
+          error={errors.phone?.message}
         />
         <Input
           type={'password'}
-          name={'Password'}
-          onChange={(e) => handleChange('password', e.target.value)}
+          {...register('password')}
+          error={errors.password?.message}
         />
         <div className="flex justify-between">
           <div className="flex gap-1">
-            <input type="checkbox" name="remember me" />
+            <input
+              type="checkbox"
+              {...register('rememberMe', { valueAsBoolean: true })}
+            />
             <p>Remember me</p>
           </div>
           <Link to={'forget-password'} className="text-[#2F80ED]">

@@ -45,7 +45,7 @@ const PricelistForm = () => {
         </div>
 
         <div className="flex flex-wrap md:flex-nowrap gap-6">
-        <DropDown
+          <DropDown
             label="Type"
             name="type"
             data={[
@@ -68,8 +68,15 @@ const PricelistForm = () => {
           />
         </div>
         <div className=" flex-wrap md:flex-nowrap gap-6">
-            <label htmlFor="Note" className="text-sm font-medium text-gray-700">Note</label>
-            <textarea name="note" cols="30" rows="10" className='w-full border border-[#C2C2C2] p-5 rounded-lg h-20 max-h-40'></textarea>
+          <label htmlFor="Note" className="text-sm font-medium text-gray-700">
+            Note
+          </label>
+          <textarea
+            name="note"
+            cols="30"
+            rows="10"
+            className="w-full border border-[#C2C2C2] p-5 rounded-lg h-20 max-h-40"
+          ></textarea>
         </div>
       </div>
 

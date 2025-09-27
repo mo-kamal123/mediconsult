@@ -16,7 +16,9 @@ const ProviderAccount = lazy(() => import('../views/provider-account'));
 const ProviderDiscount = lazy(() => import('../views/provider-discount'));
 const ProviderFinancial = lazy(() => import('../views/provider-financial'));
 const ProviderPricelists = lazy(() => import('../views/provider-pricelists'));
-const ProviderExtraFinance = lazy(() => import('../views/provider-extra-finance'));
+const ProviderExtraFinance = lazy(
+  () => import('../views/provider-extra-finance')
+);
 
 // Routes
 export const providersRoutes = [
@@ -35,15 +37,20 @@ export const providersRoutes = [
           { path: 'contacts', element: withSuspense(ProviderContacts) },
           { path: 'accountant', element: withSuspense(ProviderAccount) },
           { path: 'volume-discounts', element: withSuspense(ProviderDiscount) },
-          { path: 'financial-clearance', element: withSuspense(ProviderFinancial) },
+          {
+            path: 'financial-clearance',
+            element: withSuspense(ProviderFinancial),
+          },
           { path: 'pricelists', element: withSuspense(ProviderPricelists) },
-          { path: 'extra-Finance-Info', element: withSuspense(ProviderExtraFinance) },
+          {
+            path: 'extra-Finance-Info',
+            element: withSuspense(ProviderExtraFinance),
+          },
         ],
       },
       ...providersLocationsRoutes,
       ...providersPricelistRoutes,
       ...ProvidersCPTManagementRoutes,
-
     ],
   },
 ];

@@ -37,7 +37,7 @@ const MedicinesInfo = () => {
     <div>
       <div className="bg-white border border-borders p-4 rounded-2xl shadow-sm">
         <h2 className="font-semibold text-[#1F4ED6] text-lg">
-        Medicines Information
+          Medicines Information
         </h2>
         <div className="flex items-center justify-between gap-10 ">
           <DropDown

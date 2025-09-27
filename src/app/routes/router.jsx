@@ -38,6 +38,7 @@ export const router = createBrowserRouter([
       ...clientsRoutes,
       ...memberRoutes,
       ...providersRoutes,
-      ...approvalsRoutes
-    ]}
-  ])
+      ...approvalsRoutes,
+    ],
+  },
+]);

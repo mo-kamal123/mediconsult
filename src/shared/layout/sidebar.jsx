@@ -61,7 +61,10 @@ const sidebar_url = [
     sub: [
       { name: 'Approvals Management', url: '/approvals' },
       { name: 'Canceled Approval Management', url: '' },
-      { name: 'Portals Approvals Requests', url: 'approvals/approval-requests' },
+      {
+        name: 'Portals Approvals Requests',
+        url: 'approvals/approval-requests',
+      },
       { name: 'Rejected Requests', url: '' },
     ],
   },

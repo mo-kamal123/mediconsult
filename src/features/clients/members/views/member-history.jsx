@@ -50,7 +50,7 @@ const actions = [
 
 const MemberHistory = () => {
   const navigate = useNavigate();
-  const { clientId } = useParams()
+  const { clientId } = useParams();
   return (
     <div>
       <div className="bg-white border border-borders p-4 rounded-2xl shadow-sm">

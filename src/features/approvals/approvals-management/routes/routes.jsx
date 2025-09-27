@@ -9,7 +9,7 @@ export const approvalsRoutes = [
     path: '/approvals',
     children: [
       { index: true, element: withSuspense(ApprovalsManagement) },
-      {path: 'new-request', element: withSuspense(NewApproval)},
+      { path: 'new-request', element: withSuspense(NewApproval) },
       ...approvalsReqRoutes,
     ],
   },
