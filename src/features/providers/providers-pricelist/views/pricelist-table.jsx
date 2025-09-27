@@ -57,20 +57,26 @@ const PricelistTable = () => {
             </p>
           ),
         }}
-        trailingData={[{
+        trailingData={[
+          {
             col: 'De-Attach',
-            render: (row) => (
+            render: () => (
               <p
                 className="text-gray-500 text-xl w-fit m-auto cursor-pointer"
                 // onClick={() => navigate(`${row.ID}`)}
               >
-            <ImAttachment /> 
+                <ImAttachment />
               </p>
             ),
           },
-          { col: 'Attachment', render: (row) => <p className='text-blue-500 text-xl w-fit m-auto cursor-pointer'>
-            <ImAttachment /> 
-          </p> }
+          {
+            col: 'Attachment',
+            render: () => (
+              <p className="text-blue-500 text-xl w-fit m-auto cursor-pointer">
+                <ImAttachment />
+              </p>
+            ),
+          },
         ]}
       />
 

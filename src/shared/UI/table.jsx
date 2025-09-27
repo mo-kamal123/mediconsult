@@ -39,9 +39,9 @@ const Table = ({
     }
   };
 
-  const toggleExpandedRow  = (rowIndex) => {
+  const toggleExpandedRow = (rowIndex) => {
     setextendableRows((prev) => (prev === rowIndex ? null : rowIndex));
-  }
+  };
   return (
     <div className="overflow-x-auto w-full border my-10 border-borders rounded-2xl">
       <table className="w-full table-auto bg-white text-sm">
@@ -104,7 +104,10 @@ const Table = ({
                   className="border-b border-gray-200 hover:bg-gray-100 transition-all duration-300"
                 >
                   {extendableData && (
-                    <td onClick={() => toggleExpandedRow(row.ID)} className={`px-6 py-4 text-center whitespace-nowrap border border-borders text-xl ${extendableRow === row.ID ? 'rotate-90' : ''} transition-all duration-200`}>
+                    <td
+                      onClick={() => toggleExpandedRow(row.ID)}
+                      className={`px-6 py-4 text-center whitespace-nowrap border border-borders text-xl ${extendableRow === row.ID ? 'rotate-90' : ''} transition-all duration-200`}
+                    >
                       <IoIosArrowForward />
                     </td>
                   )}

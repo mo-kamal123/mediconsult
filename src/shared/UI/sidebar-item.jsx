@@ -2,7 +2,13 @@ import { NavLink } from 'react-router-dom';
 import { IoIosArrowDown } from 'react-icons/io';
 import React from 'react';
 
-const SidebarItem = ({ item, isActive, onToggle, closeSidebar, subActive, setSubActive }) => {
+const SidebarItem = ({
+  item,
+  isActive,
+  onToggle,
+  closeSidebar,
+  setSubActive,
+}) => {
   const Icon = item.icon;
 
   return (
@@ -13,12 +19,18 @@ const SidebarItem = ({ item, isActive, onToggle, closeSidebar, subActive, setSub
           isActive ? 'bg-[#ECF3FF]' : ''
         }`}
       >
-        <div className={`flex items-center gap-3 text-sm md:text-base ${isActive ? 'text-[#1F4ED6]' : ''}`}>
-          <span><Icon /></span>
+        <div
+          className={`flex items-center gap-3 text-sm md:text-base ${isActive ? 'text-[#1F4ED6]' : ''}`}
+        >
+          <span>
+            <Icon />
+          </span>
           <span>{item.name}</span>
         </div>
         {item.sub.length > 0 && (
-          <span className={`transition-transform duration-300 ${isActive ? 'rotate-180 text-[#1F4ED6]' : ''}`}>
+          <span
+            className={`transition-transform duration-300 ${isActive ? 'rotate-180 text-[#1F4ED6]' : ''}`}
+          >
             <IoIosArrowDown />
           </span>
         )}

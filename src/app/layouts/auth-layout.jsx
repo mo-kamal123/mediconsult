@@ -13,7 +13,7 @@ const Authlayout = () => {
     // if not logged in show the auth layout
     <>
       <section className="flex items-center justify-around ">
-        <div className="flex flex-col justify-around gap-5 md:w-1/2 h-svh">
+        <div className="flex flex-col justify-around gap-5 w-full md:w-1/2 h-svh">
           <Outlet />
           <div className="flex flex-col items-center gap-3">
             <p>Powerd by</p>

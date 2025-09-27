@@ -2,51 +2,53 @@ import logo from '../../../app/assets/mediconsult_logo.png';
 import AuthForm from '../components/auth-form';
 import Input from '../../../shared/UI/input';
 import Btn from '../../../shared/UI/Btn';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { login } from '../store/auth-slice';
+import { resetPasswordSchema } from '../validation/auth-validation';
 
 const ResetPassword = () => {
-  const [password, setPassword] = useState({
-    password: '',
-    passwordConfirmation: '',
-  }); // reset password state
   const dispatch = useDispatch();
-  // handle input change
-  const handleChange = (name, value) => {
-    setPassword((password) => ({ ...password, [name]: value }));
+
+  // react hook form setup
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(resetPasswordSchema),
+    defaultValues: {
+      password: '',
+      passwordConfirmation: '',
+    },
+  });
+
+  const onSubmit = (data) => {
+    console.log('Reset Password data:', data);
+    dispatch(login()); // you can replace this with resetPassword API call
   };
 
-  // handle form submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // simple validation
-    if (!password.password || !password.passwordConfirmation) {
-      alert('Please enter your phone number');
-      return;
-    } else if (password.password !== password.passwordConfirmation) {
-      alert('Password do not match');
-    } else {
-      dispatch(login());
-    }
-  };
   return (
     <div className="flex flex-col items-center justify-between gap-20">
       <img src={logo} alt="logo-img" className="w-80" />
       <AuthForm
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         type={'Reset Password'}
         description={'Enter your new password.'}
       >
         <Input
-          type={'password'}
-          name={'Password'}
-          onChange={(e) => handleChange('password', e.target.value)}
+          type="password"
+          label="Password"
+          {...register('password')}
+          error={errors.password?.message}
         />
         <Input
-          type={'password'}
-          name={'Password confirmation'}
-          onChange={(e) => handleChange('passwordConfirmation', e.target.value)}
+          type="password"
+          label="Password Confirmation"
+          {...register('passwordConfirmation')}
+          error={errors.passwordConfirmation?.message}
         />
         <Btn>Submit</Btn>
       </AuthForm>
