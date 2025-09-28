@@ -16,6 +16,7 @@ import pro from '../imgs/bro.png';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import SidebarItem from '../UI/sidebar-item';
+import { url } from 'inspector';
 
 // Sidebar items data
 const sidebar_url = [
@@ -70,9 +71,20 @@ const sidebar_url = [
   },
   {
     name: 'Chronic Approval',
-    url: 'sss',
     icon: FaDatabase,
-    sub: [],
+    sub: [
+      { name: 'New Approval', url: 'chronic-approvals/chronic-approvals' },
+      {
+        name: 'Monthly Chronic Approvals',
+        url: 'chronic-approvals/monthly-chronic',
+      },
+      { name: 'Chronic Dashboard', url: 'chronic-approvals/monthly-chronic1' },
+      {
+        name: 'Monthly Chronic Review',
+        url: 'chronic-approvals/monthly-chronic2',
+      },
+      { name: 'Portal Approvals', url: 'chronic-approvals/monthly-chronic3' },
+    ],
   },
   {
     name: 'Batch',

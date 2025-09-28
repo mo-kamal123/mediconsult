@@ -8,6 +8,7 @@ import { memberRoutes } from '../../features/clients/members/routes/routes.jsx';
 import RouteErrorPage from '../components/route-error-page.jsx';
 import { providersRoutes } from '../../features/providers/providers-management/routes/routes.jsx';
 import { approvalsRoutes } from '../../features/approvals/approvals-management/routes/routes.jsx';
+import { ChronicApprovalRoutes } from '../../features/chronic-approvals/routes/routes.jsx';
 // import { memberRoutes } from '../../features/clients/members/routes/memberRoutes.jsx';
 
 // this is where we define our routes for the application
@@ -39,6 +40,7 @@ export const router = createBrowserRouter([
       ...memberRoutes,
       ...providersRoutes,
       ...approvalsRoutes,
+      ...ChronicApprovalRoutes
     ],
   },
 ]);
