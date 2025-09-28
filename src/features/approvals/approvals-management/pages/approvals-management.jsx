@@ -3,6 +3,7 @@ import MainHeader from '../../../../shared/UI/main-header';
 import TableActions from '../../../../shared/UI/table-actions';
 import Table from '../../../../shared/UI/table';
 import TablePagiation from '../../../../shared/UI/table-pagiation';
+import { FaPlusSquare } from 'react-icons/fa';
 
 const ApprovalsManagement = () => {
   const actions = [
@@ -10,6 +11,11 @@ const ApprovalsManagement = () => {
       type: 'clearFilter',
       Icon: MdFilterAltOff,
       label: 'Clear Filter',
+    },
+    {
+      type: 'newClient',
+      Icon: FaPlusSquare,
+      label: 'Add New',
     },
   ];
   const tableHeaders = [
