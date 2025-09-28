@@ -1,0 +1,9 @@
+import { lazy } from "react";
+import withSuspense from "../../../../app/components/with-suspense";
+
+
+const BatchReceived = lazy(() => import('../pages/batch-received'));
+
+export const BatchReceivedRoutes = [
+    {path: 'received', element: withSuspense( BatchReceived) }
+]
