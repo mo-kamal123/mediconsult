@@ -63,7 +63,7 @@ const sidebar_url = [
       { name: 'Canceled Approval Management', url: '' },
       {
         name: 'Portals Approvals Requests',
-        url: 'approvals/approval-requests',
+        url: 'approvals/portal-approval',
       },
       { name: 'Rejected Requests', url: '' },
     ],
