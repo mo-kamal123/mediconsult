@@ -16,7 +16,6 @@ import pro from '../imgs/bro.png';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import SidebarItem from '../UI/sidebar-item';
-import { url } from 'inspector';
 
 // Sidebar items data
 const sidebar_url = [
@@ -88,9 +87,18 @@ const sidebar_url = [
   },
   {
     name: 'Batch',
-    url: 'sss',
     icon: FaBoxes,
-    sub: [],
+    sub: [
+      { name: 'Batch Received', url: 'batch/received' },
+      { name: 'Batch Received Dashboard', url: 'batch/received-dashboard' },
+      { name: 'Batch Progress Dashboard', url: 'batch/progress-dashboard' },
+      { name: 'Batch Report Per Member', url: 'batch/report-per-member' },
+      { name: 'Claim Report Per Client', url: 'batch/claim-report-per-client' },
+      { name: 'Batch Client Report', url: 'batch/client-report' },
+      { name: 'Batch Scan', url: 'batch/scan' },
+      { name: 'Claim Books Handle', url: 'batch/claim-books-handle' },
+      { name: 'Inpatient Claims', url: 'batch/inpatient-claims' },
+    ],
   },
   {
     name: 'Reimbursement',
