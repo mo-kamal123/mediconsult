@@ -9,7 +9,7 @@ import { pricelistSchema } from '../validation/pricelist-validation';
 
 const PricelistForm = () => {
   const methods = useForm({
-    resolver: zodResolver(pricelistSchema), 
+    resolver: zodResolver(pricelistSchema),
     defaultValues: {
       priceListName: '',
       provider: '',

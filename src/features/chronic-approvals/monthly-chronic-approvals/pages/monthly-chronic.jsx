@@ -87,12 +87,16 @@ const MonthlyChronic = () => {
           },
         ]}
         extendableData={{
-            render: () => (
-                <div className="w-[90%] m-auto mt-5 flex flex-col ">
-                  <h3 className="text-lg text-[#1F4ED6]">Timeline</h3>
-                  <Table data={[]} cols={['Date', 'Source', 'User', 'Status', 'Nostes']} checkbox={false} />
-                </div>
-              ),
+          render: () => (
+            <div className="w-[90%] m-auto mt-5 flex flex-col ">
+              <h3 className="text-lg text-[#1F4ED6]">Timeline</h3>
+              <Table
+                data={[]}
+                cols={['Date', 'Source', 'User', 'Status', 'Nostes']}
+                checkbox={false}
+              />
+            </div>
+          ),
         }}
       />
     </div>

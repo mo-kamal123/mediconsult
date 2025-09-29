@@ -122,37 +122,39 @@ const PortalApproval = () => {
       <Table
         cols={tableHeaders}
         data={rows}
-        trailingData={[{
-          col: 'Actions',
-          render: (row) => (
-            <div className="flex items-center justify-between gap-2">
-              <button
-                className="text-[#c93b36] text-2xl "
-                onClick={() => alert(`activate ${row.Name}`)}
-              >
-                <MdDelete />
-              </button>
-              <button
-                className="text-blue-500 text-2xl "
-                onClick={() => alert(`deactivate ${row.Name}`)}
-              >
-                <SiGoogledocs />
-              </button>
-              <button
-                className="text-3xl "
-                onClick={() => alert(`pending ${row.Name}`)}
-              >
-                <TiAttachment  />
-              </button>
-              <button
-                className="text-green-500 text-2xl "
-                onClick={() => alert(`pending ${row.Name}`)}
-              >
-                <HiDocumentCheck />
-              </button>
-            </div>
-          ),
-        }]}
+        trailingData={[
+          {
+            col: 'Actions',
+            render: (row) => (
+              <div className="flex items-center justify-between gap-2">
+                <button
+                  className="text-[#c93b36] text-2xl "
+                  onClick={() => alert(`activate ${row.Name}`)}
+                >
+                  <MdDelete />
+                </button>
+                <button
+                  className="text-blue-500 text-2xl "
+                  onClick={() => alert(`deactivate ${row.Name}`)}
+                >
+                  <SiGoogledocs />
+                </button>
+                <button
+                  className="text-3xl "
+                  onClick={() => alert(`pending ${row.Name}`)}
+                >
+                  <TiAttachment />
+                </button>
+                <button
+                  className="text-green-500 text-2xl "
+                  onClick={() => alert(`pending ${row.Name}`)}
+                >
+                  <HiDocumentCheck />
+                </button>
+              </div>
+            ),
+          },
+        ]}
       />
       <TablePagiation />
     </div>

@@ -27,7 +27,7 @@ const RHFDropDown = ({
             type={type}
             value={field.value}
             onValueChange={field.onChange}
-            className={className}
+            className={`${className} ${errors[name] ? 'border-red-500' : ''}`}
           />
         )}
       />

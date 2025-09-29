@@ -5,7 +5,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { FiFilter } from 'react-icons/fi';
 
 const DropDown = ({
   data,
@@ -33,11 +32,9 @@ const DropDown = ({
         value={value}
         {...props}
       >
-  <SelectTrigger className={`w-full flex justify-between items-center ${className}`}>
-    <SelectValue placeholder={placeholder} />
-    {/* Replace this with your own icon */}
-    <FiFilter className="ml-2 h-4 w-4 opacity-50 text-muted-foreground" />
-  </SelectTrigger>
+        <SelectTrigger className={`w-full border-[#C2C2C2]  ${className}`}>
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
         <SelectContent>
           {/* Add "All" option for search type */}
           {type === 'search' && <SelectItem value="all">All</SelectItem>}

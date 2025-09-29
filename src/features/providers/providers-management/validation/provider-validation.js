@@ -1,4 +1,3 @@
-
 import { z } from 'zod';
 
 export const providerInfoSchema = z.object({
@@ -65,7 +64,6 @@ export const providerInfoSchema = z.object({
   allowChronicOnPortal: z.boolean(),
 });
 
-
 export const providerAccountSchema = z.object({
   commercialRegistrationNumber: z
     .string()
@@ -81,7 +79,6 @@ export const providerAccountSchema = z.object({
     .min(1, 'Taxes are required')
     .regex(/^\d+(\.\d{1,2})?$/, 'Must be a valid number'),
 });
-
 
 export const providerExtraFinanceSchema = z.object({
   providerType: z.string().nonempty('Provider type is required'),
