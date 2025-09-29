@@ -4,4 +4,5 @@ export const statusStyles = {
   Rejected: 'bg-red-100 text-red-800',
   Activated: 'bg-green-100 text-green-800',
   Active: 'bg-green-100 text-green-800',
+  Received: 'bg-[#E0F1FF] text-gray-800',
 };
