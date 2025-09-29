@@ -86,7 +86,9 @@ const ProviderForm = () => {
 
         {/* Provider Info */}
         <div className="flex flex-col gap-6">
-          <h3 className="font-semibold text-lg text-[#1F4ED6]">Provider Info</h3>
+          <h3 className="font-semibold text-lg text-[#1F4ED6]">
+            Provider Info
+          </h3>
 
           <div className="flex flex-wrap md:flex-nowrap gap-6">
             <Input
@@ -214,10 +216,7 @@ const ProviderForm = () => {
           </div>
 
           <div>
-            <input
-              type="checkbox"
-              {...register('allowChronicOnPortal')}
-            />
+            <input type="checkbox" {...register('allowChronicOnPortal')} />
             <label> Allow Chronic On Portal</label>
           </div>
         </div>

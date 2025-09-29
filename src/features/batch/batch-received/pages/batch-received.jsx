@@ -3,8 +3,11 @@ import MainHeader from '../../../../shared/UI/main-header';
 import Table from '../../../../shared/UI/table';
 import TableActions from '../../../../shared/UI/table-actions';
 import { RiFileExcel2Fill, RiPulseAiFill, RiSearch2Fill } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
+import { SiGoogledocs } from 'react-icons/si';
 
 const BatchReceived = () => {
+  const navigate = useNavigate();
   const actions = [
     {
       type: 'clearFilter',
@@ -25,6 +28,7 @@ const BatchReceived = () => {
       type: 'addNew',
       Icon: RiPulseAiFill,
       label: 'New Batch',
+      onClick: () => navigate('/batch/new'),
     },
   ];
   const tableheaders = [
@@ -63,18 +67,50 @@ const BatchReceived = () => {
     <div className="w-[95%] m-auto">
       <MainHeader>Batch Received</MainHeader>
       <TableActions actions={actions} tableheaders={tableheaders} />
-      <Table cols={tableheaders} data={data} extendableData={{
-        render: () => (
+      <Table
+        cols={tableheaders}
+        data={data}
+        extendableData={{
+          render: () => (
             <div className="w-[95%] m-auto mt-5 flex flex-col bg-gray-50 p-5 rounded-2xl border mb-5">
-                <h3 className="text-lg text-[#1F4ED6]">Batch Details</h3>
-                <TableActions actions={actions} tableheaders={['Serial', 'ID', 'Member ID', 'Member Name', 'Date ']} />
-                <Table cols={['Serial', 'ID', 'Member ID', 'Member Name', 'Date ']} data={[]} trailingData={{col: 'view', render: () => (
-                    <>
-                    </>
-                )}} />
+              <h3 className="text-lg text-[#1F4ED6]">Claims</h3>
+              <TableActions
+                actions={actions}
+                tableheaders={[
+                  'Serial',
+                  'ID',
+                  'Member ID',
+                  'Member Name',
+                  'Date',
+                ]}
+              />
+              <Table
+                cols={['Serial', 'ID', 'Member ID', 'Member Name', 'Date']}
+                data={[
+                  {
+                    Serial: '2',
+                    ID: '43432',
+                    'Member ID': '5135412',
+                    'Member Name': 'Karim Atef Mahmoud Badwy',
+                    Date: '01 Feb 2025',
+                  },
+                ]}
+                leadingData={{
+                  col: 'view',
+                  render: (row) => (
+                    <p
+                      onClick={() => navigate('/batch/120/claim/43432')}
+                      className="text-blue-500 text-xl"
+                    >
+                      <SiGoogledocs />
+                    </p>
+                  ),
+                }}
+              />
             </div>
-        )
-      }} />
+          ),
+        }}
+      />
     </div>
   );
 };

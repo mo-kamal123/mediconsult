@@ -8,7 +8,6 @@ import { toast } from 'sonner';
 import { useState } from 'react';
 import { newApprovalSchema } from '../validation/approval-validation';
 
-
 const NewApprovalForm = () => {
   const [diagnosis, setDiagnosis] = useState([
     'Flatulence',
@@ -153,24 +152,15 @@ const NewApprovalForm = () => {
 
             <div className="col-span-full flex gap-4 items-center">
               <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  {...register('debit')}
-                />
+                <input type="checkbox" {...register('debit')} />
                 Debit
               </label>
               <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  {...register('repeated')}
-                />
+                <input type="checkbox" {...register('repeated')} />
                 Repeated
               </label>
               <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  {...register('delivery')}
-                />
+                <input type="checkbox" {...register('delivery')} />
                 Delivery
               </label>
             </div>

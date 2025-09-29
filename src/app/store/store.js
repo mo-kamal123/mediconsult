@@ -15,6 +15,6 @@ export const store = configureStore({
     providers: providersSlice,
     providersLocations: providersLocationsSlice,
     providersPricelists: providersPricelistsSlice,
-    monthlyChronic: monthlyCronicSlice
+    monthlyChronic: monthlyCronicSlice,
   },
 });

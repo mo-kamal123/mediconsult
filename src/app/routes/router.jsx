@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
       ...providersRoutes,
       ...approvalsRoutes,
       ...ChronicApprovalRoutes,
-      ...batchRoutes
+      ...batchRoutes,
     ],
   },
 ]);
