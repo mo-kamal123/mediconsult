@@ -7,6 +7,7 @@ import { SiGoogledocs } from 'react-icons/si';
 import { HiDocumentCheck } from 'react-icons/hi2';
 import { TiAttachment } from 'react-icons/ti';
 import TablePagiation from '../../../../shared/UI/table-pagiation';
+import { useNavigate } from 'react-router-dom';
 
 const tableHeaders = [
   'RequestNo',
@@ -114,6 +115,7 @@ const actions = [
 ];
 
 const PortalApproval = () => {
+  const navigate = useNavigate();
   return (
     <div className="w-[90%] m-auto">
       <MainHeader>Portals Approvals Requests</MainHeader>
@@ -134,8 +136,10 @@ const PortalApproval = () => {
                   <MdDelete />
                 </button>
                 <button
-                  className="text-blue-500 text-2xl "
-                  onClick={() => alert(`deactivate ${row.Name}`)}
+                  className="text-blue-500 text-xl "
+                  onClick={() =>
+                    navigate(`/approvals/portal-approval/${row.RequestNo}`)
+                  }
                 >
                   <SiGoogledocs />
                 </button>
@@ -146,7 +150,7 @@ const PortalApproval = () => {
                   <TiAttachment />
                 </button>
                 <button
-                  className="text-green-500 text-2xl "
+                  className="text-green-600 text-2xl "
                   onClick={() => alert(`pending ${row.Name}`)}
                 >
                   <HiDocumentCheck />
