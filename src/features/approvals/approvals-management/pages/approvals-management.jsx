@@ -1,11 +1,15 @@
-import { MdFilterAltOff } from 'react-icons/md';
+import { MdFilterAltOff, MdLocalPrintshop } from 'react-icons/md';
 import MainHeader from '../../../../shared/UI/main-header';
 import TableActions from '../../../../shared/UI/table-actions';
 import Table from '../../../../shared/UI/table';
 import TablePagiation from '../../../../shared/UI/table-pagiation';
 import { FaPlusSquare } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { SiGoogledocs } from 'react-icons/si';
+import DragAndDrop from '../../../../shared/UI/drag&drop';
 
 const ApprovalsManagement = () => {
+  const navigate = useNavigate();
   const actions = [
     {
       type: 'clearFilter',
@@ -15,7 +19,14 @@ const ApprovalsManagement = () => {
     {
       type: 'newClient',
       Icon: FaPlusSquare,
-      label: 'Add New',
+      label: 'New Pharmacy Approval',
+      onClick: () => navigate('/approvals/new-pharmacy-approval'),
+    },
+    {
+      type: 'newClient',
+      Icon: FaPlusSquare,
+      label: 'New Regular Approval',
+      onClick: () => navigate('/approvals/new-regular-approval'),
     },
   ];
   const tableHeaders = [
@@ -43,6 +54,27 @@ const ApprovalsManagement = () => {
       <Table
         cols={tableHeaders}
         data={rows}
+        trailingData={[
+          {
+            col: 'Actions',
+            render: (row) => (
+              <div className="flex items-center justify-between gap-2">
+                <button
+                  className=" text-2xl "
+                  onClick={() => alert(`activate ${row.Name}`)}
+                >
+                  <MdLocalPrintshop />
+                </button>
+                <button
+                  className="text-[#4285F4] text-2xl "
+                  onClick={() => alert(`deactivate ${row.Name}`)}
+                >
+                  <SiGoogledocs />
+                </button>
+              </div>
+            ),
+          },
+        ]}
         extendableData={{
           render: () => (
             <div className="w-[90%] m-auto mt-5 flex flex-col ">
@@ -53,6 +85,7 @@ const ApprovalsManagement = () => {
         }}
       />
       <TablePagiation />
+      <DragAndDrop />
     </div>
   );
 };
