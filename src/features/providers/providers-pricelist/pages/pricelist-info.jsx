@@ -4,7 +4,7 @@ import PricelistForm from '../components/pricelist-form';
 
 const PricelistInfo = () => {
   return (
-    <div>
+    <div className="flex flex-col gap-10">
       <PricelistForm />
       <AddService />
       <PricelistDatabase />

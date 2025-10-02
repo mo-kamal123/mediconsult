@@ -75,7 +75,7 @@ const ClientForm = () => {
         <div className="flex flex-col gap-6">
           <h3 className="font-semibold text-lg text-[#1F4ED6]">Client Info</h3>
 
-          <div className="flex flex-wrap md:flex-nowrap gap-4">
+          <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
             <Input
               label="Client Info"
               {...register('clientInfo')}
@@ -100,7 +100,7 @@ const ClientForm = () => {
             />
           </div>
 
-          <div className="flex flex-wrap md:flex-nowrap gap-4">
+          <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
             <Input
               label="Client Type"
               {...register('clientType')}
@@ -124,7 +124,7 @@ const ClientForm = () => {
             />
           </div>
 
-          <div className="flex flex-wrap md:flex-nowrap gap-4">
+          <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
             <Input
               label="IBM Notes Id"
               {...register('ibmNotesId')}
@@ -144,7 +144,7 @@ const ClientForm = () => {
         <div className="flex flex-col gap-6">
           <h3 className="font-semibold text-lg text-[#1F4ED6]">Policy Info</h3>
 
-          <div className="flex flex-wrap md:flex-nowrap gap-4">
+          <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
             <Input
               label="Policy ID"
               {...register('policyId')}

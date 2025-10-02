@@ -94,3 +94,20 @@ export const providerExtraFinanceSchema = z.object({
   Landmark: z.string().nonempty('Landmark is required'),
   postalCode: z.string().nonempty('Postal code is required'),
 });
+
+export const newProviderSchema = z.object({
+  providerNameAR: z.string().min(1, 'Arabic name is required'),
+  providerNameEN: z.string().min(1, 'English name is required'),
+  providerCategory: z.string().min(1, 'Category is required'),
+  generalSpecialist: z.string().min(1, 'General specialty is required'),
+  subSpecialist: z.string().min(1, 'Sub-specialty is required'),
+  iBMNotesId: z.string().min(1, 'IBM Notes ID is required'),
+  hotline: z
+    .string()
+    .min(1, 'Hotline is required')
+    .regex(/^\d+$/, 'Hotline must be numeric'),
+  batchDays: z
+    .string()
+    .min(1, 'Batch days is required')
+    .regex(/^\d+$/, 'Batch days must be a number'),
+});

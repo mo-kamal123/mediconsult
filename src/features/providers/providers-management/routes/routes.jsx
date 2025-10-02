@@ -8,6 +8,7 @@ import { ProvidersCPTManagementRoutes } from '../../CPT-managment/routes/routes'
 
 // Lazy-loaded components
 const ProvidersManagement = lazy(() => import('../pages/providers-management'));
+const NewProvider = lazy(() => import('../pages/new-provider'));
 const ProviderData = lazy(() => import('../layouts/provider-data'));
 
 const ProviderLocations = lazy(() => import('../views/provider-locations'));
@@ -26,9 +27,10 @@ export const providersRoutes = [
     path: '/providers',
     children: [
       {
-        index: true,
+        path: 'provider-management',
         element: withSuspense(ProvidersManagement),
       },
+      { path: 'new', element: withSuspense(NewProvider) },
       {
         path: ':providerId',
         element: withSuspense(ProviderData),

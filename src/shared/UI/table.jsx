@@ -59,6 +59,7 @@ const Table = ({
                   type="checkbox"
                   className="ml-2"
                   onChange={() => handleCheckAll()}
+                  checked={checkedRows.length === data.length}
                 />
               </th>
             )}

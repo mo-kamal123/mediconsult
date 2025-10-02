@@ -4,8 +4,10 @@ import Table from '../../../../shared/UI/table';
 import TableActions from '../../../../shared/UI/table-actions';
 import { RiFileExcel2Fill } from 'react-icons/ri';
 import { MdFilterAltOff } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 const CPTManagement = () => {
+  const navigate = useNavigate();
   const tableheaders = [
     'ID',
     'Name (EN)',
@@ -28,9 +30,10 @@ const CPTManagement = () => {
       label: 'Export',
     },
     {
-      type: 'AddColumn',
+      type: 'newClient',
       Icon: FaPlusSquare,
       label: 'New',
+      onClick: () => navigate('/providers/new-service'),
     },
   ];
   const cptData = [
