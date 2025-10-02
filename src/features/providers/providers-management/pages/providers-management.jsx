@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import TablePagiation from '../../../../shared/UI/table-pagiation';
 import { Icon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { RiFileExcel2Fill } from 'react-icons/ri';
 
 const ProvidersManagement = () => {
   const navigate = useNavigate();
@@ -38,12 +39,8 @@ const ProvidersManagement = () => {
     {
       type: 'AddColumn',
       Icon: BsFillPlusSquareFill,
-      label: 'Add Column',
-    },
-    {
-      type: 'newProvider',
-      Icon: undefined,
       label: 'New Provider',
+      onClick: () => navigate('/providers/new'),
     },
     {
       type: 'updateStatus',
@@ -60,6 +57,11 @@ const ProvidersManagement = () => {
       Icon: MdDelete,
       label: 'Delete',
     },
+    {
+      type: 'export',
+      Icon: RiFileExcel2Fill,
+      label: 'Export',
+    },
   ];
 
   return (
@@ -75,12 +77,52 @@ const ProvidersManagement = () => {
           render: (row) => (
             <p
               className="text-blue-500 underline cursor-pointer"
-              onClick={() => navigate(`${row.ID}/locations`)}
+              onClick={() => navigate(`/providers/${row.ID}/locations`)}
             >
               view
             </p>
           ),
         }}
+        trailingData={[
+          {
+            col: 'Change Status',
+            render: (row) => (
+              <div className="flex items-center justify-between">
+                <button
+                  className="text-[#388E3C] text-2xl "
+                  onClick={() => alert(`activate ${row.Name}`)}
+                >
+                  <FaUserCheck />
+                </button>
+                <button
+                  className="text-[#DC0600] text-2xl "
+                  onClick={() => alert(`deactivate ${row.Name}`)}
+                >
+                  <FaUserTimes />
+                </button>
+                <button
+                  className="text-[#FFCC00] text-2xl "
+                  onClick={() => alert(`pending ${row.Name}`)}
+                >
+                  <FaUserClock />
+                </button>
+              </div>
+            ),
+          },
+          {
+            col: 'Attachments',
+            render: (row) => (
+              <div className="flex items-center justify-center">
+                <p
+                  onClick={() => navigate(`${row.ID}/attachments`)}
+                  className="text-blue-500 underline cursor-pointer"
+                >
+                  <ImAttachment />
+                </p>
+              </div>
+            ),
+          },
+        ]}
       />
       <TablePagiation />
     </div>

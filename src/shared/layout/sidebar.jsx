@@ -36,7 +36,7 @@ const sidebar_url = [
     name: 'Providers',
     icon: FaClipboard,
     sub: [
-      { name: 'Providers Management', url: '/providers' },
+      { name: 'Providers Management', url: '/providers/provider-management' },
       { name: 'Providers Locations', url: '/providers/locations' },
       { name: 'Providers Finance Report', url: '/providers/finance-report' },
       { name: 'Pricelists Management', url: '/providers/pricelists' },
