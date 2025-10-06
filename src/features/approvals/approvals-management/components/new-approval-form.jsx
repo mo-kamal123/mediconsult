@@ -7,7 +7,7 @@ import Input from '../../../../shared/UI/input';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { newApprovalSchema } from '../validation/approval-validation';
-import FormBtn from '../../../../shared/UI/Form-Btn';
+import FormBtn from '../../../../shared/UI/form-Btn';
 
 const NewApprovalForm = () => {
   const [diagnosis, setDiagnosis] = useState([

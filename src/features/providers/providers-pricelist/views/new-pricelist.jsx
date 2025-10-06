@@ -4,7 +4,7 @@ import Form from '../../../../shared/UI/from';
 import Input from '../../../../shared/UI/input';
 import { newPriceListSchema } from '../validation/pricelist-validation';
 import { toast } from 'sonner';
-import FormBtn from '../../../../shared/UI/Form-Btn';
+import FormBtn from '../../../../shared/UI/form-Btn';
 
 const NewPricelist = () => {
   const methods = useForm({
