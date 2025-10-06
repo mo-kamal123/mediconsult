@@ -6,7 +6,7 @@ import Input from '../../../../shared/UI/input';
 import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import Form from '../../../../shared/UI/from';
 import { memberInfoSchema } from '../validation/member-vaildation';
-import FormBtn from '../../../../shared/UI/Form-Btn';
+import FormBtn from '../../../../shared/UI/form-Btn';
 
 const MemberInfo = () => {
   const methods = useForm({

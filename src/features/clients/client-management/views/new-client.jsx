@@ -6,7 +6,7 @@ import Input from '../../../../shared/UI/input';
 import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import { newClientSchema } from '../validation/client-validation';
 import Form from '../../../../shared/UI/from';
-import FormBtn from '../../../../shared/UI/Form-Btn';
+import FormBtn from '../../../../shared/UI/form-Btn';
 
 const NewClient = () => {
   const navigate = useNavigate();

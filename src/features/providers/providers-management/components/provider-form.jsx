@@ -7,7 +7,7 @@ import Input from '../../../../shared/UI/input';
 import Form from '../../../../shared/UI/from';
 import { toast } from 'sonner';
 import { providerInfoSchema } from '../validation/provider-validation';
-import FormBtn from '../../../../shared/UI/Form-Btn';
+import FormBtn from '../../../../shared/UI/form-Btn';
 
 const ProviderForm = () => {
   const methods = useForm({

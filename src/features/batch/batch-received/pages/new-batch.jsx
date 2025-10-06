@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { validateNewBatch } from '../validation/batch-validation';
 import MainHeader from '../../../../shared/UI/main-header';
-import FormBtn from '../../../../shared/UI/Form-Btn';
+import FormBtn from '../../../../shared/UI/form-Btn';
 
 const NewBatch = () => {
   const navigate = useNavigate();
