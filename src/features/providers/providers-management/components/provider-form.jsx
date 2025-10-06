@@ -7,6 +7,7 @@ import Input from '../../../../shared/UI/input';
 import Form from '../../../../shared/UI/from';
 import { toast } from 'sonner';
 import { providerInfoSchema } from '../validation/provider-validation';
+import FormBtn from '../../../../shared/UI/form-Btn';
 
 const ProviderForm = () => {
   const methods = useForm({
@@ -61,6 +62,7 @@ const ProviderForm = () => {
             <div className="relative w-[150px] h-[200px] border border-dashed border-gray-400 rounded flex items-center justify-center overflow-hidden cursor-pointer hover:border-blue-500 transition">
               <input
                 type="file"
+                id="fileInput"
                 accept="image/png, image/jpeg"
                 {...register('logo')}
                 className="absolute inset-0 opacity-0 cursor-pointer"
@@ -68,13 +70,15 @@ const ProviderForm = () => {
               <FaImage className="text-4xl text-gray-400" />
             </div>
             <div className="flex flex-col gap-2">
-              <button
+              <FormBtn
+                role={'upload'}
                 type="button"
-                className="flex items-center gap-2 text-[#4285F4] border border-[#4285F4] w-fit px-4 py-2 rounded-2xl"
+                className="flex items-center gap-2 w-fit"
+                onClick={() => document.getElementById('fileInput').click()}
               >
                 <FiUpload />
                 Upload
-              </button>
+              </FormBtn>
               <p className="text-sm text-[#8B8B9B] max-w-sm">
                 Please upload a JPG or PNG file with a minimum dimension of
                 200x200, not exceeding 3MB.
@@ -86,7 +90,9 @@ const ProviderForm = () => {
 
         {/* Provider Info */}
         <div className="flex flex-col gap-6">
-          <h3 className="font-semibold text-lg text-[#1F4ED6]">Provider Info</h3>
+          <h3 className="font-semibold text-lg text-[#1F4ED6]">
+            Provider Info
+          </h3>
 
           <div className="flex flex-wrap md:flex-nowrap gap-6">
             <Input
@@ -214,29 +220,19 @@ const ProviderForm = () => {
           </div>
 
           <div>
-            <input
-              type="checkbox"
-              {...register('allowChronicOnPortal')}
-            />
+            <input type="checkbox" {...register('allowChronicOnPortal')} />
             <label> Allow Chronic On Portal</label>
           </div>
         </div>
 
         {/* Buttons */}
         <div className="flex gap-6 justify-end">
-          <button
-            className="border border-[#F56C6C] text-[#F56C6C] py-2 px-6 rounded-lg"
-            type="button"
-            onClick={handleDelete}
-          >
+          <FormBtn role={'delete'} type="button" onClick={handleDelete}>
             Delete
-          </button>
-          <button
-            className="bg-blue-500 py-2 px-6 text-white rounded-lg"
-            type="submit"
-          >
+          </FormBtn>
+          <FormBtn role={'save'} type="submit">
             Save
-          </button>
+          </FormBtn>
         </div>
       </Form>
     </FormProvider>

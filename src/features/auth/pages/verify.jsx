@@ -32,7 +32,7 @@ const Verify = () => {
       <AuthForm
         onSubmit={handleSubmit(onSubmit)}
         type={'OTP'}
-        description={'Enter we sent OTP to your phone number. Check your SMS.'}
+        description={'we sent OTP to your phone number. Check your SMS.'}
       >
         {/* Controller needed because OTPInput is a custom component */}
         <Controller

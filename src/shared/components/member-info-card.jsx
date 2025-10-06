@@ -1,14 +1,15 @@
+import { useState } from 'react';
 import { FaUser } from 'react-icons/fa';
-import NewApprovalForm from '../components/new-approval-form';
-import MainHeader from '../../../../shared/UI/main-header';
-import MedicinesInfo from '../components/medicines-info';
+import DragAndDrop from '../UI/drag&drop';
+import Modal from '../UI/modal';
+import MemberHistoryModal from '../../features/approvals/approvals-management/components/member-history-modal';
 
-const NewApproval = () => {
+const MemberInfoCard = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState(''); // 'history' or 'attachment'
+
   return (
-    <div className="flex flex-col gap-10 w-[95%] m-auto">
-      <MainHeader>New Approval</MainHeader>
-      <NewApprovalForm />
-      {/* Member Information Card */}
+    <>
       <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-6">
         <h2 className="font-semibold text-[#1F4ED6] text-lg">
           Member Information
@@ -85,16 +86,34 @@ const NewApproval = () => {
 
         {/* Footer Buttons */}
         <div className="flex justify-end gap-4 mt-4">
-          <button className="border px-4 py-2 rounded">History</button>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded">
+          <button
+            className="border px-4 py-2 rounded"
+            onClick={() => {
+              setModalType('history');
+              setIsModalOpen(true);
+            }}
+          >
+            History
+          </button>
+          <button
+            onClick={() => {
+              setModalType('attachment');
+              setIsModalOpen(true);
+            }}
+            className="bg-blue-600 text-white px-4 py-2 rounded"
+          >
             Attachment
           </button>
         </div>
       </div>
 
-      <MedicinesInfo />
-    </div>
+      {/* Attachment Modal */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        {modalType === 'history' && <MemberHistoryModal />}
+        {modalType === 'attachment' && <DragAndDrop />}
+      </Modal>
+    </>
   );
 };
 
-export default NewApproval;
+export default MemberInfoCard;

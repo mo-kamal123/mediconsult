@@ -3,8 +3,8 @@ import ItemStatus from './item-status';
 import { IoIosArrowForward } from 'react-icons/io';
 
 const Table = ({
-  cols,
-  data,
+  cols = [],
+  data = [],
   checkbox = true,
   leadingData,
   trailingData,
@@ -59,6 +59,7 @@ const Table = ({
                   type="checkbox"
                   className="ml-2"
                   onChange={() => handleCheckAll()}
+                  checked={checkedRows.length === data.length}
                 />
               </th>
             )}

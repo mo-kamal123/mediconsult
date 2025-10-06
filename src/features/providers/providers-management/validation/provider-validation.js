@@ -1,4 +1,3 @@
-
 import { z } from 'zod';
 
 export const providerInfoSchema = z.object({
@@ -65,7 +64,6 @@ export const providerInfoSchema = z.object({
   allowChronicOnPortal: z.boolean(),
 });
 
-
 export const providerAccountSchema = z.object({
   commercialRegistrationNumber: z
     .string()
@@ -82,7 +80,6 @@ export const providerAccountSchema = z.object({
     .regex(/^\d+(\.\d{1,2})?$/, 'Must be a valid number'),
 });
 
-
 export const providerExtraFinanceSchema = z.object({
   providerType: z.string().nonempty('Provider type is required'),
   TAXNumber: z.string().nonempty('TAX Number is required'),
@@ -96,4 +93,21 @@ export const providerExtraFinanceSchema = z.object({
   officeNo: z.string().nonempty('Office number is required'),
   Landmark: z.string().nonempty('Landmark is required'),
   postalCode: z.string().nonempty('Postal code is required'),
+});
+
+export const newProviderSchema = z.object({
+  providerNameAR: z.string().min(1, 'Arabic name is required'),
+  providerNameEN: z.string().min(1, 'English name is required'),
+  providerCategory: z.string().min(1, 'Category is required'),
+  generalSpecialist: z.string().min(1, 'General specialty is required'),
+  subSpecialist: z.string().min(1, 'Sub-specialty is required'),
+  iBMNotesId: z.string().min(1, 'IBM Notes ID is required'),
+  hotline: z
+    .string()
+    .min(1, 'Hotline is required')
+    .regex(/^\d+$/, 'Hotline must be numeric'),
+  batchDays: z
+    .string()
+    .min(1, 'Batch days is required')
+    .regex(/^\d+$/, 'Batch days must be a number'),
 });

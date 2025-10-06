@@ -8,6 +8,10 @@ body {
   font-display: swap;
 }
 
+.select-trigger-icon {
+  display: none;
+}
+
 @theme {
   --color-body: #f7fafc;
   --color-borders: #e1e1e4;

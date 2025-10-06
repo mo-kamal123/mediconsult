@@ -7,8 +7,12 @@ import { FaFileInvoiceDollar } from 'react-icons/fa';
 import { ImAttachment } from 'react-icons/im';
 import TablePagiation from '../../../../shared/UI/table-pagiation';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import DragAndDrop from '../../../../shared/UI/drag&drop';
+import Modal from '../../../../shared/UI/modal';
 
 const PricelistTable = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const pricelistData = useSelector((state) => state.providersPricelists);
   const navigate = useNavigate();
   const actions = [
@@ -31,11 +35,13 @@ const PricelistTable = () => {
       type: 'AddColumn',
       Icon: FaFileInvoiceDollar,
       label: 'Copy Pricelist',
+      onClick: () => navigate('copy'),
     },
     {
       type: 'AddColumn',
       Icon: FaFileInvoiceDollar,
       label: 'New Pricelist',
+      onClick: () => navigate('new'),
     },
   ];
 
@@ -61,10 +67,7 @@ const PricelistTable = () => {
           {
             col: 'De-Attach',
             render: () => (
-              <p
-                className="text-gray-500 text-xl w-fit m-auto cursor-pointer"
-                // onClick={() => navigate(`${row.ID}`)}
-              >
+              <p className="text-gray-500 text-xl w-fit m-auto cursor-pointer">
                 <ImAttachment />
               </p>
             ),
@@ -72,7 +75,10 @@ const PricelistTable = () => {
           {
             col: 'Attachment',
             render: () => (
-              <p className="text-blue-500 text-xl w-fit m-auto cursor-pointer">
+              <p
+                className="text-blue-500 text-xl w-fit m-auto cursor-pointer"
+                onClick={() => setIsModalOpen(true)}
+              >
                 <ImAttachment />
               </p>
             ),
@@ -81,6 +87,11 @@ const PricelistTable = () => {
       />
 
       <TablePagiation />
+
+      {/* Attachment Modal */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <DragAndDrop />
+      </Modal>
     </div>
   );
 };

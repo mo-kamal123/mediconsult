@@ -28,13 +28,13 @@ const RootLayout = () => {
         >
           <Outlet />
           <div className="w-[95%] m-auto md:flex items-center justify-between px-10 bg-white border border-borders rounded-2xl my-5 p-5">
-            <div>
-              <p className="md:text-xl">Powered by</p>
-              <img src={khusm} alt="khusm-img" className="w-30 md:w-50" />
-            </div>
             <p className="text-[#B4B7C8] text-sm mt-4 md:mt-0">
               Copyright © 2024 All rights reserved.
             </p>
+            <div>
+              <p className="md:text-lg">Powered by</p>
+              <img src={khusm} alt="khusm-img" className="w-30 md:w-42" />
+            </div>
           </div>
         </div>
       </div>

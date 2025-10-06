@@ -17,3 +17,18 @@ export const addServiceSchema = z.object({
   discount: z.string().nonempty('Discount is required'),
   priceApproval: z.boolean(),
 });
+
+export const newPriceListSchema = z.object({
+  priceListName: z.string().min(1, 'Price List Name is required'),
+  note: z.string().optional(),
+});
+
+export const copyPriceListSchema = z.object({
+  selectPriceLists: z.string().min(1, 'Please select a price list'),
+  newPriceListName: z.string().min(1, 'New Price List Name is required'),
+  increasePrices: z
+    .string()
+    .refine((val) => !isNaN(parseFloat(val)), { message: 'Must be a number' }),
+  copyWithPrice: z.boolean().optional(),
+  copyWithDiscount: z.boolean().optional(),
+});

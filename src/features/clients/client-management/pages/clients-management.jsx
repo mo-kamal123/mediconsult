@@ -7,6 +7,8 @@ import { SiGoogledocs } from 'react-icons/si';
 import { FaUserCheck, FaUserClock, FaUserTimes } from 'react-icons/fa';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { ImAttachment } from 'react-icons/im';
+import TablePagination from '../../../../shared/UI/table-pagiation';
 
 // Table headers
 const tableHeaders = [
@@ -55,9 +57,9 @@ const ClientsManagement = () => {
         // Customize leading column with Google Docs icon
         leadingData={{
           col: '',
-          render: () => (
+          render: (row) => (
             <p
-              onClick={() => navigate('120/client-info')}
+              onClick={() => navigate(`${row.ID}/client-info`)}
               className="text-blue-500 text-xl"
             >
               <SiGoogledocs />
@@ -65,32 +67,35 @@ const ClientsManagement = () => {
           ),
         }}
         // Customize trailing column with action buttons
-        trailingData={{
-          col: 'Change Status',
-          render: (row) => (
-            <div className="flex items-center justify-between">
-              <button
-                className="text-[#388E3C] text-2xl "
-                onClick={() => alert(`activate ${row.Name}`)}
-              >
-                <FaUserCheck />
-              </button>
-              <button
-                className="text-[#DC0600] text-2xl "
-                onClick={() => alert(`deactivate ${row.Name}`)}
-              >
-                <FaUserTimes />
-              </button>
-              <button
-                className="text-[#FFCC00] text-2xl "
-                onClick={() => alert(`pending ${row.Name}`)}
-              >
-                <FaUserClock />
-              </button>
-            </div>
-          ),
-        }}
+        trailingData={[
+          {
+            col: 'Change Status',
+            render: (row) => (
+              <div className="flex items-center justify-between">
+                <button
+                  className="text-[#388E3C] text-2xl "
+                  onClick={() => alert(`activate ${row.Name}`)}
+                >
+                  <FaUserCheck />
+                </button>
+                <button
+                  className="text-[#DC0600] text-2xl "
+                  onClick={() => alert(`deactivate ${row.Name}`)}
+                >
+                  <FaUserTimes />
+                </button>
+                <button
+                  className="text-[#FFCC00] text-2xl "
+                  onClick={() => alert(`pending ${row.Name}`)}
+                >
+                  <FaUserClock />
+                </button>
+              </div>
+            ),
+          },
+        ]}
       />
+      <TablePagination />
     </section>
   );
 };

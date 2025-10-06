@@ -32,7 +32,7 @@ const DropDown = ({
         value={value}
         {...props}
       >
-        <SelectTrigger className={`w-full   ${className}`}>
+        <SelectTrigger className={`w-full border-[#C2C2C2]  ${className}`}>
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>

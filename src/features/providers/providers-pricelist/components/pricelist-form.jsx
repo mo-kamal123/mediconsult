@@ -6,10 +6,11 @@ import Form from '../../../../shared/UI/from';
 import Input from '../../../../shared/UI/input';
 import { toast } from 'sonner';
 import { pricelistSchema } from '../validation/pricelist-validation';
+import FormBtn from '../../../../shared/UI/form-Btn';
 
 const PricelistForm = () => {
   const methods = useForm({
-    resolver: zodResolver(pricelistSchema), 
+    resolver: zodResolver(pricelistSchema),
     defaultValues: {
       priceListName: '',
       provider: '',
@@ -134,19 +135,12 @@ const PricelistForm = () => {
 
         {/* Buttons */}
         <div className="flex gap-6 justify-end">
-          <button
-            className="border border-[#F56C6C] text-[#F56C6C] py-2 px-6 rounded-lg"
-            type="button"
-            onClick={handleDelete}
-          >
+          <FormBtn role={'delete'} type="button" onClick={handleDelete}>
             Delete
-          </button>
-          <button
-            className="bg-blue-500 py-2 px-6 text-white rounded-lg"
-            type="submit"
-          >
+          </FormBtn>
+          <FormBtn role={'save'} type="submit">
             Save
-          </button>
+          </FormBtn>
         </div>
       </Form>
     </FormProvider>

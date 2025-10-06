@@ -7,7 +7,7 @@ import Input from '../../../../shared/UI/input';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { newApprovalSchema } from '../validation/approval-validation';
-
+import FormBtn from '../../../../shared/UI/form-Btn';
 
 const NewApprovalForm = () => {
   const [diagnosis, setDiagnosis] = useState([
@@ -153,43 +153,27 @@ const NewApprovalForm = () => {
 
             <div className="col-span-full flex gap-4 items-center">
               <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  {...register('debit')}
-                />
+                <input type="checkbox" {...register('debit')} />
                 Debit
               </label>
               <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  {...register('repeated')}
-                />
+                <input type="checkbox" {...register('repeated')} />
                 Repeated
               </label>
               <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  {...register('delivery')}
-                />
+                <input type="checkbox" {...register('delivery')} />
                 Delivery
               </label>
             </div>
           </div>
 
           <div className="flex justify-end mt-6 gap-4">
-            <button
-              className="border border-gray-400 text-gray-600 px-6 py-2 rounded-lg"
-              type="button"
-              onClick={handleCancel}
-            >
+            <FormBtn role={'delete'} type="button" onClick={handleCancel}>
               Cancel
-            </button>
-            <button
-              className="bg-blue-500 text-white px-6 py-2 rounded-lg"
-              type="submit"
-            >
+            </FormBtn>
+            <FormBtn role={'save'} type="submit">
               Save
-            </button>
+            </FormBtn>
           </div>
         </div>
       </Form>

@@ -35,7 +35,7 @@ const actions = [
 const MedicinesInfo = () => {
   return (
     <div>
-      <div className="bg-white border border-borders p-4 rounded-2xl shadow-sm">
+      <div className="bg-white border border-borders p-4 rounded-2xl shadow-sm -mb-7">
         <h2 className="font-semibold text-[#1F4ED6] text-lg">
           Medicines Information
         </h2>

@@ -7,6 +7,7 @@ import { SiGoogledocs } from 'react-icons/si';
 import { HiDocumentCheck } from 'react-icons/hi2';
 import { TiAttachment } from 'react-icons/ti';
 import TablePagiation from '../../../../shared/UI/table-pagiation';
+import { useNavigate } from 'react-router-dom';
 
 const tableHeaders = [
   'RequestNo',
@@ -114,45 +115,50 @@ const actions = [
 ];
 
 const PortalApproval = () => {
+  const navigate = useNavigate();
   return (
     <div className="w-[90%] m-auto">
       <MainHeader>Portals Approvals Requests</MainHeader>
-      <Table cols={tableHeaders} />
+      <Table cols={tableHeaders} data={[]} />
       <TableActions actions={actions} tableheaders={tableHeaders} />
       <Table
         cols={tableHeaders}
         data={rows}
-        trailingData={[{
-          col: 'Actions',
-          render: (row) => (
-            <div className="flex items-center justify-between gap-2">
-              <button
-                className="text-[#c93b36] text-2xl "
-                onClick={() => alert(`activate ${row.Name}`)}
-              >
-                <MdDelete />
-              </button>
-              <button
-                className="text-blue-500 text-2xl "
-                onClick={() => alert(`deactivate ${row.Name}`)}
-              >
-                <SiGoogledocs />
-              </button>
-              <button
-                className="text-3xl "
-                onClick={() => alert(`pending ${row.Name}`)}
-              >
-                <TiAttachment  />
-              </button>
-              <button
-                className="text-green-500 text-2xl "
-                onClick={() => alert(`pending ${row.Name}`)}
-              >
-                <HiDocumentCheck />
-              </button>
-            </div>
-          ),
-        }]}
+        trailingData={[
+          {
+            col: 'Actions',
+            render: (row) => (
+              <div className="flex items-center justify-between gap-2">
+                <button
+                  className="text-[#c93b36] text-2xl "
+                  onClick={() => alert(`activate ${row.Name}`)}
+                >
+                  <MdDelete />
+                </button>
+                <button
+                  className="text-blue-500 text-xl "
+                  onClick={() =>
+                    navigate(`/approvals/portal-approval/${row.RequestNo}`)
+                  }
+                >
+                  <SiGoogledocs />
+                </button>
+                <button
+                  className="text-3xl "
+                  onClick={() => alert(`pending ${row.Name}`)}
+                >
+                  <TiAttachment />
+                </button>
+                <button
+                  className="text-green-600 text-2xl "
+                  onClick={() => alert(`pending ${row.Name}`)}
+                >
+                  <HiDocumentCheck />
+                </button>
+              </div>
+            ),
+          },
+        ]}
       />
       <TablePagiation />
     </div>

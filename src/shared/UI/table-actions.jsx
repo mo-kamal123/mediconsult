@@ -37,19 +37,20 @@ const TableActions = ({ actions, tableheaders, children }) => {
       </div>
 
       {/* Action buttons */}
-      <div className="flex items-center justify-between md:justify-normal gap-2 md:gap-4 overflow-x-auto bg-white border border-borders p-4 rounded-2xl shadow-sm">
-        {children}
-
-        {actions?.map(({ type, label, Icon, onClick }) => (
-          <TableBtn
-            key={type}
-            type={type}
-            label={label}
-            Icon={Icon}
-            handleClick={onClick}
-          />
-        ))}
-      </div>
+      {(actions || children) && (
+        <div className="flex items-center justify-between md:justify-normal gap-2 max-h-[100px] md:gap-4 overflow-x-auto overflow-y-visible bg-white border border-borders p-4 rounded-2xl shadow-sm">
+          {actions?.map(({ type, label, Icon, onClick }) => (
+            <TableBtn
+              key={type}
+              type={type}
+              label={label}
+              Icon={Icon}
+              handleClick={onClick}
+            />
+          ))}
+          {children}
+        </div>
+      )}
     </div>
   );
 };
