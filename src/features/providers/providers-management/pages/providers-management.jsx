@@ -66,7 +66,7 @@ const ProvidersManagement = () => {
 
   return (
     <div className="w-[95%] m-auto">
-      <MainHeader>ProvidersManagement</MainHeader>
+      <MainHeader>Providers Management</MainHeader>
       <TableActions tableheaders={tableHeaders} actions={actions} />
       <Table
         cols={tableHeaders}

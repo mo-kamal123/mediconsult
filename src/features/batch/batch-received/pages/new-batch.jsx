@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { validateNewBatch } from '../validation/batch-validation';
 import MainHeader from '../../../../shared/UI/main-header';
+import FormBtn from '../../../../shared/UI/Form-Btn';
 
 const NewBatch = () => {
   const navigate = useNavigate();
@@ -137,19 +138,12 @@ const NewBatch = () => {
 
           {/* Footer Buttons */}
           <div className="mt-6 flex justify-end gap-4">
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
-            >
+            <FormBtn role={'delete'} type="button" onClick={() => navigate(-1)}>
               Cancel
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-            >
+            </FormBtn>
+            <FormBtn role={'save'} type="submit">
               Save Batch
-            </button>
+            </FormBtn>
           </div>
         </Form>
       </div>

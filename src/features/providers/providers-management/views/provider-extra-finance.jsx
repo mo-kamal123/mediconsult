@@ -6,6 +6,7 @@ import Form from '../../../../shared/UI/from';
 import Input from '../../../../shared/UI/input';
 import { toast } from 'sonner';
 import { providerExtraFinanceSchema } from '../validation/provider-validation';
+import FormBtn from '../../../../shared/UI/Form-Btn';
 
 const ProviderExtraFinance = () => {
   const methods = useForm({
@@ -162,19 +163,12 @@ const ProviderExtraFinance = () => {
 
         {/* Buttons */}
         <div className="flex gap-6 justify-end">
-          <button
-            className="border border-[#F56C6C] text-[#F56C6C] py-2 px-6 rounded-lg"
-            type="button"
-            onClick={handleDelete}
-          >
+          <FormBtn role={'delete'} type="button" onClick={handleDelete}>
             Delete
-          </button>
-          <button
-            className="bg-blue-500 py-2 px-6 text-white rounded-lg"
-            type="submit"
-          >
+          </FormBtn>
+          <FormBtn role={'save'} type="submit">
             Save
-          </button>
+          </FormBtn>
         </div>
       </Form>
     </FormProvider>

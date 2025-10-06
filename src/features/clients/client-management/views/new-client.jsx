@@ -6,6 +6,7 @@ import Input from '../../../../shared/UI/input';
 import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import { newClientSchema } from '../validation/client-validation';
 import Form from '../../../../shared/UI/from';
+import FormBtn from '../../../../shared/UI/Form-Btn';
 
 const NewClient = () => {
   const navigate = useNavigate();
@@ -101,12 +102,9 @@ const NewClient = () => {
 
             {/* Footer */}
             <div className="mt-6 text-right">
-              <button
-                type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-              >
+              <FormBtn type="submit" role={'save'}>
                 Save
-              </button>
+              </FormBtn>
             </div>
           </Form>
         </div>

@@ -4,6 +4,7 @@ import Input from '../../../../shared/UI/input';
 import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { claimForm } from '../validation/batch-validation';
+import FormBtn from '../../../../shared/UI/Form-Btn';
 
 const ClaimInfoForm = () => {
   const methods = useForm({
@@ -118,19 +119,12 @@ const ClaimInfoForm = () => {
         </div>
 
         <div className="flex justify-end mt-6 gap-4">
-          <button
-            type="button"
-            onClick={handleCancel}
-            className="border border-gray-400 text-gray-600 px-6 py-2 rounded-lg"
-          >
+          <FormBtn role={'delete'} type="button" onClick={handleCancel}>
             Cancel
-          </button>
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-6 py-2 rounded-lg"
-          >
+          </FormBtn>
+          <FormBtn role={'save'} type="submit">
             Save
-          </button>
+          </FormBtn>
         </div>
       </Form>
     </FormProvider>

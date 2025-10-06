@@ -3,8 +3,8 @@ import ItemStatus from './item-status';
 import { IoIosArrowForward } from 'react-icons/io';
 
 const Table = ({
-  cols,
-  data,
+  cols = [],
+  data = [],
   checkbox = true,
   leadingData,
   trailingData,

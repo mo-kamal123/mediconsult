@@ -5,6 +5,7 @@ import Input from '../../../../shared/UI/input';
 import Form from '../../../../shared/UI/from';
 import { toast } from 'sonner';
 import { newServiceSchema } from '../validation/CPT-validation';
+import FormBtn from '../../../../shared/UI/Form-Btn';
 
 const NewService = () => {
   const methods = useForm({
@@ -77,19 +78,12 @@ const NewService = () => {
 
         {/* Buttons */}
         <div className="flex gap-6 justify-end">
-          <button
-            className="border border-[#F56C6C] text-[#F56C6C] py-2 px-6 rounded-lg"
-            type="button"
-            onClick={handleDelete}
-          >
+          <FormBtn role={'delete'} type="button" onClick={handleDelete}>
             Delete
-          </button>
-          <button
-            className="bg-blue-500 py-2 px-6 text-white rounded-lg"
-            type="submit"
-          >
+          </FormBtn>
+          <FormBtn role={'save'} type="submit">
             Save
-          </button>
+          </FormBtn>
         </div>
       </Form>
     </FormProvider>
