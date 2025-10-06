@@ -7,7 +7,7 @@ import { clientInfoSchema } from '../validation/client-validation';
 import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import Form from '../../../../shared/UI/from';
 import { toast } from 'sonner';
-import FormBtn from '../../../../shared/UI/Form-Btn';
+import FormBtn from '../../../../shared/UI/form-Btn';
 
 const ClientForm = () => {
   const methods = useForm({

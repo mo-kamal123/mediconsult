@@ -5,7 +5,7 @@ import Input from '../../../../shared/UI/input';
 import Form from '../../../../shared/UI/from';
 import { toast } from 'sonner';
 import { newServiceSchema } from '../validation/CPT-validation';
-import FormBtn from '../../../../shared/UI/Form-Btn';
+import FormBtn from '../../../../shared/UI/form-Btn';
 
 const NewService = () => {
   const methods = useForm({

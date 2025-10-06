@@ -4,7 +4,7 @@ import Input from '../../../../shared/UI/input';
 import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { claimForm } from '../validation/batch-validation';
-import FormBtn from '../../../../shared/UI/Form-Btn';
+import FormBtn from '../../../../shared/UI/form-Btn';
 
 const ClaimInfoForm = () => {
   const methods = useForm({

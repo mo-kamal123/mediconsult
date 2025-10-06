@@ -6,7 +6,7 @@ import Input from '../../../../shared/UI/input';
 import { copyPriceListSchema } from '../validation/pricelist-validation';
 import { toast } from 'sonner';
 import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
-import FormBtn from '../../../../shared/UI/Form-Btn';
+import FormBtn from '../../../../shared/UI/form-Btn';
 
 const CopyPricelist = () => {
   const methods = useForm({
