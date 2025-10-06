@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Form from './from'; // Ensure Form passes className to a <div> or <form>
+import Form from './from';
 import { toast } from 'sonner';
 import { MdDeleteOutline, MdOutlineCloudUpload } from 'react-icons/md';
 import { BsFiletypeJpg } from 'react-icons/bs';

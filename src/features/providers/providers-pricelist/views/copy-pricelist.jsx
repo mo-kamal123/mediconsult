@@ -6,6 +6,7 @@ import Input from '../../../../shared/UI/input';
 import { copyPriceListSchema } from '../validation/pricelist-validation';
 import { toast } from 'sonner';
 import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
+import FormBtn from '../../../../shared/UI/Form-Btn';
 
 const CopyPricelist = () => {
   const methods = useForm({
@@ -106,19 +107,12 @@ const CopyPricelist = () => {
 
           {/* Buttons */}
           <div className="flex gap-4 justify-end mt-6">
-            <button
-              type="button"
-              onClick={handleCancel}
-              className="border border-red-500 text-red-500 py-2 px-6 rounded-lg hover:bg-red-50 transition"
-            >
+            <FormBtn type="button" onClick={handleCancel} role={'delete'}>
               Cancel
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-500 py-2 px-6 text-white rounded-lg hover:bg-blue-600 transition"
-            >
+            </FormBtn>
+            <FormBtn type="submit" role={'save'}>
               Create Price List
-            </button>
+            </FormBtn>
           </div>
         </Form>
       </FormProvider>

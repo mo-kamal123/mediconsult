@@ -24,12 +24,12 @@ const sidebar_url = [
     icon: FaUsers,
     sub: [
       { name: 'Clients Management', url: '/clients' },
-      { name: 'Members Management', url: 'members' },
-      { name: 'Deactivated Members Management', url: 'Deactivated' },
-      { name: 'Members History', url: 'History' },
-      { name: 'Policy Management', url: 'Policy' },
-      { name: 'TOB Viewer', url: 'Viewer' },
-      { name: 'TOB Builder', url: 'Builder' },
+      { name: 'Members Management', url: '/members-management' },
+      // { name: 'Deactivated Members Management', url: 'Deactivated' },
+      { name: 'Members History', url: 'members-history' },
+      // { name: 'Policy Management', url: 'Policy' },
+      // { name: 'TOB Viewer', url: 'Viewer' },
+      // { name: 'TOB Builder', url: 'Builder' },
     ],
   },
   {

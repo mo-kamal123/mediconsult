@@ -3,7 +3,7 @@ import MainHeader from '../../../../shared/UI/main-header';
 import Tabs from '../../../../shared/UI/tabs';
 // Tabs data
 const membersTabs = [
-  { label: 'Member Info', path: '' },
+  { label: 'Member Info', path: 'member-info' },
   { label: 'Family Members', path: 'family-members' },
   { label: 'Member History', path: 'member-history' },
   { label: "Utilization's", path: 'utilizations' },

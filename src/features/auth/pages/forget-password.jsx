@@ -37,6 +37,7 @@ const ForgetPassword = () => {
       >
         <Input
           type={'text'}
+          label={'Phone'}
           {...register('phone')}
           error={errors.phone?.message}
         />
