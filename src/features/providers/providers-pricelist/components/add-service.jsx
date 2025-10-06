@@ -6,6 +6,7 @@ import Form from '../../../../shared/UI/from';
 import Input from '../../../../shared/UI/input';
 import { toast } from 'sonner';
 import { addServiceSchema } from '../validation/pricelist-validation';
+import FormBtn from '../../../../shared/UI/Form-Btn';
 
 const AddService = () => {
   const methods = useForm({
@@ -76,12 +77,13 @@ const AddService = () => {
 
         {/* Buttons */}
         <div className="flex gap-6 justify-end">
-          <button
+          <FormBtn
+            role={'save'}
             className="bg-blue-500 py-2 px-6 text-white rounded-lg"
             type="submit"
           >
             Add
-          </button>
+          </FormBtn>
         </div>
       </Form>
     </FormProvider>

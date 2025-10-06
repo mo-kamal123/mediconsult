@@ -2,9 +2,10 @@ import { MdFilterAltOff } from 'react-icons/md';
 import MainHeader from '../../../../shared/UI/main-header';
 import Table from '../../../../shared/UI/table';
 import TableActions from '../../../../shared/UI/table-actions';
-import { RiFileExcel2Fill, RiPulseAiFill, RiSearch2Fill } from 'react-icons/ri';
+import { RiFileExcel2Fill, RiSearch2Fill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { SiGoogledocs } from 'react-icons/si';
+import { BiAddToQueue } from 'react-icons/bi';
 
 const BatchReceived = () => {
   const navigate = useNavigate();
@@ -15,18 +16,18 @@ const BatchReceived = () => {
       label: 'Clear Filter',
     },
     {
-      type: 'addNew',
+      type: 'export',
       Icon: RiFileExcel2Fill,
       label: 'Export',
     },
     {
-      type: 'addNew',
+      type: 'newClient',
       Icon: RiSearch2Fill,
       label: 'Approval',
     },
     {
-      type: 'addNew',
-      Icon: RiPulseAiFill,
+      type: 'newClient',
+      Icon: BiAddToQueue,
       label: 'New Batch',
       onClick: () => navigate('/batch/new'),
     },

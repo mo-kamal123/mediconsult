@@ -8,6 +8,7 @@ import { FaUserCheck, FaUserClock, FaUserTimes } from 'react-icons/fa';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ImAttachment } from 'react-icons/im';
+import TablePagination from '../../../../shared/UI/table-pagiation';
 
 // Table headers
 const tableHeaders = [
@@ -56,9 +57,9 @@ const ClientsManagement = () => {
         // Customize leading column with Google Docs icon
         leadingData={{
           col: '',
-          render: () => (
+          render: (row) => (
             <p
-              onClick={() => navigate('120/client-info')}
+              onClick={() => navigate(`${row.ID}/client-info`)}
               className="text-blue-500 text-xl"
             >
               <SiGoogledocs />
@@ -94,6 +95,7 @@ const ClientsManagement = () => {
           },
         ]}
       />
+      <TablePagination />
     </section>
   );
 };

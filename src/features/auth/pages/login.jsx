@@ -51,21 +51,24 @@ const Login = () => {
       >
         <Input
           type={'text'}
+          label={'Phone'}
           {...register('phone')}
           error={errors.phone?.message}
         />
         <Input
           type={'password'}
+          label={'Password'}
           {...register('password')}
           error={errors.password?.message}
         />
         <div className="flex justify-between">
           <div className="flex gap-1">
             <input
+              id="rememberCheck"
               type="checkbox"
               {...register('rememberMe', { valueAsBoolean: true })}
             />
-            <p>Remember me</p>
+            <label htmlFor="rememberCheck">Remember me</label>
           </div>
           <Link to={'forget-password'} className="text-[#2F80ED]">
             Forget Password?

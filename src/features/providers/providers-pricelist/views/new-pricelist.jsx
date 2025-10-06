@@ -4,6 +4,7 @@ import Form from '../../../../shared/UI/from';
 import Input from '../../../../shared/UI/input';
 import { newPriceListSchema } from '../validation/pricelist-validation';
 import { toast } from 'sonner';
+import FormBtn from '../../../../shared/UI/Form-Btn';
 
 const NewPricelist = () => {
   const methods = useForm({
@@ -62,19 +63,12 @@ const NewPricelist = () => {
 
           {/* Buttons */}
           <div className="flex gap-4 justify-end">
-            <button
-              type="button"
-              onClick={handleCancel}
-              className="border border-gray-400 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-50 transition"
-            >
+            <FormBtn type="button" onClick={handleCancel} role={'delete'}>
               Cancel
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-500 py-2 px-6 text-white rounded-lg hover:bg-blue-600 transition"
-            >
+            </FormBtn>
+            <FormBtn type="submit" role={'save'}>
               Save
-            </button>
+            </FormBtn>
           </div>
         </Form>
       </FormProvider>

@@ -14,7 +14,7 @@ const ProviderContacts = () => {
     {
       type: 'AddColumn',
       Icon: CiImport,
-      label: 'Import Locations',
+      label: 'Import Contacts',
     },
   ];
   return (
