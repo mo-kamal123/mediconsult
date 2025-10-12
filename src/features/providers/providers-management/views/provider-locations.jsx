@@ -2,8 +2,16 @@ import { BsFillPlusSquareFill } from 'react-icons/bs';
 import TableActions from '../../../../shared/UI/table-actions';
 import { CiImport } from 'react-icons/ci';
 import Table from '../../../../shared/UI/table';
+import { MdDeleteForever } from 'react-icons/md';
+import { FaEdit } from 'react-icons/fa';
+import { useState } from 'react';
+import Modal from '../../../../shared/UI/modal';
+import NewLocationForm from '../components/new-location-form';
 
 const ProviderLocations = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
   const tableheaders = [
     'Government',
     'City',
@@ -14,12 +22,16 @@ const ProviderLocations = () => {
   ];
   const actions = [
     {
-      type: 'AddColumn',
+      type: 'newClient',
       Icon: BsFillPlusSquareFill,
       label: 'Add New',
+      onClick: () => {
+        setSelectedLocation(null); // Clear form
+        setIsModalOpen(true);
+      },
     },
     {
-      type: 'AddColumn',
+      type: 'newClient',
       Icon: CiImport,
       label: 'Import Locations',
     },
@@ -74,18 +86,37 @@ const ProviderLocations = () => {
         cols={tableheaders}
         data={rows}
         checkbox={false}
-        leadingData={{
-          col: 'Actions',
-          render: (row) => (
-            <button
-              className="text-[#DC0600] pl-2 "
-              onClick={() => alert(`delete ${row['EN Address']}`)}
-            >
-              Delete
-            </button>
-          ),
-        }}
+        trailingData={[
+          {
+            col: 'Actions',
+            render: (row) => (
+              <div className="flex items-center justify-center gap-2">
+                <button
+                  className="text-red-600 text-2xl"
+                  onClick={() => alert(`delete ${row['EN Address']}`)}
+                >
+                  <MdDeleteForever />
+                </button>
+                <button
+                  className="text-blue-500 text-2xl"
+                  onClick={() => {
+                    setSelectedLocation(row); // Pass row to form
+                    setIsModalOpen(true);
+                  }}
+                >
+                  <FaEdit />
+                </button>
+              </div>
+            ),
+          },
+        ]}
       />
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <NewLocationForm
+          data={selectedLocation}
+          onClose={() => setIsModalOpen(false)}
+        />
+      </Modal>
     </div>
   );
 };

@@ -94,7 +94,7 @@ const ProviderForm = () => {
             Provider Info
           </h3>
 
-          <div className="flex flex-wrap md:flex-nowrap gap-6">
+          <div className="flex flex-wrap items-start md:flex-nowrap gap-6">
             <Input
               label="Provider ID"
               {...register('providerId')}
@@ -115,7 +115,7 @@ const ProviderForm = () => {
             />
           </div>
 
-          <div className="flex flex-wrap md:flex-nowrap gap-6">
+          <div className="flex flex-wrap items-start md:flex-nowrap gap-6">
             <RHFDropDown
               label="Category"
               name="providerCategory"
@@ -148,7 +148,7 @@ const ProviderForm = () => {
             />
           </div>
 
-          <div className="flex flex-wrap md:flex-nowrap gap-6">
+          <div className="flex flex-wrap items-start md:flex-nowrap gap-6">
             <Input
               label="Comercial Name"
               {...register('comercialName')}
@@ -169,7 +169,7 @@ const ProviderForm = () => {
             />
           </div>
 
-          <div className="flex flex-wrap md:flex-nowrap gap-6">
+          <div className="flex flex-wrap items-start md:flex-nowrap gap-6">
             <Input
               label="Batch Due Days"
               {...register('batchDueDays')}
@@ -194,7 +194,7 @@ const ProviderForm = () => {
             />
           </div>
 
-          <div className="flex flex-wrap md:flex-nowrap gap-6">
+          <div className="flex flex-wrap items-start md:flex-nowrap gap-6">
             <RHFDropDown
               label="Status"
               name="status"
