@@ -18,6 +18,8 @@ import { RiFileExcel2Fill, RiUserVoiceFill } from 'react-icons/ri';
 import DropDown from '../../../../shared/UI/drop-down';
 import { useState } from 'react';
 import { TbHandFinger } from 'react-icons/tb';
+import MemberHistoryModal from '../../../approvals/approvals-management/components/member-history-modal';
+import Modal from '../../../../shared/UI/modal';
 
 // Table headers
 const tableHeaders = [
@@ -34,6 +36,7 @@ const tableHeaders = [
 ];
 
 const Members = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const rows = useSelector((state) => state.members);
   const { clientId } = useParams(); // assuming route like /clients/:clientId/members
@@ -131,7 +134,7 @@ const Members = () => {
             render: (row) => (
               <button
                 className="text-blue-500 underline"
-                onClick={() => alert(`Consumption for ${row.Name}`)}
+                onClick={() => setIsModalOpen(true)}
               >
                 Consumptions
               </button>
@@ -140,6 +143,9 @@ const Members = () => {
         ]}
       />
       <TablePagiation />
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <MemberHistoryModal />
+      </Modal>
     </div>
   );
 };
