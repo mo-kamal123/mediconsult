@@ -29,3 +29,9 @@ export const newClientSchema = z.object({
     .min(1, 'Refund Due Days is required'),
   logo: z.any().refine((file) => file && file.length > 0, 'Logo is required'),
 });
+
+export const newBranchSchema = z.object({
+  branchName: z.string().min(1, 'branch name is required'),
+  status: z.string().nonempty('Status is required'),
+});
+

@@ -85,7 +85,6 @@ const ApprovalsManagement = () => {
         }}
       />
       <TablePagiation />
-      <DragAndDrop />
     </div>
   );
 };

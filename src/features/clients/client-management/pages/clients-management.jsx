@@ -1,7 +1,7 @@
 import MainHeader from '../../../../shared/UI/main-header';
 import Table from '../../../../shared/UI/table';
 import TableActions from '../../../../shared/UI/table-actions';
-import { RiFileExcel2Fill } from 'react-icons/ri';
+import { RiFileExcel2Fill, RiUserVoiceFill } from 'react-icons/ri';
 import { MdFilterAltOff } from 'react-icons/md';
 import { SiGoogledocs } from 'react-icons/si';
 import { FaUserCheck, FaUserClock, FaUserTimes } from 'react-icons/fa';
@@ -47,7 +47,7 @@ const ClientsManagement = () => {
   ];
 
   return (
-    <section className="w-[90%] m-auto">
+    <section className="w-[95%] m-auto">
       <MainHeader>Clients Management</MainHeader>
       <TableActions actions={actions} tableheaders={tableHeaders} />
       <Table
@@ -71,7 +71,7 @@ const ClientsManagement = () => {
           {
             col: 'Change Status',
             render: (row) => (
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-2">
                 <button
                   className="text-[#388E3C] text-2xl "
                   onClick={() => alert(`activate ${row.Name}`)}
@@ -86,6 +86,12 @@ const ClientsManagement = () => {
                 </button>
                 <button
                   className="text-[#FFCC00] text-2xl "
+                  onClick={() => alert(`pending ${row.Name}`)}
+                >
+                  <RiUserVoiceFill />
+                </button>
+                <button
+                  className="text-[#4285F4] text-2xl "
                   onClick={() => alert(`pending ${row.Name}`)}
                 >
                   <FaUserClock />
