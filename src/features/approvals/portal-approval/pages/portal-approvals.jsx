@@ -117,7 +117,7 @@ const actions = [
 const PortalApproval = () => {
   const navigate = useNavigate();
   return (
-    <div className="w-[90%] m-auto">
+    <div className="w-[95%] m-auto">
       <MainHeader>Portals Approvals Requests</MainHeader>
       <Table cols={tableHeaders} data={[]} />
       <TableActions actions={actions} tableheaders={tableHeaders} />
