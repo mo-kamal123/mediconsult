@@ -1,16 +1,18 @@
+import { useState } from 'react';
 import logo from '../../../app/assets/mediconsult_logo.png';
 import AuthForm from '../components/auth-form';
 import Input from '../../../shared/UI/input';
 import Btn from '../../../shared/UI/Btn';
-import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { forgetPasswordSchema } from '../validation/auth-validation';
+import useSentOtp from '../hooks/useSentOtp';
 
 const ForgetPassword = () => {
-  const navigate = useNavigate();
+  const [phone, setPhone] = useState(''); // 💡 store phone number in state
 
-  // react hook form setup
+  const { mutate: sendOtp, isPending } = useSentOtp(phone); // ✅ use phone state here
+
   const {
     register,
     handleSubmit,
@@ -20,13 +22,14 @@ const ForgetPassword = () => {
     defaultValues: {
       phone: '',
     },
-  }); // phone number to send OTP
+  });
 
-  // handle form submit
   const onSubmit = (data) => {
-    console.log('Form data:', data);
-    navigate('/auth/verify');
+    console.log('Form data:', data.phone);
+    setPhone(data.phone);
+    sendOtp(data.phone);
   };
+
   return (
     <div className="flex flex-col items-center justify-between gap-20">
       <img src={logo} alt="logo-img" className="w-80" />
@@ -41,7 +44,13 @@ const ForgetPassword = () => {
           {...register('phone')}
           error={errors.phone?.message}
         />
-        <Btn>Submit</Btn>
+        <Btn
+          disabled={isPending}
+          className={`flex items-center justify-center gap-2 w-full px-7 py-3 
+    ${isPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#1F4ED6] hover:bg-blue-800'}`}
+        >
+          {isPending ? 'Loading...' : 'Submit'}
+        </Btn>{' '}
       </AuthForm>
     </div>
   );
