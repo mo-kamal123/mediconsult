@@ -15,7 +15,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     // action to log in the user
-    login(state) {
+    loggedin(state) {
       addToLocalStorage('isLogged', true); // persist auth state in localStorage
       state.isAuthenticated = true;
     },
@@ -27,5 +27,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { loggedin, logout } = authSlice.actions;
 export default authSlice.reducer;

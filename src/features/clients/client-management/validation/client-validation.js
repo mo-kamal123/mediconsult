@@ -34,4 +34,3 @@ export const newBranchSchema = z.object({
   branchName: z.string().min(1, 'branch name is required'),
   status: z.string().nonempty('Status is required'),
 });
-
