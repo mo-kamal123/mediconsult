@@ -31,7 +31,7 @@ const NewLocationForm = ({ data, onClose }) => {
     toast.success('Location information saved successfully!', {
       description: 'The location details have been updated.',
     });
-    onClose()
+    onClose();
   };
 
   return (

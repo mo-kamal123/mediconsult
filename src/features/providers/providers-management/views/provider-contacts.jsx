@@ -26,28 +26,30 @@ const ProviderContacts = () => {
         cols={tableHeaders}
         data={[]}
         checkbox={false}
-        trailingData={[{
-          col: 'Actions',
-          render: (row) => (
-            <div className="flex items-center justify-center gap-2">
-            <button
-              className="text-red-600 text-2xl"
-              onClick={() => alert(`delete ${row['EN Address']}`)}
-            >
-              <MdDeleteForever />
-            </button>
-            <button
-              className="text-blue-500 text-2xl"
-              onClick={() => {
-                setSelectedLocation(row); // Pass row to form
-                setIsModalOpen(true);
-              }}
-            >
-              <FaEdit />
-            </button>
-          </div>
-          ),
-        }]}
+        trailingData={[
+          {
+            col: 'Actions',
+            render: (row) => (
+              <div className="flex items-center justify-center gap-2">
+                <button
+                  className="text-red-600 text-2xl"
+                  onClick={() => alert(`delete ${row['EN Address']}`)}
+                >
+                  <MdDeleteForever />
+                </button>
+                <button
+                  className="text-blue-500 text-2xl"
+                  onClick={() => {
+                    setSelectedLocation(row); // Pass row to form
+                    setIsModalOpen(true);
+                  }}
+                >
+                  <FaEdit />
+                </button>
+              </div>
+            ),
+          },
+        ]}
       />
     </div>
   );
