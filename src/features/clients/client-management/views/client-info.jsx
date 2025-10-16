@@ -8,20 +8,28 @@ import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import Form from '../../../../shared/UI/from';
 import { toast } from 'sonner';
 import FormBtn from '../../../../shared/UI/form-Btn';
+import useClientById from '../hooks/useClientById';
+import { useParams } from 'react-router-dom';
+import useUpdateClient from '../hooks/useUpdateClient';
+import Spinner from '../../../../shared/layout/spinner';
 
 const ClientForm = () => {
+  const { clientId } = useParams();
+
+  console.log(clientId);
+  // TODO: remove comment when api ready
+  const { data: client, isPending } = useClientById(clientId);
+  const { mutate: updateClient } = useUpdateClient(clientId);
   const methods = useForm({
     resolver: zodResolver(clientInfoSchema),
     defaultValues: {
-      clientInfo: '',
-      clientCategory: '',
-      clientName: '',
-      clientType: '',
-      status: '',
-      reimbursementDueDays: '',
+      clientCategory: client?.categoryName || 'hii',
+      clientName: client?.name,
+      clientType: client?.type,
+      status: client?.status,
+      reimbursementDueDays: client?.refundDueDays,
       ibmNotesId: '',
-      clientShortName: '',
-      policyId: '',
+      clientShortName: client?.shortName,
       policyStart: '',
       policyExpire: '',
     },
@@ -35,11 +43,12 @@ const ClientForm = () => {
 
   const onSubmit = (data) => {
     console.log('✅ Form Submitted:', data);
-    toast.warning('Client information saved successfully!', {
-      description: 'The client details have been updated.',
-    });
+    updateClient(data);
+    // toast.warning('Client information saved successfully!', {
+    //   description: 'The client details have been updated.',
+    // });
   };
-
+  if (isPending) return <Spinner />;
   return (
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
@@ -89,12 +98,13 @@ const ClientForm = () => {
             <RHFDropDown
               label="Client Category"
               name="clientCategory"
+              value={client?.categoryName}
               data={[
                 { value: 'corp', label: 'Corp' },
                 { value: 'ind', label: 'Ind' },
               ]}
               placeholder="Select Category"
-              className="flex-1 p-6 mt-1 min-w-[200px]"
+              className="flex-1 p-6 mt-2 min-w-[200px]"
             />
           </div>
 
@@ -113,7 +123,7 @@ const ClientForm = () => {
                 { value: 'inactive', label: 'Inactive' },
               ]}
               placeholder="Select Status"
-              className="flex-1 p-6 mt-1 min-w-[200px]"
+              className="flex-1 p-6 mt-2 min-w-[200px]"
             />
             <Input
               label="Reimbursement Due Days"
@@ -134,7 +144,6 @@ const ClientForm = () => {
               {...register('clientShortName')}
               className="flex-1 min-w-[200px]"
             />
-            <div className="flex-1 min-w-[200px]" />
           </div>
         </div>
 
@@ -143,11 +152,6 @@ const ClientForm = () => {
           <h3 className="font-semibold text-lg text-[#1F4ED6]">Policy Info</h3>
 
           <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
-            <Input
-              label="Policy ID"
-              {...register('policyId')}
-              className="flex-1 min-w-[200px]"
-            />
             <Input
               label="Policy Start"
               type="date"
@@ -167,12 +171,8 @@ const ClientForm = () => {
 
         {/* Buttons */}
         <div className="flex gap-4 justify-end">
-          <FormBtn
-            type="button"
-            role={'delete'}
-            onClick={() => methods.reset()}
-          >
-            Reset
+          <FormBtn type="button" role={'delete'} onClick={() => {}}>
+            Delete
           </FormBtn>
           <FormBtn role={'save'} type="submit">
             Save
