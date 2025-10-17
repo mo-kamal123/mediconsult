@@ -7,10 +7,12 @@ import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import { newClientSchema } from '../validation/client-validation';
 import Form from '../../../../shared/UI/from';
 import FormBtn from '../../../../shared/UI/form-Btn';
+import { toast } from 'sonner';
+import useCreateClient from '../hooks/useCreateClient';
+import { Loader } from 'lucide-react';
 
 const NewClient = () => {
-  const navigate = useNavigate();
-
+  const { mutate: createNewClient, isPending } = useCreateClient();
   const methods = useForm({
     resolver: zodResolver(newClientSchema),
     defaultValues: {
@@ -30,7 +32,7 @@ const NewClient = () => {
 
   const onSubmit = (data) => {
     console.log('✅ Submitted Data:', data);
-    navigate(-1);
+    createNewClient(data);
   };
 
   return (
@@ -44,8 +46,8 @@ const NewClient = () => {
 
           {/* Form */}
           <Form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-wrap gap-4 justify-between items-center">
-              {/* File Upload */}
+            {/* File Upload */}
+            <div className="flex flex-wrap gap-4  items-center">
               <div className="flex-col relative w-[150px] h-[200px] border border-dashed border-gray-400 rounded flex items-center justify-center overflow-hidden cursor-pointer hover:border-blue-500 transition">
                 <input
                   type="file"
@@ -59,51 +61,59 @@ const NewClient = () => {
                 )}
               </div>
 
-              {/* Form Column 1 */}
-              <div className="flex flex-col gap-4 flex-1 min-w-[180px]">
-                <Input
-                  label="Client"
-                  {...register('client')}
-                  error={errors.client?.message}
-                  className="flex-1 min-w-[200px]"
-                />
-                <RHFDropDown
-                  label="Client Type"
-                  name="clientType"
-                  data={[
-                    { value: 'corp', label: 'Corp' },
-                    { value: 'ind', label: 'Ind' },
-                  ]}
-                  placeholder="Select Client Type"
-                  className="flex-1 p-6 mt-1 min-w-[200px]"
-                />
-              </div>
+              <div>
+                {/* Form Column 1 */}
+                <div className="flex  items-start gap-3 flex-1">
+                  <Input
+                    label="Client"
+                    {...register('client')}
+                    error={errors.client?.message}
+                    className="flex-1 min-w-[300px]"
+                  />
+                  <RHFDropDown
+                    label="Client Type"
+                    name="clientType"
+                    data={[
+                      { value: 'corp', label: 'Corp' },
+                      { value: 'ind', label: 'Ind' },
+                    ]}
+                    placeholder="Select Client Type"
+                    className="flex-1 p-6 mt-1 min-w-[300px]"
+                  />
+                </div>
 
-              {/* Form Column 2 */}
-              <div className="flex flex-col gap-4 flex-1 min-w-[180px]">
-                <RHFDropDown
-                  label="Client Category"
-                  name="clientCategory"
-                  data={[
-                    { value: 'corp', label: 'Corp' },
-                    { value: 'ind', label: 'Ind' },
-                  ]}
-                  placeholder="Select Client Category"
-                  className="flex-1 p-6 mt-1 min-w-[200px]"
-                />
-                <Input
-                  label="Refund Due Days"
-                  {...register('refundDueDays')}
-                  error={errors.refundDueDays?.message}
-                  className="flex-1 min-w-[200px]"
-                />
+                {/* Form Column 2 */}
+                <div className="flex  items-start gap-3 flex-1">
+                  <RHFDropDown
+                    label="Client Category"
+                    name="clientCategory"
+                    data={[
+                      { value: 'corp', label: 'Corp' },
+                      { value: 'ind', label: 'Ind' },
+                    ]}
+                    placeholder="Select Client Category"
+                    className="flex-1 p-6 mt-1 min-w-[300px]"
+                  />
+                  <Input
+                    label="Refund Due Days"
+                    {...register('refundDueDays')}
+                    error={errors.refundDueDays?.message}
+                    className="flex-1 min-w-[300px]"
+                  />
+                </div>
               </div>
             </div>
 
             {/* Footer */}
             <div className="mt-6 text-right">
-              <FormBtn type="submit" role={'save'}>
-                Save
+              <FormBtn disable={isPending} type="submit" role={'save'}>
+                {isPending ? (
+                  <div className="animate-spin">
+                    <Loader />
+                  </div>
+                ) : (
+                  'Save'
+                )}
               </FormBtn>
             </div>
           </Form>
