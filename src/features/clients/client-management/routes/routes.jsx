@@ -1,8 +1,9 @@
 import { lazy } from 'react';
 import withSuspense from '@/app/components/with-suspense';
+import ClientsManagement from '../pages/clients-management';
 
 // Lazy-loaded pages
-const ClientsManagement = lazy(() => import('../pages/clients-management'));
+// const ClientsManagement = lazy(() => import('../pages/clients-management'));
 const NewClient = lazy(() => import('../views/new-client'));
 const ClientData = lazy(() => import('../layouts/client-data'));
 
@@ -12,13 +13,14 @@ const BranchInfo = lazy(() => import('../views/branch-info'));
 const ContractsInfo = lazy(() => import('../views/contracts-nfo'));
 const Members = lazy(() => import('../views/members'));
 
+// withSuspense(ClientsManagement)
 export const clientsRoutes = [
   {
     path: 'clients',
     children: [
       {
         path: '',
-        element: withSuspense(ClientsManagement),
+        element: <ClientsManagement />,
       },
       {
         path: 'new',

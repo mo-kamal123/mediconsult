@@ -113,11 +113,9 @@ export const newProviderSchema = z.object({
 });
 
 export const newLocationSchema = z.object({
-  government: z
-    .string()
-    .min(2, {
-      message: 'Government is required and must be at least 2 characters.',
-    }),
+  government: z.string().min(2, {
+    message: 'Government is required and must be at least 2 characters.',
+  }),
 
   city: z
     .string()
@@ -131,15 +129,11 @@ export const newLocationSchema = z.object({
     .string()
     .min(2, { message: 'AR Area is required and must be descriptive.' }),
 
-  enAddress: z
-    .string()
-    .min(5, {
-      message: 'EN Address is required and must be at least 5 characters.',
-    }),
+  enAddress: z.string().min(5, {
+    message: 'EN Address is required and must be at least 5 characters.',
+  }),
 
-  arAddress: z
-    .string()
-    .min(5, {
-      message: 'AR Address is required and must be at least 5 characters.',
-    }),
+  arAddress: z.string().min(5, {
+    message: 'AR Address is required and must be at least 5 characters.',
+  }),
 });
