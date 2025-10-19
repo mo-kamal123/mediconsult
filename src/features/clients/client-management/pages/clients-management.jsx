@@ -24,6 +24,8 @@ const tableHeaders = [
   'Branch',
   'Status',
 ];
+
+// Table column keys
 const colKeys = [
   'id',
   'name',
@@ -36,11 +38,12 @@ const colKeys = [
 ];
 
 const ClientsManagement = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1); // current page state
   const navigate = useNavigate();
   // TODO: remove comment when api ready
-  const { data: clients, isLoading, isError, error } = useClients(page);
-  console.log('Clients response:', clients); // const rows = useSelector((state) => state.clients);
+  const { data: clients, isLoading, isError, error } = useClients(page); // fetch clients data
+  console.log('Clients response:', clients); 
+  // const rows = useSelector((state) => state.clients);
 
   // Define actions for the table
   const actions = [

@@ -12,7 +12,8 @@ import useCreateClient from '../hooks/useCreateClient';
 import { Loader } from 'lucide-react';
 
 const NewClient = () => {
-  const { mutate: createNewClient, isPending } = useCreateClient();
+  const { mutate: createNewClient, isPending } = useCreateClient(); // create client mutation hook
+  // react hook form setup
   const methods = useForm({
     resolver: zodResolver(newClientSchema),
     defaultValues: {
@@ -30,9 +31,11 @@ const NewClient = () => {
     formState: { errors },
   } = methods;
 
+  // ✅ Handle submit
   const onSubmit = (data) => {
+    //TODO: remove logs
     console.log('✅ Submitted Data:', data);
-    createNewClient(data);
+    createNewClient(data); // call create client mutation
   };
 
   return (

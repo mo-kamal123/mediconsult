@@ -9,9 +9,10 @@ import { otpSchema } from '../validation/auth-validation';
 import useVerify from '../hooks/useVerify';
 
 const Verify = () => {
-  const [searchParams] = useSearchParams();
-  const phone = searchParams.get('phone');
-  const { mutate: verify, isPending } = useVerify(phone);
+  const [searchParams] = useSearchParams(); // get query params
+  const phone = searchParams.get('phone'); // get phone number from query params
+  const { mutate: verify, isPending } = useVerify(phone); // verify OTP mutation hook
+  // react hook form setup
   const {
     control,
     handleSubmit,
@@ -23,9 +24,10 @@ const Verify = () => {
 
   // ✅ Handle submit
   const onSubmit = (data) => {
+    //TODO: remove logs
     console.log('OTP Data:', data.otp);
     console.log(phone);
-    verify({ otp: data.otp, phoneNumber: phone });
+    verify({ otp: data.otp, phoneNumber: phone }); // call verify OTP mutation
   };
 
   return (
