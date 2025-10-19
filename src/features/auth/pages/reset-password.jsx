@@ -9,9 +9,9 @@ import { useSearchParams } from 'react-router-dom';
 import useResetPassword from '../hooks/useResetPassword';
 
 const ResetPassword = () => {
-  const [searchParams] = useSearchParams();
-  const phone = searchParams.get('phone');
-  const { mutate: resetPassword, isPending } = useResetPassword();
+  const [searchParams] = useSearchParams(); // get query params
+  const phone = searchParams.get('phone'); // get phone number from query params
+  const { mutate: resetPassword, isPending } = useResetPassword(); // reset password mutation hook
   // react hook form setup
   const {
     register,
@@ -25,9 +25,11 @@ const ResetPassword = () => {
     },
   });
 
+  // handle form submit
   const onSubmit = (data) => {
+    //TODO: remove logs
     console.log('Reset Password data:', { ...data, phoneNumber: phone });
-    resetPassword({ ...data, phoneNumber: phone });
+    resetPassword({ ...data, phoneNumber: phone }); // call reset password mutation
   };
 
   return (

@@ -14,12 +14,13 @@ import useUpdateClient from '../hooks/useUpdateClient';
 import Spinner from '../../../../shared/layout/spinner';
 
 const ClientForm = () => {
-  const { clientId } = useParams();
+  const { clientId } = useParams(); // get clientId from url params
 
   console.log(clientId);
   // TODO: remove comment when api ready
-  const { data: client, isPending } = useClientById(clientId);
-  const { mutate: updateClient } = useUpdateClient(clientId);
+  const { data: client, isPending } = useClientById(clientId); // fetch client data by id
+  const { mutate: updateClient } = useUpdateClient(clientId); // update client mutation hook
+  // react hook form setup
   const methods = useForm({
     resolver: zodResolver(clientInfoSchema),
     defaultValues: {
@@ -41,12 +42,11 @@ const ClientForm = () => {
     formState: { errors },
   } = methods;
 
+  // ✅ Handle submit
   const onSubmit = (data) => {
+    //TODO: remove logs
     console.log('✅ Form Submitted:', data);
-    updateClient(data);
-    // toast.warning('Client information saved successfully!', {
-    //   description: 'The client details have been updated.',
-    // });
+    updateClient(data); // call update client mutation
   };
   if (isPending) return <Spinner />;
   return (

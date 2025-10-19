@@ -30,10 +30,12 @@ const Login = () => {
   const onSubmit = (data) => {
     login(data);
   };
+
+  // login mutation success callback
   const onSuccess = () => {
     dispatch(loggedin());
   };
-  const { mutate: login, isPending } = useLogin(onSuccess);
+  const { mutate: login, isPending } = useLogin(onSuccess); // login mutation hook
   return (
     <div className="flex flex-col items-center justify-between gap-20">
       <img src={logo} alt="logo-img" className="w-80" />

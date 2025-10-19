@@ -11,8 +11,9 @@ import useSentOtp from '../hooks/useSentOtp';
 const ForgetPassword = () => {
   const [phone, setPhone] = useState(''); // 💡 store phone number in state
 
-  const { mutate: sendOtp, isPending } = useSentOtp(phone); // ✅ use phone state here
+  const { mutate: sendOtp, isPending } = useSentOtp(phone); // send OTP mutation hook
 
+  // react hook form setup
   const {
     register,
     handleSubmit,
@@ -24,10 +25,12 @@ const ForgetPassword = () => {
     },
   });
 
+  // handle form submit
   const onSubmit = (data) => {
+    //TODO: remove logs
     console.log('Form data:', data.phone);
-    setPhone(data.phone);
-    sendOtp(data.phone);
+    setPhone(data.phone); // 💡 set phone number in state
+    sendOtp(data.phone); // send OTP
   };
 
   return (
@@ -47,7 +50,7 @@ const ForgetPassword = () => {
         <Btn
           disabled={isPending}
           className={`flex items-center justify-center gap-2 w-full px-7 py-3 
-    ${isPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#1F4ED6] hover:bg-blue-800'}`}
+                    ${isPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#1F4ED6] hover:bg-blue-800'}`}
         >
           {isPending ? 'Loading...' : 'Submit'}
         </Btn>{' '}

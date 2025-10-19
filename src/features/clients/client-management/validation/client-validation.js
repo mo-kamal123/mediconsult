@@ -6,15 +6,15 @@ export const clientInfoSchema = z.object({
     .any()
     .refine((file) => file?.length === 1, 'Please upload one logo image')
     .optional(),
-  clientCategory: z.string().nonempty('Client Category is required'),
-  clientName: z.string().min(2, 'Client Name is required'),
-  clientType: z.string().min(2, 'Client Type is required'),
-  status: z.string().nonempty('Status is required'),
+  clientCategory: z.string().nonempty('Client Category is required').optional(),
+  clientName: z.string().min(2, 'Client Name is required').optional(),
+  clientType: z.string().min(2, 'Client Type is required').optional(),
+  status: z.string().nonempty('Status is required').optional(),
   reimbursementDueDays: z.string().optional(),
   ibmNotesId: z.string().optional(),
   clientShortName: z.string().optional(),
-  policyStart: z.string().nonempty('Policy Start is required'),
-  policyExpire: z.string().nonempty('Policy Expire is required'),
+  policyStart: z.string().nonempty('Policy Start is required').optional(),
+  policyExpire: z.string().nonempty('Policy Expire is required').optional(),
 });
 
 export const newClientSchema = z.object({
