@@ -42,7 +42,7 @@ const ClientsManagement = () => {
   const navigate = useNavigate();
   // TODO: remove comment when api ready
   const { data: clients, isLoading, isError, error } = useClients(page); // fetch clients data
-  console.log('Clients response:', clients); 
+  console.log('Clients response:', clients);
   // const rows = useSelector((state) => state.clients);
 
   // Define actions for the table

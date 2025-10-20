@@ -1,11 +1,13 @@
 import MainHeader from '../../../../shared/UI/main-header';
-import MemberInfo from './member-info';
+import useCreateMember from '../hooks/useCreateMember';
+import MemberForm from './member-form';
 
 const NewMember = () => {
+  const { mutate: createMember, isPending } = useCreateMember();
   return (
     <div className="w-[95%] m-auto flex flex-col gap-10">
       <MainHeader>New Member</MainHeader>
-      <MemberInfo />
+      <MemberForm memberSubmit={createMember} />
     </div>
   );
 };
