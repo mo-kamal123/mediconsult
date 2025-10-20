@@ -20,6 +20,8 @@ import { useState } from 'react';
 import { TbHandFinger } from 'react-icons/tb';
 import MemberHistoryModal from '../../../approvals/approvals-management/components/member-history-modal';
 import Modal from '../../../../shared/UI/modal';
+import useMembers from '../../members/hooks/useMembers';
+import TablePagination from '../../../../shared/UI/table-pagiation';
 
 // Table headers
 const tableHeaders = [
@@ -36,8 +38,10 @@ const tableHeaders = [
 ];
 
 const Members = () => {
+  const [page, setPage] = useState(1); // current page state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
+  const { data: members, isLoading, isError } = useMembers(page);
   const rows = useSelector((state) => state.members);
   const { clientId } = useParams(); // assuming route like /clients/:clientId/members
   // Actions for the table
@@ -80,7 +84,7 @@ const Members = () => {
       </TableActions>
       <Table
         cols={tableHeaders}
-        data={rows}
+        data={members}
         checkbox={true}
         // handle leading data rendering
         leadingData={{
@@ -88,7 +92,7 @@ const Members = () => {
           render: (row) => (
             <p
               onClick={() =>
-                navigate(`/clients/${clientId}/members/${row.ID}/member-info`)
+                navigate(`/clients/${clientId}/members/${row.id}/member-info`)
               }
               className="text-blue-500 text-xl"
             >
@@ -134,7 +138,11 @@ const Members = () => {
             render: (row) => (
               <button
                 className="text-blue-500 underline"
-                onClick={() => setIsModalOpen(true)}
+                onClick={() =>
+                  navigate(
+                    `/clients/${row.id}/members/${row.id}/member-history`
+                  )
+                }
               >
                 Consumptions
               </button>
@@ -142,7 +150,12 @@ const Members = () => {
           },
         ]}
       />
-      <TablePagiation />
+      {/* <TablePagination
+        page={page}
+        setPage={setPage}
+        totalPage={members.totalPages}
+        totalItem={members.totalClients}
+      /> */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <MemberHistoryModal />
       </Modal>

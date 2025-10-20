@@ -19,18 +19,19 @@ const ClientForm = () => {
   console.log(clientId);
   // TODO: remove comment when api ready
   const { data: client, isPending } = useClientById(clientId); // fetch client data by id
-  const { mutate: updateClient } = useUpdateClient(clientId); // update client mutation hook
+  const { mutate: updateClient, isPending: clientPending } =
+    useUpdateClient(clientId); // update client mutation hook
   // react hook form setup
   const methods = useForm({
     resolver: zodResolver(clientInfoSchema),
     defaultValues: {
-      clientCategory: client?.categoryName || 'hii',
-      clientName: client?.name,
-      clientType: client?.type,
-      status: client?.status,
-      reimbursementDueDays: client?.refundDueDays,
+      clientCategory: client?.categoryName || '',
+      clientName: client?.name || '',
+      clientType: client?.type || '',
+      status: client?.status || '',
+      reimbursementDueDays: client?.refundDueDays || '',
       ibmNotesId: '',
-      clientShortName: client?.shortName,
+      clientShortName: client?.shortName || '',
       policyStart: '',
       policyExpire: '',
     },
@@ -48,7 +49,7 @@ const ClientForm = () => {
     console.log('✅ Form Submitted:', data);
     updateClient(data); // call update client mutation
   };
-  if (isPending) return <Spinner />;
+  if (isPending || clientPending) return <Spinner />;
   return (
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
