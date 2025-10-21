@@ -13,15 +13,17 @@ import TablePagiation from '../../../../shared/UI/table-pagiation';
 import { Icon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { RiFileExcel2Fill } from 'react-icons/ri';
+import useProviders from '../hooks/useProviders';
 
 const ProvidersManagement = () => {
   const navigate = useNavigate();
+  const { data: providers, isPending, isError } = useProviders(1);
+  console.log(providers);
   const tableRows = useSelector((state) => state.providers); // Get providers data from Redux store
   // Table headers
   const tableHeaders = [
     'ID',
     'Name',
-    'Old ID',
     'Category',
     'Branches',
     'Status',
@@ -34,6 +36,8 @@ const ProvidersManagement = () => {
     'Allow Chronic Portal',
   ];
 
+  // Table column keys
+  const colKeys = ['id', 'name', 'categoryId', 'networkClass'];
   // Actions for the table
   const actions = [
     {
@@ -70,14 +74,15 @@ const ProvidersManagement = () => {
       <TableActions tableheaders={tableHeaders} actions={actions} />
       <Table
         cols={tableHeaders}
-        data={tableRows}
+        colkey={colKeys}
+        data={providers}
         // handle leading data rendering
         leadingData={{
           col: '',
           render: (row) => (
             <p
               className="text-blue-500 underline cursor-pointer"
-              onClick={() => navigate(`/providers/${row.ID}/locations`)}
+              onClick={() => navigate(`/providers/${row.id}/locations`)}
             >
               view
             </p>
@@ -114,7 +119,7 @@ const ProvidersManagement = () => {
             render: (row) => (
               <div className="flex items-center justify-center">
                 <p
-                  onClick={() => navigate(`${row.ID}/attachments`)}
+                  onClick={() => navigate(`${row.id}/attachments`)}
                   className="text-blue-500 underline cursor-pointer"
                 >
                   <ImAttachment />
