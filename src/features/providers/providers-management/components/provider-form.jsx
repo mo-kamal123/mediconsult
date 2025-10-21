@@ -8,28 +8,29 @@ import Form from '../../../../shared/UI/from';
 import { toast } from 'sonner';
 import { providerInfoSchema } from '../validation/provider-validation';
 import FormBtn from '../../../../shared/UI/form-Btn';
+import useUpdateClient from '../../../clients/client-management/hooks/useUpdateClient';
 
-const ProviderForm = () => {
+const ProviderForm = ({ provider, updateProvider, deleteProvider }) => {
   const methods = useForm({
-    resolver: zodResolver(providerInfoSchema), // Uncomment when you have the schema
+    resolver: zodResolver(providerInfoSchema),
     defaultValues: {
       logo: null,
-      providerId: '',
-      providerNameAR: '',
-      providerNameEN: '',
-      providerCategory: '',
-      generalSpecialist: '',
-      subSpecialist: '',
-      comercialName: '',
-      hotline: '',
-      iBMNotesId: '',
-      batchDueDays: '',
-      providerClass: '',
-      priority: '',
-      status: '',
-      localDiscount: '',
-      importedDiscount: '',
-      allowChronicOnPortal: false,
+      providerId: provider?.id || '',
+      providerNameAR: provider?.name || '',
+      providerNameEN: provider?.name || '',
+      providerCategory: provider || '',
+      generalSpecialist: provider || '',
+      subSpecialist: provider || '',
+      comercialName: provider || '',
+      hotline: provider?.hotline || '',
+      iBMNotesId: provider || '',
+      batchDueDays: provider?.batchDueDays || '',
+      providerClass: provider?.networkClass || '',
+      priority: provider || '',
+      status: provider || '',
+      localDiscount: provider || '',
+      importedDiscount: provider || '',
+      allowChronicOnPortal: provider?.hasAPortal || false,
     },
   });
 
@@ -41,16 +42,15 @@ const ProviderForm = () => {
 
   const onSubmit = (data) => {
     console.log('✅ Form Submitted:', data);
-    toast.success('Provider information saved successfully!', {
-      description: 'The provider details have been updated.',
-    });
+    updateProvider(data);
+    // toast.success('Provider information saved successfully!', {
+    //   description: 'The provider details have been updated.',
+    // });
   };
 
   const handleDelete = () => {
     console.log('Delete provider');
-    toast.error('Provider deleted successfully!', {
-      description: 'The provider has been removed.',
-    });
+    deleteProvider();
   };
 
   return (
