@@ -9,6 +9,9 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ImAttachment } from 'react-icons/im';
 import TablePagination from '../../../../shared/UI/table-pagiation';
+import useClients from '../hooks/useClients';
+import { useState } from 'react';
+import Spinner from '../../../../shared/layout/spinner';
 
 // Table headers
 const tableHeaders = [
@@ -22,9 +25,25 @@ const tableHeaders = [
   'Status',
 ];
 
+// Table column keys
+const colKeys = [
+  'id',
+  'name',
+  'oldID',
+  'categoryName',
+  'type',
+  'member',
+  'branch',
+  'status',
+];
+
 const ClientsManagement = () => {
+  const [page, setPage] = useState(1); // current page state
   const navigate = useNavigate();
-  const rows = useSelector((state) => state.clients);
+  // TODO: remove comment when api ready
+  const { data: clients, isLoading, isError, error } = useClients(page); // fetch clients data
+  console.log('Clients response:', clients);
+  // const rows = useSelector((state) => state.clients);
 
   // Define actions for the table
   const actions = [
@@ -46,20 +65,25 @@ const ClientsManagement = () => {
     },
   ];
 
+  if (isLoading) return <Spinner />;
+  if (isError) return <p>Error loading clients</p>;
+  if (!clients) return <p>No clients found</p>;
+
   return (
     <section className="w-[95%] m-auto">
       <MainHeader>Clients Management</MainHeader>
       <TableActions actions={actions} tableheaders={tableHeaders} />
       <Table
         cols={tableHeaders}
-        data={rows}
+        colkey={colKeys}
+        data={clients.data}
         checkbox={false}
         // Customize leading column with Google Docs icon
         leadingData={{
           col: '',
           render: (row) => (
             <p
-              onClick={() => navigate(`${row.ID}/client-info`)}
+              onClick={() => navigate(`${row.id}/client-info`)}
               className="text-blue-500 text-xl"
             >
               <SiGoogledocs />
@@ -101,7 +125,13 @@ const ClientsManagement = () => {
           },
         ]}
       />
-      <TablePagination />
+      {/* // TODO: Add pagination support for client list */}
+      <TablePagination
+        page={page}
+        setPage={setPage}
+        totalPage={clients.totalPages}
+        totalItem={clients.totalClients}
+      />
     </section>
   );
 };

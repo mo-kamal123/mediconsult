@@ -4,6 +4,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 
 const Table = ({
   cols = [],
+  colkey,
   data = [],
   checkbox = true,
   leadingData,
@@ -59,7 +60,9 @@ const Table = ({
                   type="checkbox"
                   className="ml-2"
                   onChange={() => handleCheckAll()}
-                  checked={checkedRows.length === data.length && data.length > 0}
+                  checked={
+                    checkedRows.length === data.length && data.length > 0
+                  }
                 />
               </th>
             )}
@@ -134,17 +137,20 @@ const Table = ({
                   )}
 
                   {/* Render main data cells */}
+                  {/* TODO: change cols with colKeys after finishing integration */}
                   {cols.map((col, colIndex) => (
                     <td
                       key={colIndex}
-                      className="px-6 py-4 whitespace-nowrap text-left text-gray-600 border border-borders"
+                      className={`px-6 py-4 whitespace-nowrap text-gray-600 border border-borders ${row[col.toLowerCase()] === undefined ? 'text-center' : 'text-left'}`}
                     >
-                      {/* // If the column is not 'Status' and the value exists, display it directly */}
-                      {col !== 'Status' && row[col] !== undefined ? (
-                        row[col]
+                      {row[col.toLowerCase()] === undefined ? (
+                        <span>-</span>
+                      ) : col.toLowerCase() === 'status' ? (
+                        <ItemStatus status={row[col.toLowerCase()]}>
+                          {row[col.toLowerCase()]}
+                        </ItemStatus>
                       ) : (
-                        // If the column is 'Status', use ItemStatus component to display it with style*/}
-                        <ItemStatus status={row[col]}>{row[col]}</ItemStatus>
+                        row[col.toLowerCase()]
                       )}
                     </td>
                   ))}

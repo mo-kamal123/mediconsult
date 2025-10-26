@@ -2,16 +2,16 @@ import logo from '../../../app/assets/mediconsult_logo.png';
 import AuthForm from '../components/auth-form';
 import Input from '../../../shared/UI/input';
 import Btn from '../../../shared/UI/Btn';
-import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { login } from '../store/auth-slice';
 import { resetPasswordSchema } from '../validation/auth-validation';
+import { useSearchParams } from 'react-router-dom';
+import useResetPassword from '../hooks/useResetPassword';
 
 const ResetPassword = () => {
-  const dispatch = useDispatch();
-
+  const [searchParams] = useSearchParams(); // get query params
+  const phone = searchParams.get('phone'); // get phone number from query params
+  const { mutate: resetPassword, isPending } = useResetPassword(); // reset password mutation hook
   // react hook form setup
   const {
     register,
@@ -20,14 +20,16 @@ const ResetPassword = () => {
   } = useForm({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
-      password: '',
-      passwordConfirmation: '',
+      newPassword: '',
+      confirmPassword: '',
     },
   });
 
+  // handle form submit
   const onSubmit = (data) => {
-    console.log('Reset Password data:', data);
-    dispatch(login()); // you can replace this with resetPassword API call
+    //TODO: remove logs
+    console.log('Reset Password data:', { ...data, phoneNumber: phone });
+    resetPassword({ ...data, phoneNumber: phone }); // call reset password mutation
   };
 
   return (
@@ -41,16 +43,22 @@ const ResetPassword = () => {
         <Input
           type="password"
           label="Password"
-          {...register('password')}
-          error={errors.password?.message}
+          {...register('newPassword')}
+          error={errors.newPassword?.message}
         />
         <Input
           type="password"
           label="Password Confirmation"
-          {...register('passwordConfirmation')}
-          error={errors.passwordConfirmation?.message}
+          {...register('confirmPassword')}
+          error={errors.confirmPassword?.message}
         />
-        <Btn>Submit</Btn>
+        <Btn
+          disabled={isPending}
+          className={`flex items-center justify-center gap-2 w-full px-7 py-3 
+    ${isPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#1F4ED6] hover:bg-blue-800'}`}
+        >
+          {isPending ? 'Loading...' : 'Submit'}
+        </Btn>
       </AuthForm>
     </div>
   );

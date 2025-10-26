@@ -6,8 +6,10 @@ import Form from '../../../../shared/UI/from';
 import { toast } from 'sonner';
 import { newProviderSchema } from '../validation/provider-validation';
 import FormBtn from '../../../../shared/UI/form-Btn';
+import useCreateProvider from '../hooks/useCreateProvider';
 
 const NewProviderForm = () => {
+  const { mutate: createProvider, isPending } = useCreateProvider();
   const methods = useForm({
     resolver: zodResolver(newProviderSchema),
     defaultValues: {
@@ -30,9 +32,10 @@ const NewProviderForm = () => {
 
   const onSubmit = (data) => {
     console.log('✅ Form Submitted:', data);
-    toast.success('Provider information saved successfully!', {
-      description: 'The provider details have been updated.',
-    });
+    createProvider(data);
+    // toast.success('Provider information saved successfully!', {
+    //   description: 'The provider details have been updated.',
+    // });
   };
 
   const handleDelete = () => {

@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
-const TablePagination = () => {
-  const totalPages = 239;
-  const totalItems = 2389;
-  const [curr, setCurr] = useState(1);
+const TablePagination = ({ page, totalPage, setPage, totalItem }) => {
+  const totalPages = totalPage || 0;
+  const totalItems = totalItem || 0;
+  // const [page, setPage] = useState(1);
 
   const handlePrev = () => {
-    if (curr > 1) setCurr(curr - 1);
+    if (page > 1) setPage(page - 1);
   };
 
   const handleNext = () => {
-    if (curr < totalPages) setCurr(curr + 1);
+    if (page < totalPages) setPage(page + 1);
   };
 
   const getPageNumbers = () => {
@@ -27,14 +27,14 @@ const TablePagination = () => {
       // Always show first page
       pages.push(1);
 
-      if (curr <= 4) {
+      if (page <= 4) {
         // Near the beginning
         for (let i = 2; i <= maxVisible; i++) {
           pages.push(i);
         }
         pages.push('ellipsis');
         pages.push(totalPages);
-      } else if (curr >= totalPages - 3) {
+      } else if (page >= totalPages - 3) {
         // Near the end
         pages.push('ellipsis');
         for (let i = totalPages - (maxVisible - 2); i <= totalPages; i++) {
@@ -43,7 +43,7 @@ const TablePagination = () => {
       } else {
         // In the middle
         pages.push('ellipsis');
-        for (let i = curr - 2; i <= curr + 2; i++) {
+        for (let i = page - 2; i <= page + 2; i++) {
           pages.push(i);
         }
         pages.push('ellipsis');
@@ -58,16 +58,16 @@ const TablePagination = () => {
     <div className="bg-white border border-gray-300 rounded-2xl flex flex-col lg:flex-row items-center gap-4 md:gap-10 px-5 py-3 mb-5">
       <div className="flex items-center gap-2 text-sm text-gray-700">
         <p>
-          page {curr} of {totalPages}
+          page {page} of {totalPages}
         </p>
         <p>({totalItems} Items)</p>
       </div>
       <div className="flex items-center justify-center space-x-2">
         <button
           onClick={handlePrev}
-          disabled={curr === 1}
+          disabled={page === 1}
           className={`w-7 h-7 md:w-10 md:h-10 flex items-center justify-center border border-gray-300 rounded-lg ${
-            curr === 1
+            page === 1
               ? 'opacity-50 cursor-not-allowed'
               : 'cursor-pointer hover:bg-gray-50'
           }`}
@@ -75,8 +75,8 @@ const TablePagination = () => {
           <IoIosArrowBack />
         </button>
 
-        {getPageNumbers().map((page, index) => {
-          if (page === 'ellipsis') {
+        {getPageNumbers().map((num, index) => {
+          if (num === 'ellipsis') {
             return (
               <span
                 key={`ellipsis-${index}`}
@@ -89,24 +89,24 @@ const TablePagination = () => {
 
           return (
             <button
-              key={page}
-              onClick={() => setCurr(page)}
+              key={num}
+              onClick={() => setPage(num)}
               className={`${
-                curr === page
+                num === page
                   ? 'bg-blue-400 text-white'
                   : 'bg-white hover:bg-gray-50'
               } w-7 h-7 md:w-10 md:h-10 flex items-center justify-center border border-gray-300 rounded-lg cursor-pointer transition-colors`}
             >
-              {page}
+              {num}
             </button>
           );
         })}
 
         <button
           onClick={handleNext}
-          disabled={curr === totalPages}
+          disabled={page === totalPages}
           className={`w-7 h-7 md:w-10 md:h-10 flex items-center justify-center border border-gray-300 rounded-lg ${
-            curr === totalPages
+            page === totalPages
               ? 'opacity-50 cursor-not-allowed'
               : 'cursor-pointer hover:bg-gray-50'
           }`}

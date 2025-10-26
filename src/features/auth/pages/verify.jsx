@@ -2,28 +2,32 @@ import logo from '../../../app/assets/mediconsult_logo.png';
 import AuthForm from '../components/auth-form';
 import Btn from '../../../shared/UI/Btn';
 import OTPInput from '../../../shared/UI/OTP-input';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { otpSchema } from '../validation/auth-validation';
+import useVerify from '../hooks/useVerify';
 
 const Verify = () => {
-  const navigate = useNavigate();
-
-  // ✅ React Hook Form setup
+  const [searchParams] = useSearchParams(); // get query params
+  const phone = searchParams.get('phone'); // get phone number from query params
+  const { mutate: verify, isPending } = useVerify(phone); // verify OTP mutation hook
+  // react hook form setup
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(otpSchema),
-    defaultValues: { code: '' },
+    defaultValues: { otp: '' },
   });
 
   // ✅ Handle submit
   const onSubmit = (data) => {
-    console.log('OTP Data:', data);
-    navigate('/auth/reset-password');
+    //TODO: remove logs
+    console.log('OTP Data:', data.otp);
+    console.log(phone);
+    verify({ otp: data.otp, phoneNumber: phone }); // call verify OTP mutation
   };
 
   return (
@@ -36,18 +40,24 @@ const Verify = () => {
       >
         {/* Controller needed because OTPInput is a custom component */}
         <Controller
-          name="code"
+          name="otp"
           control={control}
           render={({ field }) => (
             <div className="w-full flex flex-col gap-1">
               <OTPInput {...field} />
-              {errors.code && (
-                <p className="text-red-500 text-sm">{errors.code.message}</p>
+              {errors.otp && (
+                <p className="text-red-500 text-sm">{errors.otp.message}</p>
               )}
             </div>
           )}
         />
-        <Btn>Submit</Btn>
+        <Btn
+          disabled={isPending}
+          className={`flex items-center justify-center gap-2 w-full px-7 py-3 
+    ${isPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#1F4ED6] hover:bg-blue-800'}`}
+        >
+          {isPending ? 'Loading...' : 'Submit'}
+        </Btn>
       </AuthForm>
     </div>
   );
