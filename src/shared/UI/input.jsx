@@ -17,7 +17,7 @@ const Input = ({
         id={name}
         type={type}
         name={name}
-        className={`p-3 border border-[#C2C2C2] ${error && 'border-red-500 focus:ring-red-500'} rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
+        className={`p-3 border border-[#C2C2C2] text-sm ${error && 'border-red-500 focus:ring-red-500'} rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
         {...props}
       />
       {error && <p className="text-red-500 text-sm">{error}</p>}

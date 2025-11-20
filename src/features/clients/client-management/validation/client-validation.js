@@ -7,7 +7,14 @@ export const clientInfoSchema = z.object({
     .refine((file) => file?.length === 1, 'Please upload one logo image')
     .optional(),
   clientCategory: z.string().nonempty('Client Category is required').optional(),
-  clientName: z.string().min(2, 'Client Name is required').optional(),
+  arabicClientName: z
+    .string()
+    .min(2, 'Client Arabic Name is required')
+    .optional(),
+  englishClientName: z
+    .string()
+    .min(2, 'Client English Name is required')
+    .optional(),
   clientType: z.string().min(2, 'Client Type is required').optional(),
   status: z.string().nonempty('Status is required').optional(),
   reimbursementDueDays: z.string().optional(),

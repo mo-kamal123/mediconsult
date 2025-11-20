@@ -5,6 +5,7 @@ import TableBtn from '../../../../shared/UI/table-Btn';
 import TablePagiation from '../../../../shared/UI/table-pagiation';
 import { RiFileExcel2Fill } from 'react-icons/ri';
 import { MdFilterAltOff } from 'react-icons/md';
+import { BiAddToQueue } from 'react-icons/bi';
 
 const tableHeaders = [
   'Medicine Name',
@@ -26,9 +27,9 @@ const rows = Array.from({ length: 6 }, (_, i) => ({
 
 const actions = [
   {
-    type: 'clearFilter',
-    Icon: MdFilterAltOff,
-    label: 'Clear Filter',
+    type: 'newClient',
+    Icon: BiAddToQueue,
+    label: 'Add New',
   },
 ];
 
@@ -37,7 +38,7 @@ const MedicinesInfo = () => {
     <div>
       <div className="bg-white border border-borders p-4 rounded-2xl shadow-sm -mb-7">
         <h2 className="font-semibold text-[#1F4ED6] text-lg">
-          Medicines Information
+          Service Information
         </h2>
         <div className="flex items-center justify-between gap-10 ">
           <DropDown
