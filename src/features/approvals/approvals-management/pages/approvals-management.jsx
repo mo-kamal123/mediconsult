@@ -7,6 +7,7 @@ import { FaPlusSquare } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { SiGoogledocs } from 'react-icons/si';
 import DragAndDrop from '../../../../shared/UI/drag&drop';
+import MoreMenu from '../../../../shared/UI/more-menu';
 
 const ApprovalsManagement = () => {
   const navigate = useNavigate();
@@ -50,7 +51,24 @@ const ApprovalsManagement = () => {
   return (
     <div className="w-[95%] m-auto">
       <MainHeader>Approvals Management</MainHeader>
-      <TableActions actions={actions} tableheaders={tableHeaders} />
+      <TableActions actions={actions} tableheaders={tableHeaders}>
+        <MoreMenu
+          actions={[
+            {
+              label: 'Change Show On Portal Date',
+              onClick: () => alert('Change Show On Portal Date'),
+            },
+            {
+              label: 'Cancel Selected Approval',
+              onClick: () => alert('Cancel Selected Approval'),
+            },
+            {
+              label: 'Dispense Selected Approval',
+              onClick: () => alert('Dispense Selected Approval'),
+            },
+          ]}
+        />
+      </TableActions>
       <Table
         cols={tableHeaders}
         data={rows}

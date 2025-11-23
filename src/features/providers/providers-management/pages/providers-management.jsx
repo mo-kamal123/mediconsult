@@ -14,8 +14,12 @@ import { Icon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { RiFileExcel2Fill } from 'react-icons/ri';
 import useProviders from '../hooks/useProviders';
+import Modal from '../../../../shared/UI/modal';
+import DragAndDrop from '../../../../shared/UI/drag&drop';
+import { useState } from 'react';
 
 const ProvidersManagement = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const { data: providers, isPending, isError } = useProviders(1);
   console.log(providers);
@@ -106,7 +110,7 @@ const ProvidersManagement = () => {
                   <FaUserTimes />
                 </button>
                 <button
-                  className="text-[#FFCC00] text-2xl "
+                  className="text-[#4285F4] text-2xl "
                   onClick={() => alert(`pending ${row.Name}`)}
                 >
                   <FaUserClock />
@@ -119,7 +123,7 @@ const ProvidersManagement = () => {
             render: (row) => (
               <div className="flex items-center justify-center">
                 <p
-                  onClick={() => navigate(`${row.id}/attachments`)}
+                  onClick={() => setIsModalOpen(true)}
                   className="text-blue-500 underline cursor-pointer"
                 >
                   <ImAttachment />
@@ -130,6 +134,11 @@ const ProvidersManagement = () => {
         ]}
       />
       <TablePagiation />
+
+      {/* Attachment Modal */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <DragAndDrop />
+      </Modal>
     </div>
   );
 };

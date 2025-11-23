@@ -2,6 +2,8 @@ import { MdFilterAltOff } from 'react-icons/md';
 import DropDown from '../../../../shared/UI/drop-down';
 import Table from '../../../../shared/UI/table';
 import TableBtn from '../../../../shared/UI/table-Btn';
+import FormBtn from '../../../../shared/UI/form-Btn';
+import { BiAddToQueue } from 'react-icons/bi';
 
 const tableHeaders = [
   'Medicine Name',
@@ -21,9 +23,9 @@ const rows = Array.from({ length: 6 }, (_, i) => ({
 
 const actions = [
   {
-    type: 'clearFilter',
-    Icon: MdFilterAltOff,
-    label: 'Clear Filter',
+    type: 'newClient',
+    Icon: BiAddToQueue,
+    label: 'Add New',
   },
 ];
 const ClaimInfo = () => {
@@ -69,6 +71,14 @@ const ClaimInfo = () => {
           ),
         }}
       />
+      <div className="flex justify-end mb-5 gap-4">
+        <FormBtn role={'delete'} type="button">
+          Cancel
+        </FormBtn>
+        <FormBtn role={'save'} type="submit">
+          Save
+        </FormBtn>
+      </div>
     </div>
   );
 };

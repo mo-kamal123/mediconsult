@@ -22,6 +22,7 @@ import MemberHistoryModal from '../../../approvals/approvals-management/componen
 import Modal from '../../../../shared/UI/modal';
 import useMembers from '../../members/hooks/useMembers';
 import TablePagination from '../../../../shared/UI/table-pagiation';
+import MoreMenu from '../../../../shared/UI/more-menu';
 
 // Table headers
 const tableHeaders = [
@@ -76,10 +77,25 @@ const Members = () => {
   return (
     <div className="">
       <TableActions actions={actions} tableheaders={tableHeaders}>
-        <DropDown
-          placeholder="More"
-          className="p-5 mb-2 w-28 border-borders text-blue-600"
-          data={['item1', 'item2']}
+        <MoreMenu
+          actions={[
+            {
+              label: 'Activate Selected Members',
+              onClick: () => alert('Activate Selected Members'),
+            },
+            {
+              label: 'Deactivate Selected Members',
+              onClick: () => alert('Deactivate Selected Members'),
+            },
+            {
+              label: 'Bulk update Members',
+              onClick: () => alert('Bulk update Members'),
+            },
+            {
+              label: 'Bulk upload Image',
+              onClick: () => alert('Bulk upload Image'),
+            },
+          ]}
         />
       </TableActions>
       <Table

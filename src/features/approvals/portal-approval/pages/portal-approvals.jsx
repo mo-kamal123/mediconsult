@@ -11,16 +11,17 @@ import { useNavigate } from 'react-router-dom';
 
 const tableHeaders = [
   'RequestNo',
-  'MemberName',
+  'Member Name',
   'MemberID',
   'Date',
   'Provider',
   'Status',
   'Request Type',
   'Booking Date',
+  'Mobile',
   'Portal Source',
   'Client',
-  'Approval No',
+  'ApprovalNo',
   'Note',
 ];
 const rows = [
@@ -120,6 +121,7 @@ const PortalApproval = () => {
     <div className="w-[95%] m-auto">
       <MainHeader>Portals Approvals Requests</MainHeader>
       <Table cols={tableHeaders} data={[]} />
+      <h1 className="text-blue-700 text-2xl">Completed Approval</h1>
       <TableActions actions={actions} tableheaders={tableHeaders} />
       <Table
         cols={tableHeaders}

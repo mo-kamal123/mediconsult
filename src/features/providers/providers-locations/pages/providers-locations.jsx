@@ -13,11 +13,6 @@ const ProvidersLocations = () => {
   );
   const actions = [
     {
-      type: 'AddColumn',
-      Icon: BsFillPlusSquareFill,
-      label: 'Add Column',
-    },
-    {
       type: 'clearFilter',
       Icon: MdFilterAltOff,
       label: 'Clear Filter',
