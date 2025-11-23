@@ -55,8 +55,8 @@ const NewBatch = () => {
                 className="flex-1 min-w-[700px]"
               />
               <Input
-                label="Batch Due Date"
-                type="date"
+                label="Batch Due Days"
+                type="number"
                 {...register('batchDueDate')}
                 error={errors.batchDueDate?.message}
                 className="flex-1 min-w-[100px]"
@@ -118,12 +118,15 @@ const NewBatch = () => {
               />
             </div>
             <div className="flex items-start gap-4 flex-1 min-w-[180px]">
-              <Input
+              <RHFDropDown
                 label="Upload on Portal"
-                type="date"
-                {...register('uploadOnPortal')}
-                error={errors.uploadOnPortal?.message}
-                className="flex-1 min-w-[100px]"
+                name="uploadOnPortal"
+                data={[
+                  { value: 'yes', label: 'Yes' },
+                  { value: 'no', label: 'No' },
+                ]}
+                placeholder="Select Upload on Portal"
+                className="flex-1 p-6 mt-1 min-w-[200px]"
               />
 
               <Input

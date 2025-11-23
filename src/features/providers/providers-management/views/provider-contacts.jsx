@@ -6,7 +6,7 @@ import { MdDeleteForever } from 'react-icons/md';
 import { FaEdit } from 'react-icons/fa';
 
 const ProviderContacts = () => {
-  const tableHeaders = ['Name', 'job Title', 'Email', 'Mobile', 'Notes'];
+  const tableHeaders = ['Name', 'Job Title', 'Email', 'Mobile', 'Notes'];
   const actions = [
     {
       type: 'newClient',

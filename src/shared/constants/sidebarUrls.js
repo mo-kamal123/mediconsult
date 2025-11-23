@@ -54,7 +54,7 @@ export const sidebar_url = [
     name: 'Approvals',
     icon: FaDatabase,
     sub: [
-      { name: 'Approvals Management', url: '/approvals' },
+      { name: 'Approvals Management', url: 'approvals/approvals-management' },
       // { name: 'Canceled Approval Management', url: '' },
       {
         name: 'Portals Approvals Requests',

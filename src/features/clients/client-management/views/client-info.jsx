@@ -12,9 +12,11 @@ import useClientById from '../hooks/useClientById';
 import { useParams } from 'react-router-dom';
 import useUpdateClient from '../hooks/useUpdateClient';
 import Spinner from '../../../../shared/layout/spinner';
+import { useState } from 'react';
 
 const ClientForm = () => {
   const { clientId } = useParams(); // get clientId from url params
+  const [preview, setPreview] = useState(null);
 
   console.log(clientId);
   // TODO: remove comment when api ready
@@ -26,7 +28,8 @@ const ClientForm = () => {
     resolver: zodResolver(clientInfoSchema),
     defaultValues: {
       clientCategory: client?.categoryName || '',
-      clientName: client?.name || '',
+      arabicClientName: client?.name || '',
+      englishClientName: client?.name || '',
       clientType: client?.type || '',
       status: client?.status || '',
       reimbursementDueDays: client?.refundDueDays || '',
@@ -56,16 +59,33 @@ const ClientForm = () => {
         <div className="flex flex-col gap-4">
           <h3 className="font-semibold text-lg text-[#1F4ED6]">Client Logo</h3>
           <div className="flex flex-col sm:flex-row gap-6 items-start">
-            <div className="relative w-[150px] h-[200px] border border-dashed border-gray-400 rounded flex items-center justify-center overflow-hidden cursor-pointer hover:border-blue-500 transition">
+            <div className="relative  w-[170px] h-[230px] border border-dashed border-gray-400 rounded flex items-center justify-center overflow-hidden cursor-pointer hover:border-blue-500 transition">
               <input
                 type="file"
                 id="fileInput"
                 accept="image/png, image/jpeg"
                 {...register('logo')}
                 className="absolute inset-0 opacity-0 cursor-pointer"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    setPreview(URL.createObjectURL(file)); // show preview
+                  }
+                }}
               />
-              <FaImage className="text-4xl text-gray-400" />
+
+              {/* If preview exists → show the uploaded image */}
+              {preview ? (
+                <img
+                  src={preview}
+                  alt="Uploaded"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <FaImage className="text-4xl text-gray-400" />
+              )}
             </div>
+
             <div className="flex flex-col gap-2">
               <FormBtn
                 role={'upload'}
@@ -91,9 +111,15 @@ const ClientForm = () => {
 
           <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
             <Input
-              label="Client Name"
-              {...register('clientName')}
-              error={errors.clientName?.message}
+              label="English Client Name"
+              {...register('englishClientName')}
+              error={errors.englishClientName?.message}
+              className="flex-1 min-w-[200px]"
+            />
+            <Input
+              label="Arabic Client Name"
+              {...register('arabicClientName')}
+              error={errors.arabicClientName?.message}
               className="flex-1 min-w-[200px]"
             />
             <RHFDropDown

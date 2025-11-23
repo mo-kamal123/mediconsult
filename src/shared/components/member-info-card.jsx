@@ -1,105 +1,170 @@
 import { useState } from 'react';
-import { FaUser } from 'react-icons/fa';
+import {
+  FaUser,
+  FaBuilding,
+  FaIdCard,
+  FaStar,
+  FaCalendarAlt,
+  FaPhone,
+} from 'react-icons/fa';
 import DragAndDrop from '../UI/drag&drop';
 import Modal from '../UI/modal';
-import MemberHistoryModal from '../../features/approvals/approvals-management/components/member-history-modal';
+import { useNavigate } from 'react-router-dom';
+import { TbNotes } from 'react-icons/tb';
 
 const MemberInfoCard = () => {
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState(''); // 'history' or 'attachment'
+
+  // ------------ Member Data (Replace with API Data) ------------
+  const member = {
+    image: '', // you can pass your uploaded image here
+    name: 'Ibrahim Hamdy Ibrahim',
+    gender: 'Male',
+    jobTitle: 'Accountant',
+    birthDate: '23 Sept 1997',
+    mobile: '01273463818',
+    companyName: 'Domty',
+    companyCode: '24323',
+    cardNumber: '2080206',
+    note: '',
+    vip: 'No',
+    program: 'White - B',
+    addDate: '14 Jul 2024',
+    coverage: '20,000',
+    totalApprovals: '309',
+    totalExpenses: '1,404',
+    remaining: '18,596',
+    totalClaims: '1,095',
+    debitSpent: '-',
+    exceedPoolSpent: '-',
+    exceedPoolLimit: '-',
+  };
 
   return (
     <>
-      <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-6">
+      <div className="bg-white border border-gray-200 rounded-2xl p-8 flex flex-col gap-6">
         <h2 className="font-semibold text-[#1F4ED6] text-lg">
           Member Information
         </h2>
 
         <div className="flex flex-col md:flex-row gap-6">
           {/* Member Image */}
-          <div className="w-[150px] h-[180px] rounded overflow-hidden border border-gray-300 flex items-center justify-center bg-gray-100">
-            <FaUser className="text-gray-400 text-6xl" />
+          <div className="w-[180px] h-[220px] rounded overflow-hidden border border-gray-300 bg-gray-100 flex items-center justify-center">
+            {member.image ? (
+              <img
+                src={member.image}
+                alt="Member"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <FaUser className="text-gray-400 text-6xl" />
+            )}
           </div>
 
-          {/* Info Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-3 text-sm text-gray-700">
-            <div>
-              <strong>Member Name:</strong> Mustafa Ibrahim Zaghloul
+          {/* Left + Right Info Columns */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-4 text-sm text-gray-700 w-full">
+            {/* LEFT COLUMN */}
+            <div className="flex flex-col gap-3">
+              <p className="text-base">
+                <strong>Member Name:</strong> {member.name}
+              </p>
+              <p className="text-base">
+                <strong>Job Title:</strong> {member.jobTitle}
+              </p>
+
+              <p className="flex items-center gap-2 text-base">
+                <FaPhone className="text-blue-600" />
+                <strong>Mobil Number:</strong> {member.mobile}
+              </p>
+
+              <p className="flex items-center gap-2 text-base">
+                <FaBuilding className="text-blue-600" />
+                <strong>Company Name:</strong> {member.companyName}
+              </p>
+
+              <p className="flex items-center gap-2 text-base">
+                <FaIdCard className="text-blue-600" />
+                <strong>Company Code:</strong> {member.companyCode}
+              </p>
+
+              <p className="flex items-center gap-2 text-base">
+                <FaIdCard className="text-blue-600" />
+                <strong>Card Number:</strong> {member.cardNumber}
+              </p>
+
+              <p className="flex items-center gap-2 text-base">
+                <TbNotes className="text-blue-600" />
+                <strong>Note:</strong> {member.note || '-'}
+              </p>
             </div>
-            <div>
-              <strong>Gender:</strong> Male
-            </div>
-            <div>
-              <strong>Job Title:</strong> Accountant
-            </div>
-            <div>
-              <strong>Birth Date:</strong> 07 Sept 1988
-            </div>
-            <div>
-              <strong>Mobil Number:</strong> 01012211222
-            </div>
-            <div>
-              <strong>Company Name:</strong> My Gas
-            </div>
-            <div>
-              <strong>Company Code:</strong> 2169143
-            </div>
-            <div>
-              <strong>Program:</strong> Gold A
-            </div>
-            <div>
-              <strong>Card Number:</strong> 2083744
-            </div>
-            <div>
-              <strong>VIP:</strong> No
-            </div>
-            <div>
-              <strong>Add Date:</strong> 18 Nov 2024
+
+            {/* RIGHT COLUMN */}
+            <div className="flex flex-col gap-3">
+              <p className="text-base">
+                <strong>Gender:</strong> {member.gender}
+              </p>
+              <p className="text-base">
+                <strong>Birth Date:</strong> {member.birthDate}
+              </p>
+
+              <p className="flex items-center gap-2 text-base">
+                <FaStar className="text-blue-600" />
+                <strong>VIP:</strong> {member.vip}
+              </p>
+
+              <p className="flex items-center gap-2 text-base">
+                <FaIdCard className="text-blue-600" />
+                <strong>Program:</strong> {member.program}
+              </p>
+
+              <p className="flex items-center gap-2 text-base">
+                <FaCalendarAlt className="text-blue-600" />
+                <strong>Add Date:</strong> {member.addDate}
+              </p>
             </div>
           </div>
         </div>
 
         {/* Financial Info */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-700 mt-4">
-          <div>
-            <strong>Coverage:</strong> 60328.7671232877
-          </div>
-          <div>
-            <strong>Total Approvals:</strong> 80.14
-          </div>
-          <div>
-            <strong>Total Expenses:</strong> 80.14
-          </div>
-          <div>
-            <strong>Remaining:</strong> 60328.7671232877
-          </div>
-          <div>
-            <strong>Total Claims:</strong> 0
-          </div>
-          <div>
-            <strong>Debit Spent:</strong> -
-          </div>
-          <div>
-            <strong>Exceed Pool Limit:</strong> -
-          </div>
+          <p className="text-base">
+            <strong>Coverage:</strong> {member.coverage}
+          </p>
+          <p className="text-base">
+            <strong>Total Approvals:</strong> {member.totalApprovals}
+          </p>
+          <p className="text-base">
+            <strong>Total Expenses:</strong> {member.totalExpenses}
+          </p>
+          <p className="text-base">
+            <strong>Remaining:</strong> {member.remaining}
+          </p>
+          <p className="text-base">
+            <strong>Total Claims:</strong> {member.totalClaims}
+          </p>
+          <p className="text-base">
+            <strong>Debit Spent:</strong> {member.debitSpent}
+          </p>
+          <p className="text-base">
+            <strong>Exceed Pool Spent:</strong> {member.exceedPoolSpent}
+          </p>
+          <p className="text-base">
+            <strong>Exceed Pool Limit:</strong> {member.exceedPoolLimit}
+          </p>
         </div>
 
         {/* Footer Buttons */}
         <div className="flex justify-end gap-4 mt-4">
           <button
             className="border px-4 py-2 rounded"
-            onClick={() => {
-              setModalType('history');
-              setIsModalOpen(true);
-            }}
+            onClick={() => navigate('/clients/10/members/5/member-info')}
           >
             History
           </button>
+
           <button
-            onClick={() => {
-              setModalType('attachment');
-              setIsModalOpen(true);
-            }}
+            onClick={() => setIsModalOpen(true)}
             className="bg-blue-600 text-white px-4 py-2 rounded"
           >
             Attachment
@@ -109,8 +174,7 @@ const MemberInfoCard = () => {
 
       {/* Attachment Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        {modalType === 'history' && <MemberHistoryModal />}
-        {modalType === 'attachment' && <DragAndDrop />}
+        <DragAndDrop />
       </Modal>
     </>
   );

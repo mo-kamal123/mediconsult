@@ -11,7 +11,10 @@ export const approvalsRoutes = [
   {
     path: '/approvals',
     children: [
-      { index: true, element: withSuspense(ApprovalsManagement) },
+      {
+        path: 'approvals-management',
+        element: withSuspense(ApprovalsManagement),
+      },
       {
         path: 'new-pharmacy-approval',
         element: withSuspense(NewPharmacyApproval),
