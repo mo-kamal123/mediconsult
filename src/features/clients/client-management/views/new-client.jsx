@@ -10,8 +10,10 @@ import FormBtn from '../../../../shared/UI/form-Btn';
 import { toast } from 'sonner';
 import useCreateClient from '../hooks/useCreateClient';
 import { Loader } from 'lucide-react';
+import { useState } from 'react';
 
 const NewClient = () => {
+  const [preview, setPreview] = useState(null);
   const { mutate: createNewClient, isPending } = useCreateClient(); // create client mutation hook
   // react hook form setup
   const methods = useForm({
@@ -50,29 +52,81 @@ const NewClient = () => {
           {/* Form */}
           <Form onSubmit={handleSubmit(onSubmit)}>
             {/* File Upload */}
-            <div className="flex flex-wrap gap-4  items-center">
-              <div className="flex-col relative w-[150px] h-[200px] border border-dashed border-gray-400 rounded flex items-center justify-center overflow-hidden cursor-pointer hover:border-blue-500 transition">
+            <div className="flex flex-wrap gap-20 items-center">
+              <div className="flex-col relative w-[170px] h-[230px] mt-5 border border-dashed border-gray-400 rounded flex items-center justify-center overflow-hidden cursor-pointer hover:border-blue-500 transition">
                 <input
                   type="file"
                   accept="image/png, image/jpeg"
                   {...register('logo')}
                   className="absolute inset-0 opacity-0 cursor-pointer"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      setPreview(URL.createObjectURL(file));
+                    }
+                  }}
                 />
-                <FaImage className="text-4xl text-gray-400" />
-                {errors.logo && (
-                  <p className="text-red-500 text-sm">{errors.logo.message}</p>
+
+                {preview ? (
+                  <img
+                    src={preview}
+                    alt="Preview"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <>
+                    <FaImage className="text-4xl text-gray-400" />
+                    {errors.logo && (
+                      <p className="text-red-500 text-sm">
+                        {errors.logo.message}
+                      </p>
+                    )}
+                  </>
                 )}
               </div>
 
               <div>
                 {/* Form Column 1 */}
-                <div className="flex  items-start gap-3 flex-1">
+                <div className="flex  items-start gap-15 mb-7 flex-1 w-full">
                   <Input
-                    label="Client"
+                    label="Client Name"
                     {...register('client')}
                     error={errors.client?.message}
-                    className="flex-1 min-w-[300px]"
+                    placeholder={'Enter Client Name'}
+                    className="flex-1 w-full"
                   />
+                  <Input
+                    label="Client Name"
+                    {...register('client')}
+                    error={errors.client?.message}
+                    placeholder={'Enter Client Name'}
+                    className="flex-1 w-full"
+                  />
+                </div>
+
+                {/* Form Column 2 */}
+                <div className="flex items-start gap-15 flex-1 w-full">
+                  <RHFDropDown
+                    label="Client Category"
+                    name="clientCategory"
+                    data={[
+                      { value: 'corp', label: 'Corp' },
+                      { value: 'ind', label: 'Ind' },
+                    ]}
+                    placeholder="Select Client Category"
+                    className="flex-1 p-6 mt-1 w-full"
+                  />
+                  <Input
+                    label="Refund Due Days"
+                    {...register('refundDueDays')}
+                    error={errors.refundDueDays?.message}
+                    placeholder={'Enter Refund Days'}
+                    className="flex-1 w-full"
+                  />
+                </div>
+
+                {/* Form Column 3 */}
+                <div className="flex items-start gap-15 flex-1">
                   <RHFDropDown
                     label="Client Type"
                     name="clientType"
@@ -82,26 +136,6 @@ const NewClient = () => {
                     ]}
                     placeholder="Select Client Type"
                     className="flex-1 p-6 mt-1 min-w-[300px]"
-                  />
-                </div>
-
-                {/* Form Column 2 */}
-                <div className="flex  items-start gap-3 flex-1">
-                  <RHFDropDown
-                    label="Client Category"
-                    name="clientCategory"
-                    data={[
-                      { value: 'corp', label: 'Corp' },
-                      { value: 'ind', label: 'Ind' },
-                    ]}
-                    placeholder="Select Client Category"
-                    className="flex-1 p-6 mt-1 min-w-[300px]"
-                  />
-                  <Input
-                    label="Refund Due Days"
-                    {...register('refundDueDays')}
-                    error={errors.refundDueDays?.message}
-                    className="flex-1 min-w-[300px]"
                   />
                 </div>
               </div>

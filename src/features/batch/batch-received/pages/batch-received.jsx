@@ -1,8 +1,8 @@
-import { MdFilterAltOff } from 'react-icons/md';
+import { MdFilterAltOff, MdOutlineDeleteSweep } from 'react-icons/md';
 import MainHeader from '../../../../shared/UI/main-header';
 import Table from '../../../../shared/UI/table';
 import TableActions from '../../../../shared/UI/table-actions';
-import { RiFileExcel2Fill, RiSearch2Fill } from 'react-icons/ri';
+import { RiFileExcel2Fill, RiSearch2Fill, RiSwapBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { SiGoogledocs } from 'react-icons/si';
 import { BiAddToQueue } from 'react-icons/bi';
@@ -30,6 +30,28 @@ const BatchReceived = () => {
       Icon: BiAddToQueue,
       label: 'New Batch',
       onClick: () => navigate('/batch/new'),
+    },
+  ];
+  const expandActions = [
+    {
+      type: 'clearFilter',
+      Icon: MdFilterAltOff,
+      label: 'Clear Filter',
+    },
+    {
+      type: 'export',
+      Icon: RiFileExcel2Fill,
+      label: 'Export',
+    },
+    {
+      type: 'delete',
+      Icon: MdOutlineDeleteSweep,
+      label: 'Clear Claim Data',
+    },
+    {
+      type: 'newClient',
+      Icon: RiSwapBoxFill,
+      label: 'Swap Claims',
     },
   ];
   const tableheaders = [
@@ -76,7 +98,7 @@ const BatchReceived = () => {
             <div className="w-[95%] m-auto mt-5 flex flex-col bg-gray-50 p-5 rounded-2xl border mb-5">
               <h3 className="text-lg text-[#1F4ED6]">Claims</h3>
               <TableActions
-                actions={actions}
+                actions={expandActions}
                 tableheaders={[
                   'Serial',
                   'ID',

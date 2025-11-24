@@ -238,7 +238,7 @@ const MemberForm = ({ member, memberSubmit }) => {
             type="button"
             onClick={() => methods.reset()}
           >
-            Cancel
+            Delete
           </FormBtn>
           <FormBtn role={'save'} type="submit">
             Save
