@@ -5,7 +5,7 @@ import Btn from './Btn';
 import { useState } from 'react';
 
 const TableActions = ({ actions, tableheaders, children }) => {
-  const [search, setSearch] = useState({ searchTerm: '', filterBy: '' }); // state to hold search term and filter column
+  const [search, setSearch] = useState({ searchTerm: '', filterBy: 'All' }); // state to hold search term and filter column
 
   // handle search input change
   const handlesearchChange = (name, value) => {
@@ -23,14 +23,15 @@ const TableActions = ({ actions, tableheaders, children }) => {
           className="w-full bg-white p-3 pl-10 border border-borders rounded-lg"
           onChange={(e) => handlesearchChange('searchTerm', e.target.value)}
         />
-        <div className="flex items-center justify-between gap-5">
+        <div className="flex w-1/5 items-center justify-between gap-5">
           <DropDown
             data={tableheaders || []}
-            className="py-6 -mt-2"
+            className="py-3 -mt-2"
             type="search"
             value={search.filterBy}
             onValueChange={(value) => handlesearchChange('filterBy', value)}
             placeholder="Filter By"
+            usePortal={true}
           />
           <TableBtn label={'search'} Icon={FiSearch} type="search" />
         </div>

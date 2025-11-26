@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { FaRegPlusSquare } from 'react-icons/fa';
 import Btn from '../../../../shared/UI/Btn';
-import Table from '../../../../shared/UI/table';
+import Modal from '../../../../shared/UI/modal';
+import ClientContractsTable from '../components/client-contracts-table';
 
 const ContractsInfo = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // Table headers
   const headers = [
     'ID',
@@ -12,7 +16,8 @@ const ContractsInfo = () => {
     'Total Members',
     'Insurance Company',
   ];
-  // Sample data rows
+
+  // Sample rows
   const rows = [
     {
       ID: 1001,
@@ -107,7 +112,10 @@ const ContractsInfo = () => {
           Add New
         </Btn>
       </div>
-      <Table cols={headers} data={rows}></Table>
+      <ClientContractsTable headers={headers} data={rows} type={'update'} />
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      </Modal>
     </div>
   );
 };

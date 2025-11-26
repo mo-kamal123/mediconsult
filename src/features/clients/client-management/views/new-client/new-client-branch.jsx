@@ -1,16 +1,15 @@
-import { FaRegPlusSquare } from 'react-icons/fa';
-import Btn from '../../../../shared/UI/Btn';
-import Table from '../../../../shared/UI/table';
 import { useState } from 'react';
-import Modal from '../../../../shared/UI/modal';
-import Form from '../../../../shared/UI/from';
-import NewBranchForm from '../components/new-branch-form';
-import ClientBranchTable from '../components/client-branch-table';
+import Btn from '../../../../../shared/UI/Btn';
+import { FaRegPlusSquare } from 'react-icons/fa';
+import Modal from '../../../../../shared/UI/modal';
+import NewBranchForm from '../../components/new-branch-form';
+import Table from '../../../../../shared/UI/table';
+import ClientBranchTable from '../../components/client-branch-table';
 
-const BranchInfo = () => {
+const NewClientBranch = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // Table headers
-  const headers = ['ID', 'Branch Name', 'Members Count', 'Branch Status'];
+  const headers = ['Branch Name', 'Members Count', 'Branch Status'];
   return (
     <div>
       <div className="flex justify-end">
@@ -22,12 +21,12 @@ const BranchInfo = () => {
           Add New
         </Btn>
       </div>
-      <ClientBranchTable headers={headers} data={[]} type={'update'} />
+      <ClientBranchTable  headers={headers} data={[]} type={'create'} />
+
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <NewBranchForm onClose={() => setIsModalOpen(false)} />
       </Modal>
     </div>
   );
 };
-
-export default BranchInfo;
+export default NewClientBranch;

@@ -23,6 +23,7 @@ import Modal from '../../../../shared/UI/modal';
 import useMembers from '../../members/hooks/useMembers';
 import TablePagination from '../../../../shared/UI/table-pagiation';
 import MoreMenu from '../../../../shared/UI/more-menu';
+import ClientMembersTable from '../components/client-members-table';
 
 // Table headers
 const tableHeaders = [
@@ -98,7 +99,8 @@ const Members = () => {
           ]}
         />
       </TableActions>
-      <Table
+      <ClientMembersTable headers={tableHeaders} data={[]} type="update" />
+      {/* <Table
         cols={tableHeaders}
         data={members}
         checkbox={true}
@@ -165,7 +167,7 @@ const Members = () => {
             ),
           },
         ]}
-      />
+      /> */}
       {/* <TablePagination
         page={page}
         setPage={setPage}

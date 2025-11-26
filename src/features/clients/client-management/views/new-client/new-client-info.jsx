@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { newClientSchema } from '../validation/client-validation';
-import useCreateClient from '../hooks/useCreateClient';
-import ClientForm from '../components/client-form';
-import MainHeader from '../../../../shared/UI/main-header';
+import { newClientSchema } from '../../validation/client-validation';
+import useCreateClient from '../../hooks/useCreateClient';
+import ClientForm from '../../components/client-form';
+import MainHeader from '../../../../../shared/UI/main-header';
 
-const NewClient = () => {
+const NewClientInfo = () => {
   const { mutate: createNewClient, isPending } = useCreateClient(); // create client mutation hook
   const methods = useForm({
     resolver: zodResolver(newClientSchema),
@@ -35,4 +35,4 @@ const NewClient = () => {
   );
 };
 
-export default NewClient;
+export default NewClientInfo;
