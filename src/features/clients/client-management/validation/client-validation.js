@@ -18,21 +18,23 @@ export const clientInfoSchema = z.object({
   clientType: z.string().min(2, 'Client Type is required').optional(),
   status: z.string().nonempty('Status is required').optional(),
   reimbursementDueDays: z.string().optional(),
-  ibmNotesId: z.string().optional(),
   clientShortName: z.string().optional(),
   policyStart: z.string().nonempty('Policy Start is required').optional(),
   policyExpire: z.string().nonempty('Policy Expire is required').optional(),
 });
 
 export const newClientSchema = z.object({
-  client: z.string().min(1, 'Client is required'),
-  clientType: z.string().min(1, 'Client Type is required'),
   clientCategory: z.string().min(1, 'Client Category is required'),
-  refundDueDays: z
+  arabicClientName: z.string().min(1, 'Arabic Client Name is required'),
+  englishClientName: z.string().min(1, 'English Client Name is required'),
+  clientType: z.string().min(1, 'Client Type is required'),
+  status: z.string().min(1, 'Status is required'),
+  reimbursementDueDays: z
     .string()
-    .regex(/^\d+$/, 'Refund Due Days must be a number')
-    .min(1, 'Refund Due Days is required'),
-  logo: z.any().refine((file) => file && file.length > 0, 'Logo is required'),
+    .regex(/^\d+$/, 'Reimbursement Due Days must be a number')
+    .min(1, 'Reimbursement Due Days is required'),
+  clientShortName: z.string().min(1, 'Client Short Name is required'),
+
 });
 
 export const newBranchSchema = z.object({

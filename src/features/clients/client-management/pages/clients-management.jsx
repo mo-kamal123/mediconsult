@@ -61,7 +61,7 @@ const ClientsManagement = () => {
       type: 'newClient',
       Icon: RiFileExcel2Fill,
       label: 'New Client',
-      onClick: () => navigate('new'),
+      onClick: () => navigate('/clients/new-client/client-info'),
     },
   ];
 
