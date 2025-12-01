@@ -1,12 +1,16 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { newClientSchema } from '../../validation/client-validation';
-import useCreateClient from '../../hooks/useCreateClient';
 import ClientForm from '../../components/client-form';
-import MainHeader from '../../../../../shared/UI/main-header';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addClientInfo } from '../../store/client-data-slice';
 
 const NewClientInfo = () => {
-  const { mutate: createNewClient, isPending } = useCreateClient(); // create client mutation hook
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const clientData = useSelector((state) => state.clientData);
+  console.log(clientData);
   const methods = useForm({
     resolver: zodResolver(newClientSchema),
     defaultValues: {
@@ -21,16 +25,18 @@ const NewClientInfo = () => {
     },
   });
 
-  // ✅ Handle submit
+  // Submit Handler
   const onSubmit = (data) => {
-    //TODO: remove logs
-    console.log('✅ Submitted Data:', data);
-    // createNewClient(data); // call create client mutation
+    console.log('Client Info Submitted:', data);
+
+    dispatch(addClientInfo(data)); // <-- Save in Redux
+
+    navigate('/clients/new-client/contact-info'); // go to next step
   };
 
   return (
-    <div className=" flex flex-col gap-10">
-      <ClientForm methods={methods} submitFunc={onSubmit} type='create' />
+    <div className="flex flex-col gap-10">
+      <ClientForm methods={methods} submitFunc={onSubmit} type="create" />
     </div>
   );
 };

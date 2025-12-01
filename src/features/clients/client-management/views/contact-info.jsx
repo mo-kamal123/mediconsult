@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import Btn from '../../../../shared/UI/Btn';
-import Table from '../../../../shared/UI/table';
 import Modal from '../../../../shared/UI/modal';
 import ClientContactsTable from '../components/client-contacts-table';
+import NewContactForm from '../components/new-contact-form';
+import { useSelector } from 'react-redux';
 
 const ContactInfo = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const data = useSelector((state) => state.clientData)
+  console.log(data);
   // Table headers
   const headers = ['Name', 'Job Title', 'Email', 'Mobile', 'Address', 'Note'];
+  const colkey = ['Name', 'JobTitle', 'Email', 'Mobile', 'Address', 'Note'];
 
   return (
     <div>
@@ -24,7 +27,7 @@ const ContactInfo = () => {
       </div>
 
       {/* Table */}
-      <ClientContactsTable headers={headers}  data={[]} />
+      <ClientContactsTable colskey={colkey} headers={headers}  data={data.Contacts} />
 
       {/* Save + Cancel Buttons */}
       <div className="flex items-center justify-end gap-5 mt-5">
@@ -38,7 +41,7 @@ const ContactInfo = () => {
 
       {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        {/* <NewContactForm onClose={() => setIsModalOpen(false)} /> */}
+        <NewContactForm onClose={() => setIsModalOpen(false)} />
       </Modal>
     </div>
   );

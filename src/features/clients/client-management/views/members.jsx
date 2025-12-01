@@ -41,7 +41,6 @@ const tableHeaders = [
 
 const Members = () => {
   const [page, setPage] = useState(1); // current page state
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const { data: members, isLoading, isError } = useMembers(page);
   const rows = useSelector((state) => state.members);
@@ -174,9 +173,6 @@ const Members = () => {
         totalPage={members.totalPages}
         totalItem={members.totalClients}
       /> */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <MemberHistoryModal />
-      </Modal>
     </div>
   );
 };

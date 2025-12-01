@@ -1,101 +1,96 @@
 import { createSlice } from '@reduxjs/toolkit';
-
 // Sample data rows
 const initialState = {
-  ArabicName: 'شـركـة الـمـثـال',
-  EnglishName: 'Example Company',
-  ShortName: 'EXCO',
-  CategoryId: 3,
-  ClientStatusId: 1,
-  ClientTypeId: 2,
-  ReimbursementPerDays: 30,
-  StartDate: '2025-01-01',
-  EndDate: '2025-12-31',
-  ImageFile: 'logo.png', // attached file reference
+  "ArabicName": "",
+  "EnglishName": "",
+  "ShortName": "",
+  "CategoryId": "",
+  "CategoryName": "",
+  "TypeId": "",
+  "TypeName": "",
+  "StatusId": "",
+  "StatusName": "",
+  "RefundDueDays": "",
+  "PolicyId": "",
+  "PolicyStart": "",
+  "PolicyExpire": "",
+  "ImageUrl": null,
 
-  ContactUs: [
-    {
-      Name: 'Ahmed Ali',
-      JobTitle: 'HR Manager',
-      Email: 'ahmed@example.com',
-      Mobile: '01012345678',
-      Address: 'Cairo HQ',
-      Note: 'Primary contact',
-    },
-    {
-      Name: 'Sarah Youssef',
-      JobTitle: 'Finance Lead',
-      Email: 'sarah@example.com',
-      Mobile: '',
-      Address: '',
-      Note: '',
-    },
+  "Contacts": [
+    // {
+    //   "Name": "",
+    //   "JobTitle": "",
+    //   "Email": "",
+    //   "Mobile": "",
+    //   "Address": "",
+    //   "Note": ""
+    // }
   ],
 
-  Branches: [
-    {
-      BranchName: 'Downtown Branch',
-      BranchStatusId: 1,
-    },
-    {
-      BranchName: 'Alexandria Branch',
-      BranchStatusId: 2,
-    },
+  "Branches": [
+    // {
+    //   "BranchName": "",
+    //   "BranchStatusId": "",
+    //   "BranchStatusName": "",
+    //   "MemberCount": ""
+    // }
   ],
 
-  Contracts: [
-    {
-      StartDate: '2025-01-01',
-      ExpireDate: '2025-12-31',
-      TotalAmount: 1500000.0,
-      TotalMembers: 1200,
-      InsuranceCompanyId: 5,
-    },
+  "Contracts": [
+    // {
+    //   "StartDate": "",
+    //   "ExpireDate": "",
+    //   "TotalAmount": "",
+    //   "TotalMembers": "",
+    //   "InsuranceCompanyId": ""
+    // }
   ],
 
-  Members: [
-    {
-      Name: 'Mohamed Ibrahim',
-      Birthday: '1990-05-14',
-      Age: 35,
-      Branch: 'Downtown Branch',
-      Program: 'Gold',
-      Status: 'Active',
-      Mobile: '01198765432',
-      Consumptions: 3200.75,
-    },
-    {
-      Name: 'Lina Samir',
-      Birthday: '1995-09-02',
-      Age: null, // Not provided; you can fill or calculate if needed
-      Branch: 'Alexandria Branch',
-      Program: '',
-      Status: 'Active',
-      Mobile: '',
-      Consumptions: 0,
-    },
-  ],
+  "Members": [
+    // {
+    //   "Name": "",
+    //   "Mobile": "",
+    //   "IsMale": true,
+    //   "JobTitle": "",
+    //   "NationalId": "",
+    //   "LevelId": 0,
+    //   "VipStatusId": 0,
+    //   "CompanyCode": "",
+    //   "HofCode": "",
+    //   "StatusId": 0,
+    //   "Birthday": "",
+    //   "ProgramName": "",
+    //   "LevelName": "",
+    //   "VipStatusName": "",
+    //   "StatusName": ""
+    // }
+  ]
 };
 
 const clientDataSlice = createSlice({
   name: 'clientData',
   initialState,
   reducers: {
-    // Replace entire client data
-    changeClientsData(state, action) {
-      return action.payload;
+    // Add NEW client info
+    addClientInfo(state, action) {
+      return { ...state, ...action.payload };
+    },
+
+    // UPDATE existing client info
+    updateClientInfo(state, action) {
+      return { ...state, ...action.payload };
     },
 
     // --------------------------
     // CONTACT US
     // --------------------------
     addContact(state, action) {
-      state.ContactUs.push(action.payload);
+      state.Contacts.push(action.payload);
     },
     updateContact(state, action) {
       const { index, data } = action.payload;
-      if (state.ContactUs[index]) {
-        state.ContactUs[index] = { ...state.ContactUs[index], ...data };
+      if (state.Contacts[index]) {
+        state.Contacts[index] = { ...state.Contacts[index], ...data };
       }
     },
 
@@ -141,7 +136,8 @@ const clientDataSlice = createSlice({
 });
 
 export const {
-  changeClientsData,
+  addClientInfo,
+  updateClientInfo,
   addContact,
   updateContact,
   addBranch,

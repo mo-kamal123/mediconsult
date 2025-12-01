@@ -3,6 +3,7 @@ import { FaRegPlusSquare } from 'react-icons/fa';
 import Btn from '../../../../shared/UI/Btn';
 import Modal from '../../../../shared/UI/modal';
 import ClientContractsTable from '../components/client-contracts-table';
+import NewContractForm from '../components/new-contract-form';
 
 const ContractsInfo = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -115,6 +116,7 @@ const ContractsInfo = () => {
       <ClientContractsTable headers={headers} data={rows} type={'update'} />
       {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <NewContractForm onClose={() => setIsModalOpen(false)} />
       </Modal>
     </div>
   );

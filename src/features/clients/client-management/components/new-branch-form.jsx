@@ -5,8 +5,9 @@ import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { newBranchSchema } from '../validation/client-validation';
 import Input from '../../../../shared/UI/input';
+import { toast } from 'sonner';
 
-const NewBranchForm = ({ onClose }) => {
+const NewBranchForm = ({ onClose, onSave }) => {
   const methods = useForm({
     resolver: zodResolver(newBranchSchema),
     defaultValues: {
@@ -22,10 +23,11 @@ const NewBranchForm = ({ onClose }) => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Form Submitted:', data);
-    toast.warning('Client information saved successfully!', {
-      description: 'The client details have been updated.',
-    });
+    console.log('✅ Branch Form Submitted:', data);
+    if (onSave) {
+      onSave(data);
+    }
+    onClose();
   };
   return (
     <FormProvider {...methods}>
@@ -66,7 +68,7 @@ const NewBranchForm = ({ onClose }) => {
           >
             cancel
           </FormBtn>
-          <FormBtn role={'save'} type="submit" onClick={() => onClose()}>
+          <FormBtn role={'save'} type="submit">
             Save
           </FormBtn>
         </div>

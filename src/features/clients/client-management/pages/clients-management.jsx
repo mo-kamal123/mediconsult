@@ -5,9 +5,7 @@ import { RiFileExcel2Fill, RiUserVoiceFill } from 'react-icons/ri';
 import { MdFilterAltOff } from 'react-icons/md';
 import { SiGoogledocs } from 'react-icons/si';
 import { FaUserCheck, FaUserClock, FaUserTimes } from 'react-icons/fa';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { ImAttachment } from 'react-icons/im';
+import { useNavigate } from 'react-router-dom';
 import TablePagination from '../../../../shared/UI/table-pagiation';
 import useClients from '../hooks/useClients';
 import { useState } from 'react';
@@ -17,7 +15,6 @@ import Spinner from '../../../../shared/layout/spinner';
 const tableHeaders = [
   'ID',
   'Name',
-  'OldID',
   'Category',
   'Type',
   'Member',
@@ -27,14 +24,13 @@ const tableHeaders = [
 
 // Table column keys
 const colKeys = [
-  'id',
-  'name',
-  'oldID',
-  'categoryName',
-  'type',
-  'member',
-  'branch',
-  'status',
+  'Id',
+  'EnglishName',
+  'Category',
+  'Type',
+  'Members',
+  'Branches',
+  'Status',
 ];
 
 const ClientsManagement = () => {
@@ -83,8 +79,8 @@ const ClientsManagement = () => {
           col: '',
           render: (row) => (
             <p
-              onClick={() => navigate(`${row.id}/client-info`)}
-              className="text-blue-500 text-xl"
+              onClick={() => navigate(`${row.Id}/client-info`)}
+              className="text-blue-500 text-xl cursor-pointer"
             >
               <SiGoogledocs />
             </p>
@@ -97,25 +93,25 @@ const ClientsManagement = () => {
             render: (row) => (
               <div className="flex items-center justify-between gap-2">
                 <button
-                  className="text-[#388E3C] text-2xl "
+                  className="text-[#388E3C] text-2xl cursor-pointer "
                   onClick={() => alert(`activate ${row.Name}`)}
                 >
                   <FaUserCheck />
                 </button>
                 <button
-                  className="text-[#DC0600] text-2xl "
+                  className="text-[#DC0600] text-2xl cursor-pointer "
                   onClick={() => alert(`deactivate ${row.Name}`)}
                 >
                   <FaUserTimes />
                 </button>
                 <button
-                  className="text-[#FFCC00] text-2xl "
+                  className="text-[#FFCC00] text-2xl cursor-pointer "
                   onClick={() => alert(`pending ${row.Name}`)}
                 >
                   <RiUserVoiceFill />
                 </button>
                 <button
-                  className="text-[#4285F4] text-2xl "
+                  className="text-[#4285F4] text-2xl cursor-pointer "
                   onClick={() => alert(`pending ${row.Name}`)}
                 >
                   <FaUserClock />

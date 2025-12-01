@@ -4,7 +4,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 
 const Table = ({
   cols = [],
-  colkey,
+  colkey = [],
   data = [],
   checkbox = true,
   leadingData,
@@ -138,19 +138,17 @@ const Table = ({
 
                   {/* Render main data cells */}
                   {/* TODO: change cols with colKeys after finishing integration */}
-                  {cols.map((col, colIndex) => (
+                  {colkey.map((col, colIndex) => (
                     <td
                       key={colIndex}
-                      className={`px-6 py-4 whitespace-nowrap text-gray-600 border border-borders ${row[col.toLowerCase()] === undefined ? 'text-center' : 'text-left'}`}
+                      className={`px-6 py-4 whitespace-nowrap text-gray-600 border border-borders ${row[col] === undefined ? 'text-center' : 'text-left'}`}
                     >
-                      {row[col.toLowerCase()] === undefined ? (
+                      {row[col] === undefined ? (
                         <span>-</span>
-                      ) : col.toLowerCase() === 'status' ? (
-                        <ItemStatus status={row[col.toLowerCase()]}>
-                          {row[col.toLowerCase()]}
-                        </ItemStatus>
+                      ) : col === 'Status' || col === 'statusName' ? (
+                        <ItemStatus status={row[col]}>{row[col]}</ItemStatus>
                       ) : (
-                        row[col.toLowerCase()]
+                        row[col]
                       )}
                     </td>
                   ))}

@@ -6,11 +6,13 @@ import providersSlice from '../../features/providers/providers-management/store/
 import providersLocationsSlice from '../../features/providers/providers-locations/store/providers-locations-slice';
 import providersPricelistsSlice from '../../features/providers/providers-pricelist/store/pricelists-slice';
 import monthlyCronicSlice from '../../features/chronic-approvals/monthly-chronic-approvals/store/monthly-cronic-slice';
+import clientDataSlice from '../../features/clients/client-management/store/client-data-slice';
 
 export const store = configureStore({
   reducer: {
     auth: authSlice,
     clients: clientsSlice,
+    clientData: clientDataSlice,
     members: membersSlice,
     providers: providersSlice,
     providersLocations: providersLocationsSlice,

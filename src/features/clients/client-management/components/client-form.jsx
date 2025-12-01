@@ -33,7 +33,7 @@ const ClientForm = ({ methods, client, submitFunc, type='update' }) => {
                 type="file"
                 id="fileInput"
                 accept="image/png, image/jpeg"
-                {...register('logo')}
+                {...register('imgeUrl')}
                 className="absolute inset-0 opacity-0 cursor-pointer"
                 onChange={(e) => {
                   const file = e.target.files[0];
@@ -46,7 +46,8 @@ const ClientForm = ({ methods, client, submitFunc, type='update' }) => {
               {/* If preview exists → show the uploaded image */}
               {preview ? (
                 <img
-                  src={preview}
+                src={preview || client.ImageUrl}
+                {...register('imgeUrl')}
                   alt="Uploaded"
                   className="w-full h-full object-cover"
                 />
@@ -94,10 +95,9 @@ const ClientForm = ({ methods, client, submitFunc, type='update' }) => {
             <RHFDropDown
               label="Client Category"
               name="clientCategory"
-              value={client?.categoryName}
+              value={client?.CategoryName}
               data={[
-                { value: 'corp', label: 'Corp' },
-                { value: 'ind', label: 'Ind' },
+                { value: 'Tourism', label: 'Tourism' },
               ]}
               placeholder="Select Category"
               className="flex-1 p-6 mt-2 min-w-[200px]"
@@ -111,16 +111,14 @@ const ClientForm = ({ methods, client, submitFunc, type='update' }) => {
               placeholder="Select Client Type"
               className="flex-1 p-6 mt-2 min-w-[200px]"
               data={[
-                { value: 'corp', label: 'Corp' },
-                { value: 'ind', label: 'Ind' },
+                { value: 'Corporate', label: 'Corporate' },
               ]}
             />
             <RHFDropDown
               label="Status"
               name="status"
               data={[
-                { value: 'active', label: 'Active' },
-                { value: 'inactive', label: 'Inactive' },
+                { value: 'Activated', label: 'Activated' },
               ]}
               placeholder="Select Status"
               className="flex-1 p-6 mt-2 min-w-[200px]"
@@ -166,14 +164,22 @@ const ClientForm = ({ methods, client, submitFunc, type='update' }) => {
         </div>
         )}
         {/* Buttons */}
-        <div className="flex gap-4 justify-end">
-          <FormBtn type="button" role={'delete'} onClick={() => {}}>
-            Delete
-          </FormBtn>
-          <FormBtn role={'save'} type="submit">
-            Save
-          </FormBtn>
-        </div>
+        {type === 'create' ? (
+          <div className="flex gap-4 justify-end">
+            <FormBtn role={'save'} type="submit">
+              Next
+            </FormBtn>
+          </div>
+        ) : (
+          <div className="flex gap-4 justify-end">
+            <FormBtn type="button" role={'delete'} onClick={() => {}}>
+              Delete
+            </FormBtn>
+            <FormBtn role={'save'} type="submit">
+              Save
+            </FormBtn>
+          </div>
+        )}
       </Form>
     </FormProvider>
   );
