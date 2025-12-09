@@ -19,4 +19,13 @@ export const store = configureStore({
     providersPricelists: providersPricelistsSlice,
     monthlyChronic: monthlyCronicSlice,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Ignore File objects in serialization check
+        ignoredActions: ['clientData/addClientInfo'],
+        ignoredActionPaths: ['payload.ImageUrl'],
+        ignoredPaths: ['clientData.ImageUrl'],
+      },
+    }),
 });

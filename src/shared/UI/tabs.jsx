@@ -5,7 +5,9 @@ const Tabs = ({ tabsData, route, id }) => {
     <div className="flex items-center gap-10 bg-white p-4 rounded-2xl border border-borders overflow-x-auto">
       {tabsData.map((tab) => {
         // If id is undefined/null, use 'new' for the route path
-        const to = id ? `/${route}/${id}/${tab.path}` : `/clients/${route}/${tab.path}`;
+        const to = id
+          ? `/${route}/${id}/${tab.path}`
+          : `/clients/${route}/${tab.path}`;
         return (
           <NavLink
             key={tab.path}

@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Btn from "../../../../../shared/UI/Btn";
-import { FaRegPlusSquare } from "react-icons/fa";
-import Modal from "../../../../../shared/UI/modal";
-import ClientContractsTable from "../../components/client-contracts-table";
-import NewContractForm from "../../components/new-contract-form";
-import FormBtn from "../../../../../shared/UI/form-Btn";
-import { useDispatch, useSelector } from "react-redux";
-import { addContract } from "../../store/client-data-slice";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Btn from '../../../../../shared/UI/Btn';
+import { FaRegPlusSquare } from 'react-icons/fa';
+import Modal from '../../../../../shared/UI/modal';
+import ClientContractsTable from '../../components/client-contracts-table';
+import NewContractForm from '../../components/new-contract-form';
+import FormBtn from '../../../../../shared/UI/form-Btn';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContract } from '../../store/client-data-slice';
 
 const NewClientContracts = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
- 
+
   const clientData = useSelector((state) => state.clientData);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const headers = [
@@ -23,11 +23,11 @@ const NewClientContracts = () => {
     'Insurance Company',
   ];
   const colskey = [
-    'startDate',
-    'expireDate',
-    'totalAmount',
-    'totalMembers',
-    'insuranceCompanyId',
+    'StartDate',
+    'ExpireDate',
+    'TotalAmount',
+    'TotalMembers',
+    'InsuranceCompanyId',
   ];
   console.log(clientData);
 
@@ -55,12 +55,17 @@ const NewClientContracts = () => {
         </Btn>
       </div>
 
-      <ClientContractsTable colskey={colskey} headers={headers} data={clientData.contracts} type={'create'} />
+      <ClientContractsTable
+        colskey={colskey}
+        headers={headers}
+        data={clientData.Contracts}
+        type={'create'}
+      />
 
       {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <NewContractForm 
-          onClose={() => setIsModalOpen(false)} 
+        <NewContractForm
+          onClose={() => setIsModalOpen(false)}
           onSave={handleSaveContract}
         />
       </Modal>

@@ -1,50 +1,47 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Btn from '../../../../../shared/UI/Btn';
-import Modal from '../../../../../shared/UI/modal';
-import ClientMembersTable from '../../components/client-members-table';
-import NewMemberForm from '../../components/new-member-form';
-import FormBtn from '../../../../../shared/UI/form-Btn';
 import { useDispatch, useSelector } from 'react-redux';
+import useCreateClient from '../../hooks/useCreateClient';
 import { addMember } from '../../store/client-data-slice';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import FormBtn from '../../../../../shared/UI/form-Btn';
+import Btn from '../../../../../shared/UI/Btn';
+import ClientMembersTable from '../../components/client-members-table';
+import Modal from '../../../../../shared/UI/modal';
+import NewMemberForm from '../../components/new-member-form';
+import { useTransformClientData } from '../../hooks/useTransformClientData';
 
 const NewClientMembers = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const clientData = useSelector((state) => state.clientData);
-  console.log(clientData.members);
+  const { mutate: createClient, isPending } = useCreateClient();
+  const { formData } = useTransformClientData(clientData);
+  console.log(formData);
+  console.log(clientData.Branches);
   // Table headers
   const tableHeaders = [
     'Name',
     'Birthday',
-    'Age',
-    'Client',
+    'job Title',
     'Branch',
-    'Program',
     'Status',
     'Mobile',
   ];
   const colskey = [
-    'name',
-    'birthday',
-    'age',
-    'client',
-    'branch',
-    'programName',
-    'statusName',
-    'mobile',
+    'Name',
+    'Birthday',
+    'JobTitle',
+    'BranchName',
+    'StatusId',
+    'Mobile',
   ];
   const handleSaveMember = (member) => {
     dispatch(addMember(member));
   };
 
   const handleFinish = () => {
-    // Log all collected data
-    console.log(clientData);
-
-    // Navigate back to clients list or show success message
-    navigate('/clients');
+    createClient(formData);
   };
 
   const handlePrevious = () => {
@@ -67,13 +64,16 @@ const NewClientMembers = () => {
       <ClientMembersTable
         colskey={colskey}
         headers={tableHeaders}
-        members={clientData.members}
+        members={clientData.Members || []}
         type="create"
       />
 
       {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <NewMemberForm
+          branches={
+            clientData.Branches.map((branch) => branch.BranchName) || []
+          }
           onClose={() => setIsModalOpen(false)}
           onSave={handleSaveMember}
         />
@@ -84,8 +84,13 @@ const NewClientMembers = () => {
         <FormBtn role={'delete'} type="button" onClick={handlePrevious}>
           Previous
         </FormBtn>
-        <FormBtn role={'save'} type="button" onClick={handleFinish}>
-          Finish
+        <FormBtn
+          role={'save'}
+          type="button"
+          onClick={handleFinish}
+          disabled={isPending}
+        >
+          {isPending ? 'Creating...' : 'Finish'}
         </FormBtn>
       </div>
     </div>

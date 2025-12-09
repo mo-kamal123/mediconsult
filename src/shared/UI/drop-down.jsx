@@ -16,13 +16,13 @@ export default function Dropdown({
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef(null);
   const dropdownRef = useRef(null);
-
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
 
+  // Detect if items are objects with label/title/Name
   const isObjectData =
     data.length > 0 &&
     typeof data[0] === 'object' &&
-    (data[0].label || data[0].title);
+    (data[0].label || data[0].title || data[0].Name);
 
   const [selected, setSelected] = useState(value);
 
@@ -30,34 +30,52 @@ export default function Dropdown({
     setSelected(value);
   }, [value]);
 
+  // Display the selected text
   const getDisplayText = () => {
-    if (!selected) return placeholder;
+    if (!selected && selected !== 0) return placeholder;
 
     if (isObjectData) {
-      const matched = data.find((d) => d.value === selected);
-      console.log(matched);
+      // Handle type coercion for comparison (string vs number)
+      const matched = data.find(
+        (d) =>
+          d.value === selected ||
+          d.Id === selected ||
+          String(d.value) === String(selected) ||
+          String(d.Id) === String(selected) ||
+          d === selected
+      );
+
       return matched
-        ? matched.value || matched.label || placeholder
+        ? matched.label ||
+            matched.title ||
+            matched.Name ||
+            matched.value ||
+            matched.Id ||
+            matched
         : placeholder;
     }
 
-    return typeof selected === 'object' ? placeholder : selected;
+    return selected;
   };
-  
 
+  // Handle selection
   const handleSelect = (item) => {
-    const val = isObjectData ? item.value : item;
+    const val = isObjectData ? (item.value ?? item.Id) : item;
+
     setSelected(val);
     setIsOpen(false);
     onValueChange(val);
   };
 
+  // Check if selected
   const isSelected = (item) => {
-    const val = isObjectData ? item.value : item;
-    return selected === val;
+    const val = isObjectData ? (item.value ?? item.Id) : item;
+
+    // Handle type coercion for comparison
+    return selected === val || String(selected) === String(val);
   };
 
-  // Close when clicking outside
+  // Close on outside click
   useEffect(() => {
     const close = (e) => {
       if (
@@ -85,7 +103,6 @@ export default function Dropdown({
     setIsOpen((prev) => !prev);
   };
 
-  // ---------- DROPDOWN UI (reused for portal + normal modes) ----------
   const DropdownList = (
     <ul
       ref={dropdownRef}
@@ -103,7 +120,7 @@ export default function Dropdown({
         !usePortal ? 'absolute left-0 mt-2 w-full' : ''
       }`}
     >
-      {/* Search "All" option */}
+      {/* Search All */}
       {type === 'search' && (
         <li
           className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${
@@ -115,19 +132,29 @@ export default function Dropdown({
         </li>
       )}
 
-      {/* Data items */}
+      {/* Items */}
       {data.length > 0 ? (
-        data.map((item, index) => (
-          <li
-            key={index}
-            onClick={() => handleSelect(item)}
-            className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${
-              isSelected(item) ? 'bg-main text-white hover:bg-main' : ''
-            }`}
-          >
-            {isObjectData ? item.label || item.value : item}
-          </li>
-        ))
+        data.map((item, index) => {
+          const displayText =
+            item.label ||
+            item.title ||
+            item.Name ||
+            item.value ||
+            item.Id ||
+            item;
+
+          return (
+            <li
+              key={index}
+              onClick={() => handleSelect(item)}
+              className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${
+                isSelected(item) ? 'bg-main text-white hover:bg-main' : ''
+              }`}
+            >
+              {displayText}
+            </li>
+          );
+        })
       ) : (
         <li className="px-4 py-2 text-gray-400 text-sm">
           No options available
@@ -138,7 +165,6 @@ export default function Dropdown({
 
   return (
     <div className="w-full mt-2">
-      {/* Label */}
       {label && (
         <label className="text-sm font-medium text-gray-700 mt-1 block">
           {label}
@@ -146,7 +172,6 @@ export default function Dropdown({
       )}
 
       <div ref={wrapperRef} className="relative w-full">
-        {/* Button */}
         <button
           type="button"
           onClick={toggleOpen}
@@ -154,8 +179,8 @@ export default function Dropdown({
             isInvalid
               ? 'border-red-500'
               : isOpen
-              ? 'border-main/50'
-              : 'border-[#C2C2C2]'
+                ? 'border-main/50'
+                : 'border-[#C2C2C2]'
           } ${className}`}
           {...props}
         >
@@ -172,11 +197,14 @@ export default function Dropdown({
             strokeWidth="2"
             viewBox="0 0 24 24"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </button>
 
-        {/* Dropdown Rendering */}
         {isOpen &&
           (usePortal
             ? createPortal(DropdownList, document.body)

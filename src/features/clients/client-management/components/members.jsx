@@ -1,36 +1,16 @@
-import {
-  FaUserCheck,
-  FaUserClock,
-  FaUserPlus,
-  FaUserTimes,
-} from 'react-icons/fa';
+import { FaUserCheck, FaUserClock, FaUserTimes } from 'react-icons/fa';
 import { SiGoogledocs } from 'react-icons/si';
-import { MdDelete, MdFilterAltOff } from 'react-icons/md';
-import { BsFillPlusSquareFill } from 'react-icons/bs';
-import { GrDocumentUser } from 'react-icons/gr';
-import { CgDetailsMore } from 'react-icons/cg';
-import { useNavigate, useParams } from 'react-router-dom';
 import Table from '../../../../shared/UI/table';
 import TableActions from '../../../../shared/UI/table-actions';
-import TablePagiation from '../../../../shared/UI/table-pagiation';
-import { useSelector } from 'react-redux';
-import { RiFileExcel2Fill, RiUserVoiceFill } from 'react-icons/ri';
-import DropDown from '../../../../shared/UI/drop-down';
-import { useState } from 'react';
-import { TbHandFinger } from 'react-icons/tb';
-import MemberHistoryModal from '../../../approvals/approvals-management/components/member-history-modal';
-import Modal from '../../../../shared/UI/modal';
-import useMembers from '../../members/hooks/useMembers';
+import { RiUserVoiceFill } from 'react-icons/ri';
 import TablePagination from '../../../../shared/UI/table-pagiation';
 import MoreMenu from '../../../../shared/UI/more-menu';
-import ClientMembersTable from '../components/client-members-table';
 
 // Table headers
 const tableHeaders = [
   'ID',
   'Name',
-  'OldID',
-  'Birthday',
+  'BirthDate',
   'Age',
   'Client',
   'Branch',
@@ -38,42 +18,28 @@ const tableHeaders = [
   'Status',
   'Mobile',
 ];
+const colkey = [
+  'Id',
+  'Name',
+  'BirthDate',
+  'Age',
+  'ClientName',
+  'BranchName',
+  'ProgramName',
+  'StatusName',
+  'Mobile',
+];
 
-const Members = () => {
-  const [page, setPage] = useState(1); // current page state
-  const navigate = useNavigate();
-  const { data: members, isLoading, isError } = useMembers(page);
-  const rows = useSelector((state) => state.members);
-  const { clientId } = useParams(); // assuming route like /clients/:clientId/members
-  // Actions for the table
-  const actions = [
-    {
-      type: 'clearFilter',
-      Icon: MdFilterAltOff,
-      label: 'Clear Filter',
-    },
-    {
-      type: 'delete',
-      Icon: MdDelete,
-      label: 'Delete',
-    },
-    {
-      type: 'export',
-      Icon: RiFileExcel2Fill,
-      label: 'Export',
-    },
-    {
-      type: 'AssignProgram',
-      Icon: GrDocumentUser,
-      label: 'Assign Program',
-    },
-    {
-      type: 'NewMember',
-      Icon: FaUserPlus,
-      label: 'New Member',
-      onClick: () => navigate('/members/new'),
-    },
-  ];
+const Members = ({
+  page,
+  data,
+  loading,
+  error,
+  clientId,
+  setPage,
+  rows,
+  actions,
+}) => {
   return (
     <div className="">
       <TableActions actions={actions} tableheaders={tableHeaders}>
@@ -98,10 +64,10 @@ const Members = () => {
           ]}
         />
       </TableActions>
-      <ClientMembersTable headers={tableHeaders} data={[]} type="update" />
-      {/* <Table
+      <Table
+        colkey={colkey}
         cols={tableHeaders}
-        data={members}
+        data={data}
         checkbox={true}
         // handle leading data rendering
         leadingData={{
@@ -166,13 +132,13 @@ const Members = () => {
             ),
           },
         ]}
-      /> */}
-      {/* <TablePagination
+      />
+      <TablePagination
         page={page}
         setPage={setPage}
-        totalPage={members.totalPages}
-        totalItem={members.totalClients}
-      /> */}
+        totalPage={data?.totalPages}
+        totalItem={data?.totalClients}
+      />
     </div>
   );
 };

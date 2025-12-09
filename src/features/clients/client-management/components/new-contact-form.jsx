@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import Form from '../../../../shared/UI/from';
 import FormBtn from '../../../../shared/UI/form-Btn';
@@ -5,28 +6,38 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { newContactSchema } from '../validation/client-validation';
 import Input from '../../../../shared/UI/input';
 
-const NewContactForm = ({ onClose, onSave }) => {
+const NewContactForm = ({ onClose, onSave, title, data }) => {
   const methods = useForm({
     resolver: zodResolver(newContactSchema),
     defaultValues: {
-      Name: '',
-      JobTitle: '',
-      Email: '',
-      Mobile: '',
-      Address: '',
-      Note: '',
+      Name: data?.Name || '',
+      JobTitle: data?.JobTitle || '',
+      Email: data?.Email || '',
+      Mobile: data?.Mobile || '',
+      Address: data?.Address || '',
+      Note: data?.Note || '',
     },
   });
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = methods;
 
-  const onSubmit = (data) => {
-    console.log('✅ Contact Form Submitted:', data);
-    if (onSave) onSave(data);
+  /** 🔄 If data changes (edit mode), update form fields */
+  useEffect(() => {
+    if (data) {
+      Object.keys(data).forEach((key) => {
+        setValue(key, data[key]);
+      });
+    }
+  }, [data, setValue]);
+
+  const onSubmit = (formData) => {
+    console.log('✅ Contact Form Submitted:', formData);
+    onSave?.(formData);
     onClose();
   };
 
@@ -34,7 +45,7 @@ const NewContactForm = ({ onClose, onSave }) => {
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
         <div className="flex flex-col gap-6">
-          <h3 className="font-semibold text-lg text-[#1F4ED6]">New Contact</h3>
+          <h3 className="font-semibold text-lg text-[#1F4ED6]">{title}</h3>
 
           <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
             <Input
@@ -83,7 +94,6 @@ const NewContactForm = ({ onClose, onSave }) => {
           </div>
         </div>
 
-        {/* Buttons */}
         <div className="flex gap-4 justify-end">
           <FormBtn
             type="button"

@@ -1,7 +1,6 @@
 import { Outlet, useParams } from 'react-router-dom';
 import MainHeader from '../../../../shared/UI/main-header';
 import Tabs from '../../../../shared/UI/tabs';
-import { NewClientProvider } from '../context/NewClientContext';
 
 // Tabs data for client management
 const clientTabs = [
@@ -15,13 +14,11 @@ const clientTabs = [
 const NewClientData = () => {
   const { clientId } = useParams(); // assuming route like /clients/:id/...
   return (
-    <NewClientProvider>
-      <div className="md:w-[95%] w-[95%] mx-auto flex flex-col gap-10">
-        <MainHeader>New Client</MainHeader>
-        <Tabs tabsData={clientTabs} route={'new-client'} id={clientId} />
-        <Outlet />
-      </div>
-    </NewClientProvider>
+    <div className="md:w-[95%] w-[95%] mx-auto flex flex-col gap-10">
+      <MainHeader>New Client</MainHeader>
+      <Tabs tabsData={clientTabs} route={'new-client'} id={clientId} />
+      <Outlet />
+    </div>
   );
 };
 

@@ -1,22 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 // Sample data rows
 const initialState = {
-  "ArabicName": "",
-  "EnglishName": "",
-  "ShortName": "",
-  "CategoryId": "",
-  "CategoryName": "",
-  "TypeId": "",
-  "TypeName": "",
-  "StatusId": "",
-  "StatusName": "",
-  "RefundDueDays": "",
-  "PolicyId": "",
-  "PolicyStart": "",
-  "PolicyExpire": "",
-  "ImageUrl": null,
+  ArabicName: '',
+  EnglishName: '',
+  ShortName: '',
+  CategoryId: '',
+  // "CategoryName": "",
+  TypeId: '',
+  // "TypeName": "",
+  StatusId: '',
+  // "StatusName": "",
+  RefundDueDays: null,
+  // "PolicyId": "",
+  // "PolicyStart": "",
+  // "PolicyExpire": "",
+  ImageUrl: null,
 
-  "Contacts": [
+  Contacts: [
     // {
     //   "Name": "",
     //   "JobTitle": "",
@@ -27,7 +27,7 @@ const initialState = {
     // }
   ],
 
-  "Branches": [
+  Branches: [
     // {
     //   "BranchName": "",
     //   "BranchStatusId": "",
@@ -36,7 +36,7 @@ const initialState = {
     // }
   ],
 
-  "Contracts": [
+  Contracts: [
     // {
     //   "StartDate": "",
     //   "ExpireDate": "",
@@ -46,7 +46,7 @@ const initialState = {
     // }
   ],
 
-  "Members": [
+  Members: [
     // {
     //   "Name": "",
     //   "Mobile": "",
@@ -64,7 +64,7 @@ const initialState = {
     //   "VipStatusName": "",
     //   "StatusName": ""
     // }
-  ]
+  ],
 };
 
 const clientDataSlice = createSlice({
@@ -88,10 +88,15 @@ const clientDataSlice = createSlice({
       state.Contacts.push(action.payload);
     },
     updateContact(state, action) {
-      const { index, data } = action.payload;
-      if (state.Contacts[index]) {
+      const { id, data } = action.payload;
+      const index = state.Contacts.findIndex((contact) => contact.Id === id);
+      if (index !== -1) {
         state.Contacts[index] = { ...state.Contacts[index], ...data };
       }
+    },
+    removeContact(state, action) {
+      const id = action.payload;
+      state.Contacts = state.Contacts.filter((contact) => contact.Id !== id);
     },
 
     // --------------------------
@@ -101,10 +106,15 @@ const clientDataSlice = createSlice({
       state.Branches.push(action.payload);
     },
     updateBranch(state, action) {
-      const { index, data } = action.payload;
-      if (state.Branches[index]) {
+      const { id, data } = action.payload;
+      const index = state.Branches.findIndex((branch) => branch.Id === id);
+      if (index !== -1) {
         state.Branches[index] = { ...state.Branches[index], ...data };
       }
+    },
+    removeBranch(state, action) {
+      const id = action.payload;
+      state.Branches = state.Branches.filter((branch) => branch.Id !== id);
     },
 
     // --------------------------
@@ -114,10 +124,17 @@ const clientDataSlice = createSlice({
       state.Contracts.push(action.payload);
     },
     updateContract(state, action) {
-      const { index, data } = action.payload;
-      if (state.Contracts[index]) {
+      const { id, data } = action.payload;
+      const index = state.Contracts.findIndex((contract) => contract.Id === id);
+      if (index !== -1) {
         state.Contracts[index] = { ...state.Contracts[index], ...data };
       }
+    },
+    removeContract(state, action) {
+      const id = action.payload;
+      state.Contracts = state.Contracts.filter(
+        (contract) => contract.Id !== id
+      );
     },
 
     // --------------------------
@@ -132,6 +149,12 @@ const clientDataSlice = createSlice({
         state.Members[index] = { ...state.Members[index], ...data };
       }
     },
+    clearContacts: (state) => {
+      state.Contacts = [];
+    },
+    resetClientData(state) {
+      return initialState;
+    },
   },
 });
 
@@ -140,12 +163,17 @@ export const {
   updateClientInfo,
   addContact,
   updateContact,
+  removeContact,
   addBranch,
   updateBranch,
+  removeBranch,
   addContract,
   updateContract,
+  removeContract,
   addMember,
   updateMember,
+  clearContacts,
+  resetClientData,
 } = clientDataSlice.actions;
 
 export default clientDataSlice.reducer;

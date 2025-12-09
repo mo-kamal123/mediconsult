@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Btn from '../../../../../shared/UI/Btn';
 import Modal from '../../../../../shared/UI/modal';
 import ClientContactsTable from '../../components/client-contacts-table';
 import NewContactForm from '../../components/new-contact-form';
 import FormBtn from '../../../../../shared/UI/form-Btn';
-import { useNewClient } from '../../context/NewClientContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../store/client-data-slice';
 
@@ -16,7 +15,7 @@ const NewClientContacts = () => {
   console.log(clientData);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const headers = ['Name', 'Job Title', 'Email', 'Mobile', 'Address', 'Note'];
-  const colskey = ['name', 'jobTitle', 'email', 'mobile', 'address', 'note'];
+  const colskey = ['Name', 'JobTitle', 'Email', 'Mobile', 'Address', 'Note'];
 
   const handleSaveContact = (contact) => {
     dispatch(addContact(contact));
@@ -45,7 +44,7 @@ const NewClientContacts = () => {
       <ClientContactsTable
         colskey={colskey}
         headers={headers}
-        data={clientData.contacts}
+        data={clientData.Contacts}
         type="create"
       />
 

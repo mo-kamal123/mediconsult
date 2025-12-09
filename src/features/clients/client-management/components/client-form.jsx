@@ -6,21 +6,105 @@ import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import Form from '../../../../shared/UI/from';
 import FormBtn from '../../../../shared/UI/form-Btn';
 import { useState } from 'react';
+import useDropDowns from '../hooks/useDropDowns';
 
-const ClientForm = ({ methods, client, submitFunc, type='update' }) => {
+const ClientForm = ({
+  methods,
+  client,
+  submitFunc,
+  type = 'update',
+  onDelete,
+}) => {
   const [preview, setPreview] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const { categories, status, types, isError, isLoading } = useDropDowns();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
+    setValue,
   } = methods;
 
   // ✅ Handle submit
   const onSubmit = (data) => {
-    //TODO: remove logs
-    console.log('✅ Form Submitted:', data);
-    submitFunc(data); // call update client mutation
+    // Check if there's a new file to upload
+    // Use selectedFile state as fallback if form data doesn't have it
+    const fileFromForm = data.imageUrl && data.imageUrl[0];
+    const fileToUse = fileFromForm || selectedFile;
+    const hasNewFile = !!fileToUse;
+
+    if (type === 'create') {
+      // For create mode, always pass data object (form will handle file separately)
+      // Extract file if exists - use selectedFile state as fallback
+      const fileToStore = fileToUse || null;
+
+      const clientData = {
+        arabicClientName: data.arabicClientName || '',
+        englishClientName: data.englishClientName || '',
+        clientCategory: data.clientCategory || '',
+        clientType: data.clientType || '',
+        status: data.status || '',
+        reimbursementDueDays: data.reimbursementDueDays || null,
+        clientShortName: data.clientShortName || '',
+        imageUrl: fileToStore, // Store the actual File object
+      };
+
+      console.log('📤 Create mode - passing data with file:', fileToStore);
+      submitFunc(clientData);
+    } else if (hasNewFile) {
+      // Update mode with file - use FormData
+      const formData = new FormData();
+
+      // Handle image file
+      formData.append('ImageFile', data.imageUrl[0]);
+
+      // Transform form data to API format (PascalCase)
+      formData.append('ArabicName', data.arabicClientName || '');
+      formData.append('EnglishName', data.englishClientName || '');
+      formData.append(
+        'CategoryId',
+        data.clientCategory ? parseInt(data.clientCategory) : ''
+      );
+      formData.append(
+        'TypeId',
+        data.clientType ? parseInt(data.clientType) : ''
+      );
+      formData.append('StatusId', data.status ? parseInt(data.status) : '');
+      formData.append('RefundDueDays', data.reimbursementDueDays || null);
+      formData.append('ShortName', data.clientShortName || '');
+
+      // Policy dates (only for update)
+      formData.append('PolicyStart', data.policyStart || '');
+      formData.append('PolicyExpire', data.policyExpire || '');
+
+      // Call submit function with FormData
+      submitFunc(formData);
+    } else {
+      // Update mode without file - send as JSON
+      const requestData = {
+        ArabicName: data.arabicClientName || '',
+        EnglishName: data.englishClientName || '',
+        CategoryId: data.clientCategory ? parseInt(data.clientCategory) : null,
+        TypeId: data.clientType ? parseInt(data.clientType) : null,
+        StatusId: data.status ? parseInt(data.status) : null,
+        RefundDueDays: data.reimbursementDueDays || null,
+        ShortName: data.clientShortName || '',
+      };
+
+      // Preserve existing ImageUrl if no new file is selected
+      if (client?.ImageUrl && !selectedFile) {
+        requestData.ImageUrl = client.ImageUrl;
+      }
+
+      // Policy dates
+      requestData.PolicyStart = data.policyStart || '';
+      requestData.PolicyExpire = data.policyExpire || '';
+
+      // Call submit function with JSON data
+      submitFunc(requestData);
+    }
   };
   return (
     <FormProvider {...methods}>
@@ -33,22 +117,31 @@ const ClientForm = ({ methods, client, submitFunc, type='update' }) => {
                 type="file"
                 id="fileInput"
                 accept="image/png, image/jpeg"
-                {...register('imgeUrl')}
                 className="absolute inset-0 opacity-0 cursor-pointer"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file) {
-                    setPreview(URL.createObjectURL(file)); // show preview
-                  }
-                }}
+                {...register('imageUrl', {
+                  onChange: (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      setSelectedFile(file);
+                      setPreview(URL.createObjectURL(file)); // show preview
+                      console.log(
+                        '📸 File selected:',
+                        file.name,
+                        `(${file.size} bytes)`
+                      );
+                    } else {
+                      setSelectedFile(null);
+                      setPreview(null);
+                    }
+                  },
+                })}
               />
 
-              {/* If preview exists → show the uploaded image */}
-              {preview ? (
+              {/* If preview exists → show the uploaded image, otherwise show existing or placeholder */}
+              {preview || client?.ImageUrl ? (
                 <img
-                src={preview || client.ImageUrl}
-                {...register('imgeUrl')}
-                  alt="Uploaded"
+                  src={preview || client?.ImageUrl}
+                  alt="Client Logo"
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -72,7 +165,9 @@ const ClientForm = ({ methods, client, submitFunc, type='update' }) => {
               </p>
             </div>
           </div>
-          {errors.logo && <p className="text-red-500">{errors.logo.message}</p>}
+          {errors.imageUrl && (
+            <p className="text-red-500">{errors.imageUrl.message}</p>
+          )}
         </div>
 
         {/* Client Info */}
@@ -95,10 +190,7 @@ const ClientForm = ({ methods, client, submitFunc, type='update' }) => {
             <RHFDropDown
               label="Client Category"
               name="clientCategory"
-              value={client?.CategoryName}
-              data={[
-                { value: 'Tourism', label: 'Tourism' },
-              ]}
+              data={categories}
               placeholder="Select Category"
               className="flex-1 p-6 mt-2 min-w-[200px]"
             />
@@ -107,28 +199,24 @@ const ClientForm = ({ methods, client, submitFunc, type='update' }) => {
           <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
             <RHFDropDown
               label="Client Type"
-              name='clientType'
+              name="clientType"
               placeholder="Select Client Type"
               className="flex-1 p-6 mt-2 min-w-[200px]"
-              data={[
-                { value: 'Corporate', label: 'Corporate' },
-              ]}
+              data={types}
             />
             <RHFDropDown
               label="Status"
               name="status"
-              data={[
-                { value: 'Activated', label: 'Activated' },
-              ]}
+              data={status}
               placeholder="Select Status"
               className="flex-1 p-6 mt-2 min-w-[200px]"
             />
-
           </div>
 
           <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
-          <Input
+            <Input
               label="Reimbursement Due Days"
+              type="number"
               {...register('reimbursementDueDays')}
               className="flex-1 min-w-[200px]"
             />
@@ -142,26 +230,28 @@ const ClientForm = ({ methods, client, submitFunc, type='update' }) => {
 
         {/* Policy Info */}
         {type === 'update' && (
-        <div className="flex flex-col gap-6">
-          <h3 className="font-semibold text-lg text-[#1F4ED6]">Policy Info</h3>
+          <div className="flex flex-col gap-6">
+            <h3 className="font-semibold text-lg text-[#1F4ED6]">
+              Policy Info
+            </h3>
 
-          <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
-            <Input
-              label="Policy Start"
-              type="date"
-              {...register('policyStart')}
-              error={errors.policyStart?.message}
-              className="flex-1 min-w-[200px]"
-            />
-            <Input
-              label="Policy Expire"
-              type="date"
-              {...register('policyExpire')}
-              error={errors.policyExpire?.message}
-              className="flex-1 min-w-[200px]"
-            />
+            <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
+              <Input
+                label="Policy Start"
+                type="date"
+                {...register('policyStart')}
+                error={errors.policyStart?.message}
+                className="flex-1 min-w-[200px]"
+              />
+              <Input
+                label="Policy Expire"
+                type="date"
+                {...register('policyExpire')}
+                error={errors.policyExpire?.message}
+                className="flex-1 min-w-[200px]"
+              />
+            </div>
           </div>
-        </div>
         )}
         {/* Buttons */}
         {type === 'create' ? (
@@ -172,7 +262,11 @@ const ClientForm = ({ methods, client, submitFunc, type='update' }) => {
           </div>
         ) : (
           <div className="flex gap-4 justify-end">
-            <FormBtn type="button" role={'delete'} onClick={() => {}}>
+            <FormBtn
+              type="button"
+              role={'delete'}
+              onClick={onDelete || (() => {})}
+            >
               Delete
             </FormBtn>
             <FormBtn role={'save'} type="submit">

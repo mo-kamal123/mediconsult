@@ -5,19 +5,26 @@ import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { newMemberSchema } from '../validation/client-validation';
 import Input from '../../../../shared/UI/input';
+import useDropDowns from '../hooks/useDropDowns';
 
-const NewMemberForm = ({ onClose, onSave }) => {
+const NewMemberForm = ({ onClose, onSave, branches }) => {
+  const { levels, vipStatuses, status } = useDropDowns();
+
   const methods = useForm({
     resolver: zodResolver(newMemberSchema),
     defaultValues: {
-      name: '',
-      birthday: '',
-      age: '',
-      client: '',
-      branch: '',
-      program: '',
-      status: '',
-      mobile: '',
+      Name: '',
+      Mobile: '',
+      IsMale: true,
+      JobTitle: '',
+      NationalId: '',
+      LevelId: '',
+      VipStatusId: '',
+      CompanyCode: '',
+      BranchName: '',
+      HofCode: '',
+      StatusId: '',
+      Birthday: '',
     },
   });
 
@@ -29,9 +36,7 @@ const NewMemberForm = ({ onClose, onSave }) => {
 
   const onSubmit = (data) => {
     console.log('✅ Member Form Submitted:', data);
-    if (onSave) {
-      onSave(data);
-    }
+    onSave?.(data);
     onClose();
   };
 
@@ -44,71 +49,76 @@ const NewMemberForm = ({ onClose, onSave }) => {
           <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
             <Input
               label="Name"
-              {...register('name')}
-              error={errors.name?.message}
-              className="flex-1 min-w-[200px]"
+              {...register('Name')}
+              error={errors.Name?.message}
             />
             <Input
               label="Birthday"
               type="date"
-              {...register('birthday')}
-              error={errors.birthday?.message}
-              className="flex-1 min-w-[200px]"
+              {...register('Birthday')}
+              error={errors.Birthday?.message}
             />
           </div>
 
           <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
-            <Input
-              label="Age"
-              {...register('age')}
-              error={errors.age?.message}
-              className="flex-1 min-w-[200px]"
-            />
-            <Input
-              label="Client"
-              {...register('client')}
-              error={errors.client?.message}
-              className="flex-1 min-w-[200px]"
-            />
-            <Input
-              label="Branch"
-              {...register('branch')}
-              error={errors.branch?.message}
-              className="flex-1 min-w-[200px]"
-            />
-          </div>
-
-          <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
-            <Input
-              label="Program"
-              {...register('program')}
-              error={errors.program?.message}
-              className="flex-1 min-w-[200px]"
-            />
-            <RHFDropDown
-              label="Status"
-              name="status"
-              data={[
-                { value: 'active', label: 'Active' },
-                { value: 'inactive', label: 'Inactive' },
-              ]}
-              placeholder="Select Status"
-              className="flex-1 p-6 mt-1 min-w-[200px]"
-            />
             <Input
               label="Mobile"
-              {...register('mobile')}
-              error={errors.mobile?.message}
-              className="flex-1 min-w-[200px]"
+              {...register('Mobile')}
+              error={errors.Mobile?.message}
+            />
+            <Input
+              label="Job Title"
+              {...register('JobTitle')}
+              error={errors.JobTitle?.message}
+            />
+            <Input
+              label="National ID"
+              {...register('NationalId')}
+              error={errors.NationalId?.message}
+            />
+          </div>
+
+          <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
+            <RHFDropDown label="Status" name="StatusId" data={status} />
+            <RHFDropDown label="Level" name="LevelId" data={levels} />
+            <RHFDropDown
+              label="VIP Status"
+              name="VipStatusId"
+              data={vipStatuses}
+            />
+          </div>
+
+          <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
+            <RHFDropDown
+              label="Gender"
+              name="IsMale"
+              data={[
+                { Id: true, Name: 'Male' },
+                { Id: false, Name: 'Female' },
+              ]}
+            />
+
+            <RHFDropDown label="Branch" name="BranchName" data={branches} />
+          </div>
+
+          <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
+            <Input
+              label="Company Code"
+              {...register('CompanyCode')}
+              error={errors.CompanyCode?.message}
+            />
+            <Input
+              label="HOF Code"
+              {...register('HofCode')}
+              error={errors.HofCode?.message}
             />
           </div>
         </div>
 
-        {/* Buttons */}
         <div className="flex gap-4 justify-end">
           <FormBtn
             type="button"
-            role={'delete'}
+            role="delete"
             onClick={() => {
               methods.reset();
               onClose();
@@ -116,7 +126,7 @@ const NewMemberForm = ({ onClose, onSave }) => {
           >
             Cancel
           </FormBtn>
-          <FormBtn role={'save'} type="submit">
+          <FormBtn role="save" type="submit">
             Save
           </FormBtn>
         </div>
@@ -126,4 +136,3 @@ const NewMemberForm = ({ onClose, onSave }) => {
 };
 
 export default NewMemberForm;
-

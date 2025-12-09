@@ -4,18 +4,35 @@ import FormBtn from '../../../../shared/UI/form-Btn';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { newContractSchema } from '../validation/client-validation';
 import Input from '../../../../shared/UI/input';
+import useDropDowns from '../hooks/useDropDowns';
+import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
+import { useEffect } from 'react';
 
-const NewContractForm = ({ onClose, onSave }) => {
+const NewContractForm = ({ onClose, onSave, title, data }) => {
+  const { insuranceCompanies } = useDropDowns();
   const methods = useForm({
     resolver: zodResolver(newContractSchema),
     defaultValues: {
-      startDate: '',
-      expireDate: '',
-      totalAmount: '',
-      totalMembers: '',
-      insuranceCompanyId: '',
+      StartDate: data?.StartDate || '',
+      ExpireDate: data?.ExpireDate || '',
+      TotalAmount: data?.TotalAmount || '',
+      TotalMembers: data?.TotalMembers || '',
+      InsuranceCompanyId: data?.InsuranceCompanyId || '',
     },
   });
+
+  // Update form when data changes (edit mode)
+  useEffect(() => {
+    if (data) {
+      methods.reset({
+        StartDate: data.StartDate || '',
+        ExpireDate: data.ExpireDate || '',
+        TotalAmount: data.TotalAmount || '',
+        TotalMembers: data.TotalMembers || '',
+        InsuranceCompanyId: data.InsuranceCompanyId || '',
+      });
+    }
+  }, [data, methods]);
 
   const {
     register,
@@ -35,46 +52,58 @@ const NewContractForm = ({ onClose, onSave }) => {
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
         <div className="flex flex-col gap-6">
-          <h3 className="font-semibold text-lg text-[#1F4ED6]">New Contract</h3>
+          <h3 className="font-semibold text-lg text-[#1F4ED6]">
+            {title || 'New Contract'}
+          </h3>
 
+          {/* Dates */}
           <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
             <Input
               label="Start Date"
               type="date"
-              {...register('startDate')}
-              error={errors.startDate?.message}
+              {...register('StartDate')}
+              error={errors.StartDate?.message}
               className="flex-1 min-w-[200px]"
             />
+
             <Input
               label="Expire Date"
               type="date"
-              {...register('expireDate')}
-              error={errors.expireDate?.message}
+              {...register('ExpireDate')}
+              error={errors.ExpireDate?.message}
               className="flex-1 min-w-[200px]"
             />
           </div>
 
+          {/* Amount and Members */}
           <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
             <Input
               label="Total Amount"
-              {...register('totalAmount')}
-              error={errors.totalAmount?.message}
+              {...register('TotalAmount')}
+              error={errors.TotalAmount?.message}
               className="flex-1 min-w-[200px]"
             />
+
             <Input
               label="Total Members"
-              {...register('totalMembers')}
-              error={errors.totalMembers?.message}
+              {...register('TotalMembers')}
+              error={errors.TotalMembers?.message}
               className="flex-1 min-w-[200px]"
             />
           </div>
 
+          {/* Insurance Company */}
           <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
-            <Input
-              label="Insurance Company"
-              {...register('insuranceCompanyId')}
-              error={errors.insuranceCompany?.message}
+            {/* <Input
+              label="Insurance Company ID"
+              {...register('InsuranceCompanyId')}
+              error={errors.InsuranceCompanyId?.message}
               className="flex-1 min-w-[200px]"
+            /> */}
+            <RHFDropDown
+              label="Insurance Company ID"
+              name="InsuranceCompanyId"
+              data={insuranceCompanies}
             />
           </div>
         </div>
@@ -83,7 +112,7 @@ const NewContractForm = ({ onClose, onSave }) => {
         <div className="flex gap-4 justify-end">
           <FormBtn
             type="button"
-            role={'delete'}
+            role="delete"
             onClick={() => {
               methods.reset();
               onClose();
@@ -91,7 +120,8 @@ const NewContractForm = ({ onClose, onSave }) => {
           >
             Cancel
           </FormBtn>
-          <FormBtn role={'save'} type="submit">
+
+          <FormBtn role="save" type="submit">
             Save
           </FormBtn>
         </div>
@@ -101,4 +131,3 @@ const NewContractForm = ({ onClose, onSave }) => {
 };
 
 export default NewContractForm;
-

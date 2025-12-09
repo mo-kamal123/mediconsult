@@ -145,7 +145,7 @@ const Table = ({
                     >
                       {row[col] === undefined ? (
                         <span>-</span>
-                      ) : col === 'Status' || col === 'statusName' ? (
+                      ) : col.toLowerCase().includes('status') ? (
                         <ItemStatus status={row[col]}>{row[col]}</ItemStatus>
                       ) : (
                         row[col]

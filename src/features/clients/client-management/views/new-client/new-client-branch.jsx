@@ -12,14 +12,13 @@ import { addBranch } from '../../store/client-data-slice';
 const NewClientBranch = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const clientData  =  useSelector(state => state.clientData);
+  const clientData = useSelector((state) => state.clientData);
   const [isModalOpen, setIsModalOpen] = useState(false);
   // Table headers
   const headers = ['Branch Name', 'Members Count', 'Branch Status'];
-  const colskey = ['branchName', 'memberCount', 'branchStatusName'];
-
+  const colskey = ['BranchName', 'MemberCount', 'BranchStatusId'];
   const handleSaveBranch = (branch) => {
-    dispatch(addBranch(branch))
+    dispatch(addBranch(branch));
   };
 
   const handleNext = () => {
@@ -41,11 +40,16 @@ const NewClientBranch = () => {
           Add New
         </Btn>
       </div>
-      <ClientBranchTable colskey={colskey} headers={headers} data={clientData.branches} type={'create'} />
+      <ClientBranchTable
+        colskey={colskey}
+        headers={headers}
+        data={clientData.Branches}
+        type={'create'}
+      />
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <NewBranchForm 
-          onClose={() => setIsModalOpen(false)} 
+        <NewBranchForm
+          onClose={() => setIsModalOpen(false)}
           onSave={handleSaveBranch}
         />
       </Modal>

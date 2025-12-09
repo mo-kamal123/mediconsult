@@ -4,10 +4,31 @@ import Btn from '../../../../shared/UI/Btn';
 import Modal from '../../../../shared/UI/modal';
 import ClientContractsTable from '../components/client-contracts-table';
 import NewContractForm from '../components/new-contract-form';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import useClientById from '../hooks/useClientById';
+import { addContract, updateContract } from '../store/client-data-slice';
+import { useQueryClient } from '@tanstack/react-query';
+import useUpdateClient from '../hooks/useUpdateClient';
 
 const ContractsInfo = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { clientId } = useParams(); // get clientId from url params
+  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
+  const reduxContracts = useSelector((state) => state.clientData.Contracts);
 
+  // Fetch client data - this will update Redux automatically
+  const { data: client, isLoading, isError } = useClientById(clientId);
+
+  // Use Redux contracts if they exist, otherwise use fetched client contracts
+  const finalContracts =
+    reduxContracts && reduxContracts.length > 0
+      ? reduxContracts
+      : client?.Contracts || [];
+
+  const { mutate: updateClient, isPending: clientPending } =
+    useUpdateClient(clientId); // update client mutation hook
   // Table headers
   const headers = [
     'ID',
@@ -17,91 +38,34 @@ const ContractsInfo = () => {
     'Total Members',
     'Insurance Company',
   ];
-
-  // Sample rows
-  const rows = [
-    {
-      ID: 1001,
-      'Start Date': '01 Jan 2024',
-      'Expire Date': '31 Dec 2024',
-      'Total Amount': '$50,000',
-      'Total Members': 120,
-      'Insurance Company': 'MedLife Insurance',
-    },
-    {
-      ID: 1002,
-      'Start Date': '15 Feb 2024',
-      'Expire Date': '14 Feb 2025',
-      'Total Amount': '$75,000',
-      'Total Members': 200,
-      'Insurance Company': 'Allied Assurance',
-    },
-    {
-      ID: 1003,
-      'Start Date': '01 Mar 2024',
-      'Expire Date': '28 Feb 2025',
-      'Total Amount': '$60,000',
-      'Total Members': 150,
-      'Insurance Company': 'SecureHealth Co.',
-    },
-    {
-      ID: 1004,
-      'Start Date': '10 Apr 2024',
-      'Expire Date': '09 Apr 2025',
-      'Total Amount': '$40,000',
-      'Total Members': 95,
-      'Insurance Company': 'TrustCare Insurance',
-    },
-    {
-      ID: 1005,
-      'Start Date': '01 May 2024',
-      'Expire Date': '30 Apr 2025',
-      'Total Amount': '$90,000',
-      'Total Members': 300,
-      'Insurance Company': 'Unity Life Corp.',
-    },
-    {
-      ID: 1006,
-      'Start Date': '20 Jun 2024',
-      'Expire Date': '19 Jun 2025',
-      'Total Amount': '$65,000',
-      'Total Members': 180,
-      'Insurance Company': 'PrimeHealth Insurance',
-    },
-    {
-      ID: 1007,
-      'Start Date': '01 Jul 2024',
-      'Expire Date': '30 Jun 2025',
-      'Total Amount': '$70,000',
-      'Total Members': 220,
-      'Insurance Company': 'SafeGuard Life',
-    },
-    {
-      ID: 1008,
-      'Start Date': '15 Aug 2024',
-      'Expire Date': '14 Aug 2025',
-      'Total Amount': '$55,000',
-      'Total Members': 130,
-      'Insurance Company': 'GreenShield Insurance',
-    },
-    {
-      ID: 1009,
-      'Start Date': '01 Sep 2024',
-      'Expire Date': '31 Aug 2025',
-      'Total Amount': '$85,000',
-      'Total Members': 275,
-      'Insurance Company': 'BlueCrest Assurance',
-    },
-    {
-      ID: 1010,
-      'Start Date': '10 Oct 2024',
-      'Expire Date': '09 Oct 2025',
-      'Total Amount': '$95,000',
-      'Total Members': 320,
-      'Insurance Company': 'NovaCare Insurance',
-    },
+  const colkey = [
+    'Id',
+    'StartDate',
+    'ExpireDate',
+    'TotalAmount',
+    'TotalMembers',
+    'InsuranceCompanyId',
   ];
 
+  const handleSaveNewContract = (contractData) => {
+    // Add new contract to Redux (will show immediately in table)
+    dispatch(addContract(contractData));
+    setIsModalOpen(false);
+  };
+
+  const handleSaveEditedContract = (contractId, contractData) => {
+    // Update contract in Redux
+    dispatch(updateContract({ id: contractId, data: contractData }));
+  };
+
+  const handleSubmit = () => {
+    const formData = new FormData();
+    formData.append('Contracts', JSON.stringify(finalContracts));
+
+    updateClient(formData);
+    // useUpdateClient already invalidates queries on success
+    // useClientById will automatically update Redux store when data refetches
+  };
   return (
     <div>
       <div className="flex justify-end">
@@ -113,10 +77,33 @@ const ContractsInfo = () => {
           Add New
         </Btn>
       </div>
-      <ClientContractsTable headers={headers} data={rows} type={'update'} />
+      <ClientContractsTable
+        colskey={colkey}
+        headers={headers}
+        data={finalContracts}
+        type={'update'}
+        onSaveEditedContract={handleSaveEditedContract}
+      />
+
+      {/* Save + Cancel Buttons */}
+      <div className="flex items-center justify-end gap-5 mt-5">
+        <Btn
+          onClick={handleSubmit}
+          className="flex items-center justify-center gap-2 w-fit bg-[#1F4ED6] px-7 py-3 hover:bg-blue-800"
+        >
+          Save
+        </Btn>
+        <Btn className="flex items-center justify-center gap-2 w-fit px-7 py-3 !bg-white border border-red-400 !text-red-400">
+          Cancel
+        </Btn>
+      </div>
+
       {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <NewContractForm onClose={() => setIsModalOpen(false)} />
+        <NewContractForm
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveNewContract}
+        />
       </Modal>
     </div>
   );

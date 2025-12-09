@@ -88,7 +88,7 @@ const ClientMembersTable = ({ colskey, headers, members, type = 'update' }) => {
         colkey={colskey}
         cols={headers}
         data={members}
-        checkbox={type === 'update'}
+        checkbox={false}
         leadingData={leadingData}
         trailingData={trailingData}
       />
