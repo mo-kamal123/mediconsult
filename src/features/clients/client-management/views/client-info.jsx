@@ -1,213 +1,146 @@
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FaImage } from 'react-icons/fa';
-import { FiUpload } from 'react-icons/fi';
-import Input from '@/shared/UI/input';
 import { clientInfoSchema } from '../validation/client-validation';
-import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
-import Form from '../../../../shared/UI/from';
-import { toast } from 'sonner';
-import FormBtn from '../../../../shared/UI/form-Btn';
 import useClientById from '../hooks/useClientById';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import useUpdateClient from '../hooks/useUpdateClient';
 import Spinner from '../../../../shared/layout/spinner';
-import { useState } from 'react';
+import ClientForm from '../components/client-form';
+import { useEffect, useState, useCallback } from 'react';
+import { addClientInfo } from '../store/client-data-slice';
+import { useDispatch } from 'react-redux';
+import useDropDowns from '../hooks/useDropDowns';
+import useDeleteClient from '../hooks/useDeleteClient';
+import Modal from '../../../../shared/UI/modal';
+import Btn from '../../../../shared/UI/Btn';
 
-const ClientForm = () => {
+const ClietntInfo = () => {
   const { clientId } = useParams(); // get clientId from url params
-  const [preview, setPreview] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  console.log(clientId);
+  // console.log(clientId);
   // TODO: remove comment when api ready
-  const { data: client, isPending } = useClientById(clientId); // fetch client data by id
+  const { data: client, isPending, isSuccess } = useClientById(clientId); // fetch client data by id
   const { mutate: updateClient, isPending: clientPending } =
     useUpdateClient(clientId); // update client mutation hook
+  const { mutate: deleteClient, isPending: isDeleting } = useDeleteClient(); // hook for deleting client
+  // console.log(client);
   // react hook form setup
   const methods = useForm({
     resolver: zodResolver(clientInfoSchema),
     defaultValues: {
-      clientCategory: client?.categoryName || '',
-      arabicClientName: client?.name || '',
-      englishClientName: client?.name || '',
-      clientType: client?.type || '',
-      status: client?.status || '',
-      reimbursementDueDays: client?.refundDueDays || '',
-      ibmNotesId: '',
-      clientShortName: client?.shortName || '',
+      imageUrl: null,
+      clientCategory: '',
+      arabicClientName: '',
+      englishClientName: '',
+      clientType: '',
+      status: '',
+      reimbursementDueDays: null,
+      clientShortName: '',
       policyStart: '',
       policyExpire: '',
     },
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = methods;
+  // Reset form values when client data loads
+  useEffect(() => {
+    if (client) {
+      // Convert IDs to match dropdown data format (support both number and string)
+      // Dropdown matches by both d.value === selected || d.Id === selected
+      const categoryId = client?.CategoryId ?? null;
+      const typeId = client?.TypeId ?? null;
+      const statusId = client?.StatusId ?? null;
 
-  // ✅ Handle submit
-  const onSubmit = (data) => {
-    //TODO: remove logs
-    console.log('✅ Form Submitted:', data);
-    updateClient(data); // call update client mutation
-  };
+      methods.reset({
+        imageUrl: null, // Always start with null, existing image will be shown in preview
+        arabicClientName: client?.ArabicName || '',
+        englishClientName: client?.EnglishName || '',
+        reimbursementDueDays: client?.RefundDueDays || null,
+        clientShortName: client?.ShortName || '',
+        policyStart: client?.PolicyStart || '',
+        policyExpire: client?.PolicyExpire || '',
+        // Set IDs as numbers (or strings if that's what dropdown expects)
+        // The validation will coerce to string, but dropdown matching needs the correct type
+        clientCategory: categoryId !== null ? categoryId : '',
+        clientType: typeId !== null ? typeId : '',
+        status: statusId !== null ? statusId : '',
+      });
+      // 2️⃣ Update Redux store
+      dispatch(addClientInfo(client));
+    }
+  }, [client, methods, dispatch]);
+
+  // Handle delete client
+  const handleDeleteClick = useCallback(() => {
+    setIsDeleteModalOpen(true);
+  }, []);
+
+  const handleConfirmDelete = useCallback(() => {
+    if (clientId) {
+      deleteClient(clientId, {
+        onSuccess: () => {
+          setIsDeleteModalOpen(false);
+          // Navigate back to clients list after successful deletion
+          navigate('/clients');
+        },
+      });
+    }
+  }, [clientId, deleteClient, navigate]);
+
+  const handleCancelDelete = useCallback(() => {
+    setIsDeleteModalOpen(false);
+  }, []);
+
   if (isPending || clientPending) return <Spinner />;
+  if (!client) return null;
+
   return (
-    <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
-        <div className="flex flex-col gap-4">
-          <h3 className="font-semibold text-lg text-[#1F4ED6]">Client Logo</h3>
-          <div className="flex flex-col sm:flex-row gap-6 items-start">
-            <div className="relative  w-[170px] h-[230px] border border-dashed border-gray-400 rounded flex items-center justify-center overflow-hidden cursor-pointer hover:border-blue-500 transition">
-              <input
-                type="file"
-                id="fileInput"
-                accept="image/png, image/jpeg"
-                {...register('logo')}
-                className="absolute inset-0 opacity-0 cursor-pointer"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file) {
-                    setPreview(URL.createObjectURL(file)); // show preview
-                  }
-                }}
-              />
+    <>
+      <ClientForm
+        client={client}
+        methods={methods}
+        submitFunc={updateClient}
+        onDelete={handleDeleteClick}
+      />
 
-              {/* If preview exists → show the uploaded image */}
-              {preview ? (
-                <img
-                  src={preview}
-                  alt="Uploaded"
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <FaImage className="text-4xl text-gray-400" />
-              )}
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <FormBtn
-                role={'upload'}
-                type="button"
-                className="flex items-center gap-2 w-fit"
-                onClick={() => document.getElementById('fileInput').click()}
-              >
-                <FiUpload />
-                Upload
-              </FormBtn>
-              <p className="text-sm text-[#8B8B9B] max-w-sm">
-                Please upload a JPG or PNG file with a minimum dimension of
-                200x200, not exceeding 3MB.
-              </p>
-            </div>
-          </div>
-          {errors.logo && <p className="text-red-500">{errors.logo.message}</p>}
-        </div>
-
-        {/* Client Info */}
-        <div className="flex flex-col gap-6">
-          <h3 className="font-semibold text-lg text-[#1F4ED6]">Client Info</h3>
-
-          <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
-            <Input
-              label="English Client Name"
-              {...register('englishClientName')}
-              error={errors.englishClientName?.message}
-              className="flex-1 min-w-[200px]"
-            />
-            <Input
-              label="Arabic Client Name"
-              {...register('arabicClientName')}
-              error={errors.arabicClientName?.message}
-              className="flex-1 min-w-[200px]"
-            />
-            <RHFDropDown
-              label="Client Category"
-              name="clientCategory"
-              value={client?.categoryName}
-              data={[
-                { value: 'corp', label: 'Corp' },
-                { value: 'ind', label: 'Ind' },
-              ]}
-              placeholder="Select Category"
-              className="flex-1 p-6 mt-2 min-w-[200px]"
-            />
-          </div>
-
-          <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
-            <Input
-              label="Client Type"
-              {...register('clientType')}
-              error={errors.clientType?.message}
-              className="flex-1 min-w-[200px]"
-            />
-            <RHFDropDown
-              label="Status"
-              name="status"
-              data={[
-                { value: 'active', label: 'Active' },
-                { value: 'inactive', label: 'Inactive' },
-              ]}
-              placeholder="Select Status"
-              className="flex-1 p-6 mt-2 min-w-[200px]"
-            />
-            <Input
-              label="Reimbursement Due Days"
-              {...register('reimbursementDueDays')}
-              className="flex-1 min-w-[200px]"
-            />
-          </div>
-
-          <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
-            <Input
-              label="IBM Notes Id"
-              {...register('ibmNotesId')}
-              error={errors.ibmNotesId?.message}
-              className="flex-1 min-w-[200px]"
-            />
-            <Input
-              label="Client Short Name"
-              {...register('clientShortName')}
-              className="flex-1 min-w-[200px]"
-            />
+      {/* Delete Confirmation Modal */}
+      <Modal isOpen={isDeleteModalOpen} onClose={handleCancelDelete}>
+        <div className="p-6">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800">
+            Delete Client
+          </h2>
+          <p className="text-gray-600 mb-2">
+            Are you sure you want to delete the client{' '}
+            <span className="font-semibold text-gray-900">
+              "{client?.EnglishName || client?.ArabicName || clientId}"
+            </span>
+            ?
+          </p>
+          <p className="text-sm text-red-600 mb-6">
+            This action cannot be undone.
+          </p>
+          <div className="flex justify-end gap-4">
+            <Btn
+              onClick={handleCancelDelete}
+              disabled={isDeleting}
+              className="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 disabled:opacity-50"
+            >
+              Cancel
+            </Btn>
+            <Btn
+              onClick={handleConfirmDelete}
+              disabled={isDeleting}
+              className="px-4 py-2 bg-red-600 text-white hover:bg-red-700 disabled:opacity-50"
+            >
+              {isDeleting ? 'Deleting...' : 'Delete'}
+            </Btn>
           </div>
         </div>
-
-        {/* Policy Info */}
-        <div className="flex flex-col gap-6">
-          <h3 className="font-semibold text-lg text-[#1F4ED6]">Policy Info</h3>
-
-          <div className="flex items-start flex-wrap md:flex-nowrap gap-4">
-            <Input
-              label="Policy Start"
-              type="date"
-              {...register('policyStart')}
-              error={errors.policyStart?.message}
-              className="flex-1 min-w-[200px]"
-            />
-            <Input
-              label="Policy Expire"
-              type="date"
-              {...register('policyExpire')}
-              error={errors.policyExpire?.message}
-              className="flex-1 min-w-[200px]"
-            />
-          </div>
-        </div>
-
-        {/* Buttons */}
-        <div className="flex gap-4 justify-end">
-          <FormBtn type="button" role={'delete'} onClick={() => {}}>
-            Delete
-          </FormBtn>
-          <FormBtn role={'save'} type="submit">
-            Save
-          </FormBtn>
-        </div>
-      </Form>
-    </FormProvider>
+      </Modal>
+    </>
   );
 };
 
-export default ClientForm;
+export default ClietntInfo;
