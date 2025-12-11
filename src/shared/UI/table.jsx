@@ -7,6 +7,7 @@ const Table = ({
   colkey = [],
   data = [],
   checkbox = true,
+  getRowId,
   leadingData,
   trailingData,
   extendableData,
@@ -28,15 +29,24 @@ const Table = ({
         return [...prev, rowId];
       }
     });
+    getRowId((prev) => {
+      if (prev.includes(rowId)) {
+        return prev.filter((id) => id !== rowId);
+      } else {
+        return [...prev, rowId];
+      }
+    });
   };
-
+// console.log(checkedRows);
   // Handle "Select All" checkbox toggle
   const handleCheckAll = () => {
     if (checkedRows.length === data.length) {
       setCheckedRows([]);
+      getRowId([]);
     } else {
-      const allRowIds = data.map((row) => row.ID);
+      const allRowIds = data.map((row) => row.Id);
       setCheckedRows(allRowIds);
+      getRowId(allRowIds);
     }
   };
 
@@ -109,8 +119,8 @@ const Table = ({
                 >
                   {extendableData && (
                     <td
-                      onClick={() => toggleExpandedRow(row.ID)}
-                      className={`px-6 py-4 text-center whitespace-nowrap border border-borders text-xl ${extendableRow === row.ID ? 'rotate-90' : ''} transition-all duration-200`}
+                      onClick={() => toggleExpandedRow(row.Id)}
+                      className={`px-6 py-4 text-center whitespace-nowrap border border-borders text-xl ${extendableRow === row.Id ? 'rotate-90' : ''} transition-all duration-200`}
                     >
                       <IoIosArrowForward />
                     </td>
@@ -121,8 +131,8 @@ const Table = ({
                       <input
                         type="checkbox"
                         className="w-5 h-5 text-green-600 rounded border-gray-300"
-                        onChange={() => handleChecked(row.ID)}
-                        checked={checkedRows.includes(row.ID)} // Set checked state based on whether row ID is in checkedRows array
+                        onChange={() => handleChecked(row.Id)}
+                        checked={checkedRows.includes(row.Id)} // Set checked state based on whether row ID is in checkedRows array
                       />
                     </td>
                   )}

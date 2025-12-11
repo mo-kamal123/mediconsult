@@ -65,7 +65,7 @@ export const getAllInsuranceCompanies = async () => {
 // get excel API call
 export const exportClients = async () => {
   const response = await axiosInstance.get(`/en/Client/export/excel`, {
-    responseType: 'blob', // THIS IS IMPORTANT
+    responseType: 'blob',
   });
   return response.data;
 };

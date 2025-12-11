@@ -39,17 +39,6 @@ export const useTransformClientData = (clientData) => {
     console.log('❌ No ImageUrl found in clientData');
   }
 
-  // TODO: Add arrays if needed (Contacts, Branches, Contracts, Members)
-  // Example:
-  // if (clientData.Contacts && clientData.Contacts.length > 0) {
-  //   clientData.Contacts.forEach((contact, index) => {
-  //     formData.append(`Contacts[${index}].Name`, contact.Name);
-  //     formData.append(`Contacts[${index}].JobTitle`, contact.JobTitle);
-  //     formData.append(`Contacts[${index}].Address`, contact.Address );
-  //     formData.append(`Contacts[${index}].Note`, contact.Note);
-  //   });
-  // }
-
   // Debug: Log FormData
   console.log('📤 FormData being sent:');
   for (let pair of formData.entries()) {

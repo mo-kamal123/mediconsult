@@ -5,10 +5,10 @@ import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { newMemberSchema } from '../validation/client-validation';
 import Input from '../../../../shared/UI/input';
-import useDropDowns from '../hooks/useDropDowns';
+import useMemberDropDowns from '../../members/hooks/useMemberDropDowns';
 
 const NewMemberForm = ({ onClose, onSave, branches }) => {
-  const { levels, vipStatuses, status } = useDropDowns();
+  const { levels, vipStatuses, status } = useMemberDropDowns();
 
   const methods = useForm({
     resolver: zodResolver(newMemberSchema),

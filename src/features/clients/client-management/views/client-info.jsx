@@ -9,7 +9,7 @@ import ClientForm from '../components/client-form';
 import { useEffect, useState, useCallback } from 'react';
 import { addClientInfo } from '../store/client-data-slice';
 import { useDispatch } from 'react-redux';
-import useDropDowns from '../hooks/useDropDowns';
+import useDropDowns from '../hooks/useClientDropDowns';
 import useDeleteClient from '../hooks/useDeleteClient';
 import Modal from '../../../../shared/UI/modal';
 import Btn from '../../../../shared/UI/Btn';

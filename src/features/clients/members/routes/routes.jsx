@@ -2,6 +2,7 @@
 
 import { lazy } from 'react';
 import withSuspense from '@/app/components/with-suspense';
+import path from 'path';
 
 // Lazy-loaded components
 const MemberManagement = lazy(() => import('../pages/member-management'));
@@ -30,12 +31,28 @@ export const memberRoutes = [
           { path: 'member-info', element: withSuspense(MemberInfo) },
           { path: 'family-members', element: withSuspense(FamilyMembers) },
           { path: 'member-history', element: withSuspense(MemberHistory) },
-          { path: 'utilizations', element: withSuspense(Utilizations) },
         ],
       },
     ],
   },
-  { path: 'members-management', element: withSuspense(Members) },
+  {
+    path: 'members-management',
+    element: withSuspense(Members),
+  },
+  {
+    path : 'member-management',
+    children: [
+      {
+        path: ':memberId',
+        element: withSuspense(MemberData),
+        children: [
+          { path: 'member-info', element: withSuspense(MemberInfo) },
+          { path: 'family-members', element: withSuspense(FamilyMembers) },
+          { path: 'member-history', element: withSuspense(MemberHistory) },
+        ],
+      },
+    ],
+  },
   { path: 'members-history', element: withSuspense(MemberHistory) },
   { path: 'members/new', element: withSuspense(NewMember) },
 ];

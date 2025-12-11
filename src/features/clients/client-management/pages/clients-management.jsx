@@ -16,6 +16,7 @@ import useChangeClientStatus from '../hooks/useChangeClientStatus';
 import { useQuery } from '@tanstack/react-query';
 import { exportClients } from '../api/clientApi';
 import useDebounce from '../../../../shared/hooks/useDebounce';
+import useDownloadExcel from '../../../../shared/hooks/useDownloadExcel';
 
 // Table headers
 const tableHeaders = [
@@ -59,26 +60,28 @@ const ClientsManagement = () => {
 
   const { mutate: changeStatus, isLoading: statusLoading } =
     useChangeClientStatus(); // hook for changing client status
-  const { data: excel } = useQuery({
-    queryKey: ['clients', page],
-    queryFn: exportClients,
-  });
+    const { data, downloadExcel} = useDownloadExcel('clients', page, exportClients);
+    const {data: excel} = data
+  // const { data: excel } = useQuery({
+  //   queryKey: ['clients', page],
+  //   queryFn: exportClients,
+  // });
   console.log('export response:', excel);
   console.log('Clients response:', clients);
   // const rows = useSelector((state) => state.clients);
 
-  const downloadExcel = (fileBlob, fileName = 'clients.xlsx') => {
-    const url = window.URL.createObjectURL(new Blob([fileBlob]));
+  // const downloadExcel = (fileBlob, fileName = 'clients.xlsx') => {
+  //   const url = window.URL.createObjectURL(new Blob([fileBlob]));
 
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', fileName);
-    document.body.appendChild(link);
-    link.click();
+  //   const link = document.createElement('a');
+  //   link.href = url;
+  //   link.setAttribute('download', fileName);
+  //   document.body.appendChild(link);
+  //   link.click();
 
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
-  };
+  //   document.body.removeChild(link);
+  //   window.URL.revokeObjectURL(url);
+  // };
 
   // Handle clear filter - reset search and page
   const handleClearFilter = useCallback(() => {
