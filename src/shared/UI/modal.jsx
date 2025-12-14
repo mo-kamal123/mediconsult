@@ -44,7 +44,7 @@ const Modal = ({ isOpen, onClose, children }) => {
     >
       <div
         ref={modalRef}
-        className={`bg-white rounded-lg shadow-lg p-6 max-w-[60%] w-full transform transition-all duration-200 ${
+        className={`bg-white rounded-lg shadow-lg p-6 lg:max-w-[60%] w-[90%] max-h-[90svh] transform transition-all duration-200 overflow-auto ${
           show ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
         }`}
       >

@@ -5,19 +5,23 @@ import { RiFileExcel2Fill, RiUserVoiceFill } from 'react-icons/ri';
 import { MdFilterAltOff } from 'react-icons/md';
 import { SiGoogledocs } from 'react-icons/si';
 import { FaUserCheck, FaUserClock, FaUserTimes } from 'react-icons/fa';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { ImAttachment } from 'react-icons/im';
+import { useNavigate } from 'react-router-dom';
 import TablePagination from '../../../../shared/UI/table-pagiation';
 import useClients from '../hooks/useClients';
-import { useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import Spinner from '../../../../shared/layout/spinner';
+import { useDispatch } from 'react-redux';
+import { resetClientData } from '../store/client-data-slice';
+import useChangeClientStatus from '../hooks/useChangeClientStatus';
+import { useQuery } from '@tanstack/react-query';
+import { exportClients } from '../api/clientApi';
+import useDebounce from '../../../../shared/hooks/useDebounce';
+import useDownloadExcel from '../../../../shared/hooks/useDownloadExcel';
 
 // Table headers
 const tableHeaders = [
   'ID',
   'Name',
-  'OldID',
   'Category',
   'Type',
   'Member',
@@ -27,43 +31,107 @@ const tableHeaders = [
 
 // Table column keys
 const colKeys = [
-  'id',
-  'name',
-  'oldID',
-  'categoryName',
-  'type',
-  'member',
-  'branch',
-  'status',
+  'Id',
+  'EnglishName',
+  'Category',
+  'Type',
+  'Members',
+  'Branches',
+  'Status',
 ];
 
 const ClientsManagement = () => {
   const [page, setPage] = useState(1); // current page state
+  const [search, setSearch] = useState({ searchTerm: '', filterBy: 'All' }); // state to hold search term and filter column
+
   const navigate = useNavigate();
-  // TODO: remove comment when api ready
-  const { data: clients, isLoading, isError, error } = useClients(page); // fetch clients data
+  const dispatch = useDispatch();
+
+  const debouncedSearch = useDebounce(search, 700); // Debounce the search object
+
+  const {
+    data: clients,
+    isLoading,
+    isError,
+  } = useClients({
+    page,
+    search: debouncedSearch, // Pass debounced search to the hook
+  });
+
+  const { mutate: changeStatus, isLoading: statusLoading } =
+    useChangeClientStatus(); // hook for changing client status
+    const { data, downloadExcel} = useDownloadExcel('clients', page, exportClients);
+    const {data: excel} = data
+  // const { data: excel } = useQuery({
+  //   queryKey: ['clients', page],
+  //   queryFn: exportClients,
+  // });
+  console.log('export response:', excel);
   console.log('Clients response:', clients);
   // const rows = useSelector((state) => state.clients);
 
-  // Define actions for the table
-  const actions = [
-    {
-      type: 'clearFilter',
-      Icon: MdFilterAltOff,
-      label: 'Clear Filter',
-    },
-    {
-      type: 'export',
-      Icon: RiFileExcel2Fill,
-      label: 'Export',
-    },
-    {
-      type: 'newClient',
-      Icon: RiFileExcel2Fill,
-      label: 'New Client',
-      onClick: () => navigate('new'),
-    },
-  ];
+  // const downloadExcel = (fileBlob, fileName = 'clients.xlsx') => {
+  //   const url = window.URL.createObjectURL(new Blob([fileBlob]));
+
+  //   const link = document.createElement('a');
+  //   link.href = url;
+  //   link.setAttribute('download', fileName);
+  //   document.body.appendChild(link);
+  //   link.click();
+
+  //   document.body.removeChild(link);
+  //   window.URL.revokeObjectURL(url);
+  // };
+
+  // Handle clear filter - reset search and page
+  const handleClearFilter = useCallback(() => {
+    setSearch({ searchTerm: '', filterBy: 'All' });
+    setPage(1); // Reset to first page when clearing filters
+  }, []);
+
+  // Memoize download excel handler
+  const handleExport = useCallback(async () => {
+    const file = await exportClients(); // blob returned
+    downloadExcel(file, 'clients.xlsx');
+  }, []);
+
+  // Memoize new client navigation
+  const handleNewClient = useCallback(() => {
+    navigate('/clients/new-client/client-info');
+  }, [navigate]);
+
+  // Memoize actions array to prevent re-renders that cause focus loss
+  const actions = useMemo(
+    () => [
+      {
+        type: 'clearFilter',
+        Icon: MdFilterAltOff,
+        label: 'Clear Filter',
+        onClick: handleClearFilter,
+      },
+      {
+        type: 'export',
+        Icon: RiFileExcel2Fill,
+        label: 'Export',
+        onClick: handleExport,
+      },
+      {
+        type: 'newClient',
+        Icon: RiFileExcel2Fill,
+        label: 'New Client',
+        onClick: handleNewClient,
+      },
+    ],
+    [handleClearFilter, handleExport, handleNewClient]
+  );
+
+  // Reset client data in redux store when clients data is successfully fetched
+  useEffect(() => {
+    if (!isLoading && !isError && clients) {
+      dispatch(resetClientData());
+      console.log('Clients reset dispatched');
+    }
+  }, [clients, isLoading, isError, dispatch]);
 
   if (isLoading) return <Spinner />;
   if (isError) return <p>Error loading clients</p>;
@@ -72,7 +140,12 @@ const ClientsManagement = () => {
   return (
     <section className="w-[95%] m-auto">
       <MainHeader>Clients Management</MainHeader>
-      <TableActions actions={actions} tableheaders={tableHeaders} />
+      <TableActions
+        actions={actions}
+        tableheaders={tableHeaders}
+        search={search}
+        setSearch={setSearch}
+      />
       <Table
         cols={tableHeaders}
         colkey={colKeys}
@@ -83,8 +156,8 @@ const ClientsManagement = () => {
           col: '',
           render: (row) => (
             <p
-              onClick={() => navigate(`${row.id}/client-info`)}
-              className="text-blue-500 text-xl"
+              onClick={() => navigate(`${row.Id}/client-info`)}
+              className="text-blue-500 text-xl cursor-pointer"
             >
               <SiGoogledocs />
             </p>
@@ -93,33 +166,52 @@ const ClientsManagement = () => {
         // Customize trailing column with action buttons
         trailingData={[
           {
-            col: 'Change Status',
+            col: 'Actions',
             render: (row) => (
               <div className="flex items-center justify-between gap-2">
-                <button
-                  className="text-[#388E3C] text-2xl "
-                  onClick={() => alert(`activate ${row.Name}`)}
-                >
-                  <FaUserCheck />
-                </button>
-                <button
-                  className="text-[#DC0600] text-2xl "
-                  onClick={() => alert(`deactivate ${row.Name}`)}
-                >
-                  <FaUserTimes />
-                </button>
-                <button
-                  className="text-[#FFCC00] text-2xl "
-                  onClick={() => alert(`pending ${row.Name}`)}
-                >
-                  <RiUserVoiceFill />
-                </button>
-                <button
-                  className="text-[#4285F4] text-2xl "
-                  onClick={() => alert(`pending ${row.Name}`)}
-                >
-                  <FaUserClock />
-                </button>
+                {/* Status Change Buttons */}
+                <div className="flex items-center gap-2">
+                  <button
+                    className="text-[#388E3C] text-2xl cursor-pointer "
+                    disabled={statusLoading}
+                    onClick={() =>
+                      changeStatus({ id: row.Id, body: { StatusId: 1 } })
+                    }
+                    title="Activate"
+                  >
+                    <FaUserCheck />
+                  </button>
+                  <button
+                    className="text-[#DC0600] text-2xl cursor-pointer "
+                    disabled={statusLoading}
+                    onClick={() =>
+                      changeStatus({ id: row.Id, body: { StatusId: 2 } })
+                    }
+                    title="Deactivate"
+                  >
+                    <FaUserTimes />
+                  </button>
+                  <button
+                    className="text-[#FFCC00] text-2xl cursor-pointer "
+                    disabled={statusLoading}
+                    onClick={() =>
+                      changeStatus({ id: row.Id, body: { StatusId: 4 } })
+                    }
+                    title="Pending"
+                  >
+                    <RiUserVoiceFill />
+                  </button>
+                  <button
+                    className="text-[#4285F4] text-2xl cursor-pointer "
+                    disabled={statusLoading}
+                    onClick={() =>
+                      changeStatus({ id: row.Id, body: { StatusId: 3 } })
+                    }
+                    title="Hold"
+                  >
+                    <FaUserClock />
+                  </button>
+                </div>
               </div>
             ),
           },
