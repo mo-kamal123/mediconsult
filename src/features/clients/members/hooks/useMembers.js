@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { getAllmembers } from '../api/membersApi';
 
-// custom hook to fetch members with pagination
-const useMembers = (page) => {
+// custom hook to fetch members with pagination + search
+const useMembers = ({ page, search }) => {
   return useQuery({
-    queryKey: ['members', page], // include page in the key to cache properly
-    queryFn: () => getAllmembers(page),
-    keepPreviousData: true, // keep previous data while fetching new data
+    queryKey: ['members', page, search],
+    queryFn: () => getAllmembers({ page, search }),
+    keepPreviousData: true,
   });
 };
 

@@ -9,7 +9,7 @@ import wordIcon from '../imgs/word-svgrepo-com.svg';
 import excelIcon from '../imgs/excel-svgrepo-com.svg';
 import { CiExport } from 'react-icons/ci';
 
-const DragAndDrop = () => {
+const DragAndDrop = ({ handleSubmit, loading }) => {
   const [dragging, setDragging] = useState(false);
   const [files, setFiles] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -92,7 +92,7 @@ const DragAndDrop = () => {
   };
 
   return (
-    <Form className="gap-5">
+    <Form onSubmit={(e) => handleSubmit(e, files)} className="gap-5">
       <div className="flex items-center justify-between">
         <h2 className="text-lg text-[#1F4ED6] font-semibold mb-4">
           Upload Attachment
@@ -168,8 +168,17 @@ const DragAndDrop = () => {
           </div>
         </>
       )}
-      <button className="bg-[#1f4dd6cc] p-2 rounded-lg text-white">
-        upload
+      <button
+        type="submit"
+        disabled={loading}
+        className={`p-2 rounded-lg text-white transition flex items-center justify-center gap-2
+    ${
+      loading
+        ? 'bg-gray-400 cursor-not-allowed'
+        : 'bg-[#1f4dd6cc] hover:bg-[#1f4ed6]'
+    }`}
+      >
+        {loading ? 'Uploading...' : 'Upload'}
       </button>
     </Form>
   );

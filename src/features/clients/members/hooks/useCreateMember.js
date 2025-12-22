@@ -9,7 +9,7 @@ const useCreateMember = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: (data) => createNewMember(data),
+    mutationFn: createNewMember,
     onSuccess: () => {
       // ✅ success toast
       toast.success('member created successfully ✔');

@@ -3,33 +3,48 @@ import auth_img from '../../features/auth/imgs/health-insurance-reuse 1.png';
 import khusm from '../assets/Khusm.png';
 import { useSelector } from 'react-redux';
 
+/**
+ * AuthLayout Component
+ * Layout wrapper for authentication pages (login, password reset, etc.)
+ *
+ * Features:
+ * - Split layout: form on left, image on right (desktop)
+ * - Footer with branding
+ * - Protected redirect: if already logged in, redirects to home page
+ */
 const Authlayout = () => {
-  const loggedIn = useSelector((state) => state.auth.isAuthenticated); // get the auth state from redux store
+  // Get authentication status from Redux store
+  const loggedIn = useSelector((state) => state.auth.isAuthenticated);
 
-  // if logged in redirect to home page
-  return loggedIn ? (
-    <Navigate to={'/'} replace />
-  ) : (
-    // if not logged in show the auth layout
-    <>
-      <section className="flex items-center justify-around ">
-        <div className="flex flex-col justify-around gap-5 w-full md:w-1/2 h-svh">
-          <Outlet />
-          <div className="flex flex-col items-center gap-3">
-            <p>Powerd by</p>
-            <img src={khusm} alt="khusm-logo" className="w-50" />
-          </div>
+  // If user is already authenticated, redirect to home page
+  if (loggedIn) {
+    return <Navigate to={'/'} replace />;
+  }
+
+  // Render authentication layout for unauthenticated users
+  return (
+    <section className="flex items-center justify-around">
+      {/* Left side: Authentication forms (login, password reset, etc.) */}
+      <div className="flex flex-col justify-around gap-5 w-full md:w-1/2 h-svh">
+        {/* Renders child auth routes (login, forget-password, reset-password, verify) */}
+        <Outlet />
+
+        {/* Footer: Branding information */}
+        <div className="flex flex-col items-center gap-3">
+          <p>Powered by</p>
+          <img src={khusm} alt="khusm-logo" className="w-50" />
         </div>
-        {/* right side image for large screens */}
-        <div className="w-1/2 hidden lg:block">
-          <img
-            src={auth_img}
-            alt="login-page-img"
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </section>
-    </>
+      </div>
+
+      {/* Right side: Decorative image (hidden on mobile/tablet, visible on large screens) */}
+      <div className="w-1/2 hidden lg:block">
+        <img
+          src={auth_img}
+          alt="login-page-img"
+          className="w-full h-full object-cover"
+        />
+      </div>
+    </section>
   );
 };
 

@@ -6,7 +6,7 @@ import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import Form from '../../../../shared/UI/from';
 import FormBtn from '../../../../shared/UI/form-Btn';
 import { useState } from 'react';
-import useDropDowns from '../hooks/useDropDowns';
+import useClientDropDowns from '../hooks/useClientDropDowns';
 
 const ClientForm = ({
   methods,
@@ -17,7 +17,8 @@ const ClientForm = ({
 }) => {
   const [preview, setPreview] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const { categories, status, types, isError, isLoading } = useDropDowns();
+  const { categories, status, types, isError, isLoading } =
+    useClientDropDowns();
 
   const {
     register,

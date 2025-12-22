@@ -1,6 +1,26 @@
 import axiosInstance, { LIMIT } from '../../../../app/api/axiosInstance';
 
-// get all clients API call with pagination
+/**
+ * Client API Functions
+ * All API calls related to client management
+ *
+ * Functions include:
+ * - CRUD operations for clients
+ * - Client-related dropdown data (categories, types, statuses, etc.)
+ * - Client member management
+ * - Client sub-entity operations (branches, contacts, contracts)
+ * - Export functionality
+ */
+
+/**
+ * Get all clients with pagination and search/filter support
+ * @param {Object} params - Query parameters
+ * @param {number} params.page - Page number for pagination
+ * @param {Object} params.search - Search/filter parameters
+ * @param {string} params.search.searchTerm - Search term to filter clients
+ * @param {string} params.search.filterBy - Column to filter by (e.g., 'Name', 'Category')
+ * @returns {Promise} API response containing clients data
+ */
 export const getAllClients = async ({ page, search }) => {
   const params = new URLSearchParams({
     page,
@@ -15,49 +35,87 @@ export const getAllClients = async ({ page, search }) => {
   return response.data;
 };
 
-// get single client by id API call
+/**
+ * Get a single client by ID
+ * @param {number|string} id - Client ID
+ * @returns {Promise} API response containing client data
+ */
 export const getClient = async (id) => {
   const response = await axiosInstance.get(`/en/Client/${id}`);
   return response.data;
 };
-// get single client by id API call
+
+/**
+ * Get members belonging to a specific client with pagination
+ * @param {number|string} id - Client ID
+ * @param {number} page - Page number for pagination
+ * @returns {Promise} API response containing client members data
+ */
 export const getClientMembers = async (id, page) => {
   const response = await axiosInstance.get(
     `/en/Client/${id}/members?page=${page}&limit=${LIMIT}`
   );
   return response.data;
 };
-// get all categories API call
+
+/**
+ * Get all client categories for dropdown/select options
+ * @returns {Promise} API response containing categories list
+ */
 export const getAllCategories = async () => {
   const response = await axiosInstance.get(`/en/Client/categories`);
   return response.data;
 };
-// get all status API call
+
+/**
+ * Get all client statuses for dropdown/select options
+ * @returns {Promise} API response containing statuses list
+ */
 export const getAllStatus = async () => {
   const response = await axiosInstance.get(`/en/Client/statuses`);
   return response.data;
 };
-// get all types API call
+
+/**
+ * Get all client types for dropdown/select options
+ * @returns {Promise} API response containing types list
+ */
 export const getAllTypes = async () => {
   const response = await axiosInstance.get(`/en/Client/types`);
   return response.data;
 };
-// get all Programs API call
+
+/**
+ * Get all programs for dropdown/select options
+ * @returns {Promise} API response containing programs list
+ */
 export const getAllPrograms = async () => {
   const response = await axiosInstance.get(`/en/Client/programs`);
   return response.data;
 };
-// get all Levels API call
+
+/**
+ * Get all client levels for dropdown/select options
+ * @returns {Promise} API response containing levels list
+ */
 export const getAllLevels = async () => {
   const response = await axiosInstance.get(`/en/Client/levels`);
   return response.data;
 };
-// get all vip-statuses API call
+
+/**
+ * Get all VIP statuses for dropdown/select options
+ * @returns {Promise} API response containing VIP statuses list
+ */
 export const getAllVipStatuses = async () => {
   const response = await axiosInstance.get(`/en/Client/vip-statuses`);
   return response.data;
 };
-// get all insurance-companies API call
+
+/**
+ * Get all insurance companies for dropdown/select options
+ * @returns {Promise} API response containing insurance companies list
+ */
 export const getAllInsuranceCompanies = async () => {
   const response = await axiosInstance.get(`/en/Client/insurance-companies`);
   return response.data;
@@ -65,13 +123,18 @@ export const getAllInsuranceCompanies = async () => {
 // get excel API call
 export const exportClients = async () => {
   const response = await axiosInstance.get(`/en/Client/export/excel`, {
-    responseType: 'blob', // THIS IS IMPORTANT
+    responseType: 'blob',
   });
   return response.data;
 };
 
+/**
+ * Create a new client
+ * @param {FormData} formData - Client data including image file (FormData object)
+ * @returns {Promise} API response containing created client data
+ * @note formData must be FormData object (not JSON) to support file uploads
+ */
 export const createNewClient = async (formData) => {
-  // ⚠️ formData is already FormData - don't stringify!
   const response = await axiosInstance.post('/en/Client', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -80,7 +143,13 @@ export const createNewClient = async (formData) => {
   return response.data;
 };
 
-// update existing client API call
+/**
+ * Update an existing client
+ * @param {number|string} id - Client ID to update
+ * @param {FormData} credentials - Updated client data including image file (FormData object)
+ * @returns {Promise} API response containing updated client data
+ * @note credentials must be FormData object (not JSON) to support file uploads
+ */
 export const updateClient = async (id, credentials) => {
   const response = await axiosInstance.put(`/en/Client/${id}`, credentials, {
     headers: {
@@ -90,7 +159,13 @@ export const updateClient = async (id, credentials) => {
   return response.data;
 };
 
-// change client status API call
+/**
+ * Change client status (activate, deactivate, hold, pending)
+ * @param {number|string} id - Client ID
+ * @param {Object} credentials - Status change data
+ * @param {number} credentials.StatusId - New status ID (1=Active, 2=Deactive, 3=Hold, 4=Pending)
+ * @returns {Promise} API response
+ */
 export const changeClientStatus = async (id, credentials) => {
   const response = await axiosInstance.patch(
     `/en/Client/${id}/status`,
@@ -99,7 +174,12 @@ export const changeClientStatus = async (id, credentials) => {
   return response.data;
 };
 
-// delete existing branch API call
+/**
+ * Delete a branch belonging to a client
+ * @param {number|string} clientId - Client ID
+ * @param {number|string} branchId - Branch ID to delete
+ * @returns {Promise} API response
+ */
 export const deleteBranch = async (clientId, branchId) => {
   const response = await axiosInstance.delete(
     `/en/Client/${clientId}/branches/${branchId}`
@@ -107,21 +187,37 @@ export const deleteBranch = async (clientId, branchId) => {
   return response.data;
 };
 
-// delete existing Contact API call
+/**
+ * Delete a contact belonging to a client
+ * @param {number|string} clientId - Client ID
+ * @param {number|string} contactId - Contact ID to delete
+ * @returns {Promise} API response
+ */
 export const deleteContact = async (clientId, contactId) => {
   const response = await axiosInstance.delete(
     `/en/Client/${clientId}/contacts/${contactId}`
   );
   return response.data;
 };
-// delete existing Contact API call
+
+/**
+ * Delete a contract belonging to a client
+ * @param {number|string} clientId - Client ID
+ * @param {number|string} contactId - Contract ID to delete
+ * @returns {Promise} API response
+ */
 export const deleteContract = async (clientId, contactId) => {
   const response = await axiosInstance.delete(
     `/en/Client/${clientId}/contracts/${contactId}`
   );
   return response.data;
 };
-// delete existing client API call
+
+/**
+ * Delete a client
+ * @param {number|string} id - Client ID to delete
+ * @returns {Promise} API response
+ */
 export const deleteClient = async (id) => {
   const response = await axiosInstance.delete(`/en/Client/${id}`);
   return response.data;
