@@ -1,11 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
-import React from 'react';
-
-const useDownloadExcel = (key, page, downloadFunc) => {
-    const data = useQuery({
-      queryKey: [key, page],
-      queryFn: downloadFunc,
-    });
+const useDownloadExcel = () => {
   const downloadExcel = (fileBlob, fileName = 'clients.xlsx') => {
     const url = window.URL.createObjectURL(new Blob([fileBlob]));
 
@@ -18,7 +11,7 @@ const useDownloadExcel = (key, page, downloadFunc) => {
     document.body.removeChild(link);
     window.URL.revokeObjectURL(url);
   };
-  return { downloadExcel, data };
+  return { downloadExcel };
 };
 
 export default useDownloadExcel;

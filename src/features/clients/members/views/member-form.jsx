@@ -14,9 +14,11 @@ import useProgramsDropDown from '../hooks/useProgramsDropDown';
 import { useTransformMemberData } from '../hooks/useTransformMemberData';
 
 const MemberForm = ({ member, memberSubmit }) => {
-  const [clientId, setClientId] = useState(member?.ClientId || '')
-  const [branchId, setBranchId] = useState(member?.BranchId || '')
-  const {transformData} = useTransformMemberData()
+  const [preview, setPreview] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [clientId, setClientId] = useState(member?.ClientId || '');
+  const [branchId, setBranchId] = useState(member?.BranchId || '');
+  const { transformData } = useTransformMemberData();
   // TODO: handle default values shows
   const methods = useForm({
     resolver: zodResolver(memberInfoSchema),
@@ -75,7 +77,7 @@ const MemberForm = ({ member, memberSubmit }) => {
     }
   }, [member, reset]);
   const onSubmit = (data) => {
-    const transformedData = transformData(data)
+    const transformedData = transformData(data);
     console.log(transformedData);
     memberSubmit(transformedData);
     console.log('✅ Member Info Submitted:', data);
@@ -99,10 +101,29 @@ const MemberForm = ({ member, memberSubmit }) => {
                 type="file"
                 id="fileInput"
                 accept="image/png, image/jpeg"
-                {...register('memberImage')}
                 className="absolute inset-0 opacity-0 cursor-pointer"
+                {...register('memberImage', {
+                  onChange: (e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setSelectedFile(file);
+                      setPreview(URL.createObjectURL(file));
+                    } else {
+                      setSelectedFile(null);
+                      setPreview(null);
+                    }
+                  },
+                })}
               />
-              <FaImage className="text-4xl text-gray-400" />
+              {preview || member?.ImageUrl ? (
+                <img
+                  src={preview || member.ImageUrl}
+                  alt="Member"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <FaImage className="text-4xl text-gray-400" />
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <FormBtn
@@ -162,7 +183,7 @@ const MemberForm = ({ member, memberSubmit }) => {
             <RHFDropDown
               label="Program Name"
               name="programName"
-              data={programs|| ['Choose Branch Frist']}
+              data={programs || ['Choose Branch Frist']}
               className="flex-1 p-6 mt-1 min-w-[200px]"
             />
           </div>

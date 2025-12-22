@@ -11,27 +11,27 @@ import useDownloadExcel from '../../../../shared/hooks/useDownloadExcel';
 import { exportMembers } from '../api/membersApi';
 import useDebounce from '../../../../shared/hooks/useDebounce';
 import Spinner from '../../../../shared/layout/spinner';
+import useDeleteBulkMembers from '../hooks/useDeleteBulkMembers';
 
 const MembersManagement = () => {
   const [page, setPage] = useState(1); // current page state
   const [search, setSearch] = useState({ searchTerm: '', filterBy: 'All' });
+  const [selectedRowsIds, setSelectedRowsIds] = useState([]);
   const rows = useSelector((state) => state.members);
   const navigate = useNavigate();
   const debouncedSearch = useDebounce(search, 700);
-  
+
   const {
     data: members,
     isLoading,
-    isError
+    isError,
   } = useMembers({
     page,
-    search: debouncedSearch
-  });  console.log(members);
-  const { downloadExcel } = useDownloadExcel(
-    'members',
-    page,
-    exportMembers
-  );
+    search: debouncedSearch,
+  });
+  console.log(members);
+  const { mutate: deleteMembers } = useDeleteBulkMembers();
+  const { downloadExcel } = useDownloadExcel('members', page, exportMembers);
   // Handle clear filter - reset search and page
   const handleClearFilter = useCallback(() => {
     setSearch({ searchTerm: '', filterBy: 'All' });
@@ -50,6 +50,9 @@ const MembersManagement = () => {
       type: 'delete',
       Icon: MdDelete,
       label: 'Delete',
+      onClick: async () => {
+        deleteMembers({ MemberIds: selectedRowsIds });
+      },
     },
     {
       type: 'export',
@@ -79,7 +82,7 @@ const MembersManagement = () => {
 
   // Handle loading state
   if (isLoading) return <Spinner />;
-  
+
   // Handle error state
   if (isError) {
     return (
@@ -118,6 +121,8 @@ const MembersManagement = () => {
         rows={rows}
         search={search}
         setSearch={setSearch}
+        selectedRowsIds={selectedRowsIds}
+        setSelectedRowsIds={setSelectedRowsIds}
       />
     </div>
   );

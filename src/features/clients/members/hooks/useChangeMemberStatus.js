@@ -9,11 +9,11 @@ const useChangeMemberStatus = () => {
   return useMutation({
     mutationFn: ({ id, body }) => changeMemberStatus(id, body),
     onSuccess: () => {
-      toast.success("Member status changed ✔");
+      toast.success('Member status changed ✔');
       queryClient.invalidateQueries(['members']);
     },
     onError: () => {
-      toast.error("Failed to change member status ❌");
+      toast.error('Failed to change member status ❌');
     },
   });
 };

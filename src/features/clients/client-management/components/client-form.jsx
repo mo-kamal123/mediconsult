@@ -17,7 +17,8 @@ const ClientForm = ({
 }) => {
   const [preview, setPreview] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const { categories, status, types, isError, isLoading } = useClientDropDowns();
+  const { categories, status, types, isError, isLoading } =
+    useClientDropDowns();
 
   const {
     register,

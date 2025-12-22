@@ -28,8 +28,8 @@ const RHFDropDown = ({
             type={type}
             value={field.value}
             onValueChange={(val) => {
-              field.onChange(val);   // update RHF form value
-              setValue?.(val);       // update local state (clientId / branchId)
+              field.onChange(val); // update RHF form value
+              setValue?.(val); // update local state (clientId / branchId)
             }}
             className={`${className} ${errors[name] ? 'border-red-500' : ''}`}
           />

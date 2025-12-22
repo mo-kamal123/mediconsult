@@ -4,7 +4,7 @@ import { getAllmembers } from '../api/membersApi';
 // custom hook to fetch members with pagination + search
 const useMembers = ({ page, search }) => {
   return useQuery({
-    queryKey: ['members', page, search], 
+    queryKey: ['members', page, search],
     queryFn: () => getAllmembers({ page, search }),
     keepPreviousData: true,
   });

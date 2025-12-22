@@ -18,7 +18,5 @@ export const memberInfoSchema = z.object({
   activatedDate: z.string().nonempty('Activated Date is required'),
   notes: z.string().optional(),
   privateNotes: z.string().optional(),
-  memberImage: z
-    .any()
-    .optional(),
+  memberImage: z.any().optional(),
 });

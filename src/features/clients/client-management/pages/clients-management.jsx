@@ -13,12 +13,23 @@ import Spinner from '../../../../shared/layout/spinner';
 import { useDispatch } from 'react-redux';
 import { resetClientData } from '../store/client-data-slice';
 import useChangeClientStatus from '../hooks/useChangeClientStatus';
-import { useQuery } from '@tanstack/react-query';
 import { exportClients } from '../api/clientApi';
 import useDebounce from '../../../../shared/hooks/useDebounce';
 import useDownloadExcel from '../../../../shared/hooks/useDownloadExcel';
 
-// Table headers
+/**
+ * ClientsManagement Component
+ * Main page for managing clients - displays list of all clients with search, filter, and actions
+ *
+ * Features:
+ * - Client list table with pagination
+ * - Search and filter functionality
+ * - Export clients to Excel
+ * - Change client status (Activate, Deactivate, Hold, Pending)
+ * - Navigate to client details or create new client
+ */
+
+// Table column headers for display
 const tableHeaders = [
   'ID',
   'Name',
@@ -29,7 +40,7 @@ const tableHeaders = [
   'Status',
 ];
 
-// Table column keys
+// Table column keys matching API response data structure
 const colKeys = [
   'Id',
   'EnglishName',
@@ -58,30 +69,12 @@ const ClientsManagement = () => {
     search: debouncedSearch, // Pass debounced search to the hook
   });
 
+  // Hook for changing client status (activate, deactivate, hold, pending)
   const { mutate: changeStatus, isLoading: statusLoading } =
-    useChangeClientStatus(); // hook for changing client status
-    const { data, downloadExcel} = useDownloadExcel('clients', page, exportClients);
-    const {data: excel} = data
-  // const { data: excel } = useQuery({
-  //   queryKey: ['clients', page],
-  //   queryFn: exportClients,
-  // });
-  console.log('export response:', excel);
-  console.log('Clients response:', clients);
-  // const rows = useSelector((state) => state.clients);
+    useChangeClientStatus();
 
-  // const downloadExcel = (fileBlob, fileName = 'clients.xlsx') => {
-  //   const url = window.URL.createObjectURL(new Blob([fileBlob]));
-
-  //   const link = document.createElement('a');
-  //   link.href = url;
-  //   link.setAttribute('download', fileName);
-  //   document.body.appendChild(link);
-  //   link.click();
-
-  //   document.body.removeChild(link);
-  //   window.URL.revokeObjectURL(url);
-  // };
+  // Hook for downloading clients data as Excel file
+  const { downloadExcel } = useDownloadExcel('clients', page, exportClients);
 
   // Handle clear filter - reset search and page
   const handleClearFilter = useCallback(() => {
@@ -125,11 +118,11 @@ const ClientsManagement = () => {
     [handleClearFilter, handleExport, handleNewClient]
   );
 
-  // Reset client data in redux store when clients data is successfully fetched
+  // Reset client data in Redux store when clients data is successfully fetched
+  // This ensures clean state when navigating between clients
   useEffect(() => {
     if (!isLoading && !isError && clients) {
       dispatch(resetClientData());
-      console.log('Clients reset dispatched');
     }
   }, [clients, isLoading, isError, dispatch]);
 
@@ -217,7 +210,8 @@ const ClientsManagement = () => {
           },
         ]}
       />
-      {/* // TODO: Add pagination support for client list */}
+
+      {/* Pagination component - allows navigation between pages of clients */}
       <TablePagination
         page={page}
         setPage={setPage}

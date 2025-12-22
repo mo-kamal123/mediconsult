@@ -1,9 +1,18 @@
 import { useRouteError, useNavigate } from 'react-router-dom';
 
+/**
+ * RouteErrorPage Component
+ * Error boundary page for route errors (404, navigation errors, etc.)
+ * Displays user-friendly error message with option to navigate back home
+ */
 const RouteErrorPage = () => {
+  // Get the error object from React Router
   const error = useRouteError();
   const navigate = useNavigate();
 
+  /**
+   * Handler to navigate user back to home page
+   */
   const handleGoHome = () => {
     navigate('/');
   };

@@ -37,7 +37,7 @@ const Table = ({
       }
     });
   };
-// console.log(checkedRows);
+  // console.log(checkedRows);
   // Handle "Select All" checkbox toggle
   const handleCheckAll = () => {
     if (checkedRows.length === data.length) {
