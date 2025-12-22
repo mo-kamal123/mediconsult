@@ -1,14 +1,18 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { updateMember } from '../api/membersApi';
 
 // custom hook for update client mutation
 const useUpdateMember = (id) => {
+  const queryClient = useQueryClient(); // ✅ required
+
   return useMutation({
     mutationFn: (data) => updateMember(id, data),
     onSuccess: (data) => {
       //TODO: remove logs
       console.log(data);
+      queryClient.invalidateQueries(['clients', id]); // invalidate client query to refetch updated data
+
       // ✅ success toast
       toast.success('Member updated successfully ✔');
     },

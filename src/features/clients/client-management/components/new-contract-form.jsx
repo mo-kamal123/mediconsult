@@ -4,12 +4,12 @@ import FormBtn from '../../../../shared/UI/form-Btn';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { newContractSchema } from '../validation/client-validation';
 import Input from '../../../../shared/UI/input';
-import useDropDowns from '../hooks/useDropDowns';
 import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import { useEffect } from 'react';
+import useClientDropDowns from '../hooks/useClientDropDowns';
 
 const NewContractForm = ({ onClose, onSave, title, data }) => {
-  const { insuranceCompanies } = useDropDowns();
+  const { insuranceCompanies } = useClientDropDowns();
   const methods = useForm({
     resolver: zodResolver(newContractSchema),
     defaultValues: {

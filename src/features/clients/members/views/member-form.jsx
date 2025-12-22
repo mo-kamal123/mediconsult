@@ -7,8 +7,18 @@ import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import Form from '../../../../shared/UI/from';
 import { memberInfoSchema } from '../validation/member-vaildation';
 import FormBtn from '../../../../shared/UI/form-Btn';
+import { useEffect, useState } from 'react';
+import useMemberDropDowns from '../hooks/useMemberDropDowns';
+import useBranchesDropDown from '../hooks/useBranchesDropDown';
+import useProgramsDropDown from '../hooks/useProgramsDropDown';
+import { useTransformMemberData } from '../hooks/useTransformMemberData';
 
 const MemberForm = ({ member, memberSubmit }) => {
+  const [preview, setPreview] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [clientId, setClientId] = useState(member?.ClientId || '');
+  const [branchId, setBranchId] = useState(member?.BranchId || '');
+  const { transformData } = useTransformMemberData();
   // TODO: handle default values shows
   const methods = useForm({
     resolver: zodResolver(memberInfoSchema),
@@ -17,7 +27,6 @@ const MemberForm = ({ member, memberSubmit }) => {
       clientName: '',
       mobile: member?.mobile || '',
       branchName: '',
-      oldId: '',
       programName: '',
       gender: 'male',
       vipStatus: '',
@@ -34,16 +43,48 @@ const MemberForm = ({ member, memberSubmit }) => {
     },
   });
   console.log(member);
+  console.log(clientId);
+  console.log(branchId);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = methods;
 
+  // Load member data into form
+  useEffect(() => {
+    if (member) {
+      reset({
+        memberName: member.Name || '',
+        clientName: member.Client || '',
+        mobile: member.MobileNumber || '',
+        branchName: member.Branch || '',
+        programName: member.Program || '',
+        gender: member.IsMale ? 'male' : 'female',
+        vipStatus: member.VipStatus || '',
+        jobTitle: member.JobTitle || '',
+        birthday: member.BirthDate || '',
+        nationalId: member.NationalId || '',
+        companyCode: member.CompanyCode || '',
+        level: member.Level || '',
+        hofId: member.HofId || '',
+        activatedDate: member.ActivatedDate || '',
+        notes: member.Notes || '',
+        privateNotes: member.PrivateNotes || '',
+        memberImage: null, // files can't be auto-filled
+      });
+    }
+  }, [member, reset]);
   const onSubmit = (data) => {
-    memberSubmit(data);
+    const transformedData = transformData(data);
+    console.log(transformedData);
+    memberSubmit(transformedData);
     console.log('✅ Member Info Submitted:', data);
   };
+  const { clients, status, levels, vipStatuses } = useMemberDropDowns();
+  const { data: branches } = useBranchesDropDown(clientId);
+  const { data: programs } = useProgramsDropDown(branchId);
 
   return (
     <FormProvider {...methods}>
@@ -60,10 +101,29 @@ const MemberForm = ({ member, memberSubmit }) => {
                 type="file"
                 id="fileInput"
                 accept="image/png, image/jpeg"
-                {...register('memberImage')}
                 className="absolute inset-0 opacity-0 cursor-pointer"
+                {...register('memberImage', {
+                  onChange: (e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setSelectedFile(file);
+                      setPreview(URL.createObjectURL(file));
+                    } else {
+                      setSelectedFile(null);
+                      setPreview(null);
+                    }
+                  },
+                })}
               />
-              <FaImage className="text-4xl text-gray-400" />
+              {preview || member?.ImageUrl ? (
+                <img
+                  src={preview || member.ImageUrl}
+                  alt="Member"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <FaImage className="text-4xl text-gray-400" />
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <FormBtn
@@ -99,10 +159,8 @@ const MemberForm = ({ member, memberSubmit }) => {
             <RHFDropDown
               label="Client Name"
               name="clientName"
-              data={[
-                { value: 'active', label: 'Active' },
-                { value: 'inactive', label: 'Inactive' },
-              ]}
+              data={clients}
+              setValue={(id) => setClientId(id)}
               className="flex-1 p-6 mt-1 min-w-[200px]"
             />
             <Input
@@ -118,24 +176,14 @@ const MemberForm = ({ member, memberSubmit }) => {
             <RHFDropDown
               label="Branch Name"
               name="branchName"
-              data={[
-                { value: 'active', label: 'Active' },
-                { value: 'inactive', label: 'Inactive' },
-              ]}
+              data={branches || ['Choose Client First']}
+              setValue={(id) => setBranchId(id)}
               className="flex-1 p-6 mt-1 min-w-[200px]"
-            />
-            <Input
-              label="Old ID"
-              {...register('oldId')}
-              className="flex-1 min-w-[200px]"
             />
             <RHFDropDown
               label="Program Name"
               name="programName"
-              data={[
-                { value: 'active', label: 'Active' },
-                { value: 'inactive', label: 'Inactive' },
-              ]}
+              data={programs || ['Choose Branch Frist']}
               className="flex-1 p-6 mt-1 min-w-[200px]"
             />
           </div>
@@ -146,18 +194,15 @@ const MemberForm = ({ member, memberSubmit }) => {
               label="Gender"
               name="gender"
               data={[
-                { value: 'male', label: 'Male' },
-                { value: 'female', label: 'Female' },
+                { value: true, label: 'Male' },
+                { value: false, label: 'Female' },
               ]}
               className="flex-1 p-6 mt-1 min-w-[200px]"
             />
             <RHFDropDown
               label="VIP Status"
               name="vipStatus"
-              data={[
-                { value: 'yes', label: 'Yes' },
-                { value: 'no', label: 'No' },
-              ]}
+              data={vipStatuses}
               className="flex-1 p-6 mt-1 min-w-[200px]"
             />
             <Input
@@ -194,10 +239,7 @@ const MemberForm = ({ member, memberSubmit }) => {
             <RHFDropDown
               label="Level"
               name="level"
-              data={[
-                { value: 'active', label: 'Active' },
-                { value: 'inactive', label: 'Inactive' },
-              ]}
+              data={levels}
               className="flex-1 p-6 mt-1 min-w-[200px]"
             />
             <Input

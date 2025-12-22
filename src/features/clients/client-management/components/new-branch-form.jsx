@@ -5,12 +5,11 @@ import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { newBranchSchema } from '../validation/client-validation';
 import Input from '../../../../shared/UI/input';
-import { toast } from 'sonner';
-import useDropDowns from '../hooks/useDropDowns';
 import { useEffect } from 'react';
+import useClientDropDowns from '../hooks/useClientDropDowns';
 
 const NewBranchForm = ({ onClose, onSave, title, data }) => {
-  const { status } = useDropDowns();
+  const { status } = useClientDropDowns();
 
   const methods = useForm({
     resolver: zodResolver(newBranchSchema),

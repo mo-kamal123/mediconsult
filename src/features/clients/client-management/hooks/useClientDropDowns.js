@@ -9,7 +9,7 @@ import {
   getAllInsuranceCompanies,
 } from '../api/clientApi';
 
-const useDropDowns = () => {
+const useClientDropDowns = () => {
   const categoriesQuery = useQuery({
     queryKey: ['categories'],
     queryFn: getAllCategories,
@@ -73,4 +73,4 @@ const useDropDowns = () => {
   };
 };
 
-export default useDropDowns;
+export default useClientDropDowns;
