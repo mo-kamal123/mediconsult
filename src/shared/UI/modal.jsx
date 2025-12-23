@@ -1,6 +1,8 @@
+import { X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import TableBtn from './table-Btn';
 
-const Modal = ({ isOpen, onClose, children }) => {
+const Modal = ({ isOpen, onClose, children, submitLabel, title, onSubmit }) => {
   const modalRef = useRef();
   const [show, setShow] = useState(false); // control animation state
 
@@ -48,7 +50,31 @@ const Modal = ({ isOpen, onClose, children }) => {
           show ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
         }`}
       >
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold text-[#1F4ED6]">{title}</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
         {children}
+        <div className="flex items-center justify-end gap-3 mt-4">
+          <TableBtn
+            type="clearFilter"
+            label={submitLabel}
+            handleClick={onClose}
+          />
+          <TableBtn
+            type="AddColumn"
+            label={submitLabel}
+            handleClick={(e) => {
+              e.preventDefault();
+              onSubmit(e);
+            }}
+          />
+        </div>
       </div>
     </div>
   );

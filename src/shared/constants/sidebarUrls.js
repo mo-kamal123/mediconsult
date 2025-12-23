@@ -22,7 +22,7 @@ export const sidebar_url = [
       { name: 'Members Management', url: '/members-management' },
       // { name: 'Deactivated Members Management', url: 'Deactivated' },
       { name: 'Members History', url: 'members-history' },
-      // { name: 'Policy Management', url: 'Policy' },
+      { name: 'Policy Management', url: '/policy' },
       // { name: 'TOB Viewer', url: 'Viewer' },
       // { name: 'TOB Builder', url: 'Builder' },
     ],
