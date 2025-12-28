@@ -3,19 +3,25 @@ import { z } from 'zod';
 // Validation schema for Policy Information
 export const policyInfoSchema = z
   .object({
-    policyTypeId: z.string().min(1, 'Policy Type is required'),
-    carrierCompanyId: z.string().min(1, 'Carrier Company is required'),
-    startDate: z.string().min(1, 'Start Date is required'),
-    expireDate: z.string().min(1, 'Expire Date is required'),
-    clientId: z.string().min(1, 'Client is required'),
-    totalAmount: z
+    PolicyTypeId: z.string().min(1, 'Policy Type is required'),
+
+    CarrierCompanyId: z.string().min(1, 'Carrier Company is required'),
+
+    StartDate: z.string().min(1, 'Start Date is required'),
+
+    EndDate: z.string().min(1, 'Expire Date is required'),
+
+    ClientId: z.string().min(1, 'Client is required'),
+
+    TotalAmount: z
       .string()
       .optional()
       .refine(
         (val) => !val || (!isNaN(Number(val)) && Number(val) >= 0),
         'Total Amount must be a valid number'
       ),
-    warningOnPercent: z
+
+    WarningOnPercentage: z
       .string()
       .optional()
       .refine(
@@ -24,17 +30,17 @@ export const policyInfoSchema = z
           (!isNaN(Number(val)) && Number(val) >= 0 && Number(val) <= 100),
         'Warning On % must be between 0 and 100'
       ),
-    membersAddedAfter6Month: z.boolean().optional(),
-    calculateUpperLimit: z.boolean().optional(),
+
+    IsCalculateUpperPeday: z.boolean().optional(),
   })
   .refine(
     (data) => {
-      if (!data.startDate || !data.expireDate) return true;
-      return new Date(data.expireDate) >= new Date(data.startDate);
+      if (!data.StartDate || !data.EndDate) return true;
+      return new Date(data.EndDate) >= new Date(data.StartDate);
     },
     {
       message: 'Expire Date must be after or equal to Start Date',
-      path: ['expireDate'],
+      path: ['EndDate'],
     }
   );
 

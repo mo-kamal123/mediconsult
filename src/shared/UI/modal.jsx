@@ -61,11 +61,7 @@ const Modal = ({ isOpen, onClose, children, submitLabel, title, onSubmit }) => {
         </div>
         {children}
         <div className="flex items-center justify-end gap-3 mt-4">
-          <TableBtn
-            type="clearFilter"
-            label={submitLabel}
-            handleClick={onClose}
-          />
+          <TableBtn type="clearFilter" label="Cancel" handleClick={onClose} />
           <TableBtn
             type="AddColumn"
             label={submitLabel}

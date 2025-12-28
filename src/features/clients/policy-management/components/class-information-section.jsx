@@ -20,13 +20,35 @@ const ClassInformationSection = ({
     poolId: '',
     serviceLimit: '',
   });
-
+  console.log(classes);
   const classHeaders = [
-    'ID',
-    'Service Classes',
+    'Id',
+    'Service Class Id',
     'Service Limit Type',
-    'Pool ID',
+    'Pool Index',
+    'Pool Id',
     'Service Limit',
+    'Member Count',
+    'Member Percentage',
+    'Apply To',
+    'Copayment',
+    'Notes',
+    'Only Refund',
+  ];
+
+  const colkey = [
+    'Id',
+    'ServiceClassId',
+    'ServiceLimitType',
+    'PoolIndex',
+    'PoolId',
+    'ServiceLimit',
+    'MemberCount',
+    'MemberPercentage',
+    'ApplyTo',
+    'Copayment',
+    'Notes',
+    'OnlyRefund',
   ];
 
   const handleInputChange = (e) => {
@@ -77,7 +99,8 @@ const ClassInformationSection = ({
 
       <Table
         cols={classHeaders}
-        data={classes}
+        colkey={colkey}
+        data={classes.ListOfServiceClasses}
         checkbox={false}
         trailingData={[
           {

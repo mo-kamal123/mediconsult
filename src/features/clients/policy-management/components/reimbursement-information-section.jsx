@@ -26,10 +26,24 @@ const ReimbursementInformationSection = ({
   const reimbursementHeaders = [
     'ID',
     'Reimbursement Type',
-    'Apply on',
+    'Apply On',
     'Program',
     'Price List',
-    'Price',
+    'Apply By',
+    'Max Value',
+    'Reimbursement Percentage',
+    'Notes',
+  ];
+  const colkey = [
+    'Id',
+    'ReimbursementTypeId',
+    'ApplyOn',
+    'ProgramId',
+    'PricelistId',
+    'ApplyBy',
+    'MaxValue',
+    'ReimbursementPercentage',
+    'Notes',
   ];
 
   const handleInputChange = (e) => {
@@ -84,6 +98,7 @@ const ReimbursementInformationSection = ({
 
       <Table
         cols={reimbursementHeaders}
+        colkey={colkey}
         data={reimbursements}
         checkbox={false}
         trailingData={[

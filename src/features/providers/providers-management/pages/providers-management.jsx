@@ -81,17 +81,19 @@ const ProvidersManagement = () => {
         colkey={colKeys}
         data={providers}
         // handle leading data rendering
-        leadingData={{
-          col: '',
-          render: (row) => (
-            <p
-              className="text-blue-500 underline cursor-pointer"
-              onClick={() => navigate(`/providers/${row.id}/locations`)}
-            >
-              view
-            </p>
-          ),
-        }}
+        leadingData={[
+          {
+            col: '',
+            render: (row) => (
+              <p
+                className="text-blue-500 underline cursor-pointer"
+                onClick={() => navigate(`/providers/${row.id}/locations`)}
+              >
+                view
+              </p>
+            ),
+          },
+        ]}
         trailingData={[
           {
             col: 'Change Status',

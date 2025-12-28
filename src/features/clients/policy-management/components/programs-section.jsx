@@ -24,12 +24,13 @@ const ProgramsSection = ({
   });
 
   const programHeaders = ['ID', 'Program Name', 'Limit', 'Room Class', 'Note'];
+  const colkey = ['Id', 'Id', 'Limit', 'RoomTypeId', 'Note'];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
+  console.log(programs);
   const handleAddProgram = () => {
     if (!formData.programNameId || !formData.limit) {
       alert('Please fill in Program Name and Limit');
@@ -110,6 +111,7 @@ const ProgramsSection = ({
 
       <Table
         cols={programHeaders}
+        colkey={colkey}
         data={programs}
         checkbox={false}
         trailingData={[

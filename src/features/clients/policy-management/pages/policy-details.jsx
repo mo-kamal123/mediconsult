@@ -1,181 +1,259 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+import { useForm, FormProvider } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import MainHeader from '../../../../shared/UI/main-header';
 import PolicyInformationSection from '../components/policy-information-section';
 import ProgramsSection from '../components/programs-section';
 import PoolInformationSection from '../components/pool-information-section';
 import ClassInformationSection from '../components/class-information-section';
 import ReimbursementInformationSection from '../components/reimbursement-information-section';
+import TableBtn from '../../../../shared/UI/table-Btn';
+import Form from '../../../../shared/UI/from';
+import Spinner from '../../../../shared/layout/spinner';
+import usePolicyById from '../hooks/usePolicyById';
+import useUpdatePolicy from '../hooks/useUpdatePolicy';
+import usePolicyDropDowns from '../hooks/usePolicyDropDowns';
+import { policyInfoSchema } from '../validation/policy-validation';
 
+/**
+ * PolicyDetails Component
+ * View and edit policy details page
+ *
+ * Features:
+ * - Displays policy information fetched from API
+ * - Allows editing policy information using react-hook-form
+ * - Manages programs, pools, classes, and reimbursements
+ * - Uses dropdown data from API
+ */
 const PolicyDetails = () => {
   const { policyId } = useParams();
   const [selectedProgram, setSelectedProgram] = useState(null);
 
-  // Policy Information state
-  const [policyInfo, setPolicyInfo] = useState({
-    policyId: policyId || '167',
-    policyType: 'HMO',
-    carrierCompany: 'Delta',
-    startDate: '2031-10-31',
-    expireDate: '2031-11-30',
-    client: 'Khusm',
-    totalAmount: '1000',
-    warningOnPercent: '75',
-    membersAddedAfter6Month: false,
-    calculateUpperLimit: false,
+  // Fetch policy data
+  const {
+    data: policy,
+    isLoading: policyLoading,
+    isError: policyError,
+  } = usePolicyById(policyId);
+
+  // Update policy mutation
+  const { mutate: updatePolicy, isPending: isUpdating } =
+    useUpdatePolicy(policyId);
+
+  // Fetch dropdown data
+  const dropdowns = usePolicyDropDowns({
+    clientId: policy?.ClientId,
   });
 
-  // Tables data
-  const [programs, setPrograms] = useState([
-    {
-      ID: 1,
-      'Program Name': 'Platinum - VIP',
-      Limit: '1',
-      'Room Class': 'Suit',
-      Note: '',
+  // React Hook Form setup
+  const methods = useForm({
+    resolver: zodResolver(policyInfoSchema),
+    defaultValues: {
+      PolicyTypeId: '',
+      CarrierCompanyId: '',
+      ClientId: '',
+      StartDate: '',
+      EndDate: '',
+      IsCalculateUpperPeday: false,
+      TotalAmount: '',
+      WarningOnPercentage: '',
+      MembersAddedAfter6Month: false,
     },
-  ]);
+  });
+
+  const { handleSubmit, reset } = methods;
+
+  // Tables data - managed separately from form (similar to new-policy pattern)
+  const [programs, setPrograms] = useState([]);
   const [pools, setPools] = useState([]);
   const [classes, setClasses] = useState([]);
   const [reimbursements, setReimbursements] = useState([]);
 
-  // Mock data for dropdowns - TODO: Replace with API calls
-  const policyTypeOptions = [
-    { value: '1', label: 'HMO' },
-    { value: '2', label: 'Type 2' },
-    { value: '3', label: 'Type 3' },
-  ];
-  const carrierCompanyOptions = [
-    { value: '1', label: 'Delta' },
-    { value: '2', label: 'Company 2' },
-    { value: '3', label: 'Company 3' },
-  ];
-  const clientOptions = [
-    { value: '1', label: 'Khusm' },
-    { value: '2', label: 'Client 2' },
-    { value: '3', label: 'Client 3' },
-  ];
-  const programNameOptions = [
-    { value: '1', label: 'Platinum - VIP' },
-    { value: '2', label: 'Program 2' },
-  ];
-  const roomTypeOptions = [
-    { value: '1', label: 'Single' },
-    { value: '2', label: 'Double' },
-    { value: '3', label: 'Suite' },
-  ];
-  const serviceClassOptions = [
-    { value: '1', label: 'Service Class 1' },
-    { value: '2', label: 'Service Class 2' },
-  ];
-  const poolTypeOptions = [
-    { value: '1', label: 'Pool Type 1' },
-    { value: '2', label: 'Pool Type 2' },
-  ];
-  const reimbursementTypeOptions = [
-    { value: '1', label: 'Reimbursement Type 1' },
-    { value: '2', label: 'Reimbursement Type 2' },
-  ];
-  const programOptions = [
-    { value: '1', label: 'Program 1' },
-    { value: '2', label: 'Program 2' },
-  ];
-  const pricelistOptions = [
-    { value: '1', label: 'Pricelist 1' },
-    { value: '2', label: 'Pricelist 2' },
-  ];
+  // Reset form values when policy data loads
+  useEffect(() => {
+    if (policy) {
+      // Convert API response to form values
+      const policyTypeId = policy?.PolicyTypeId ?? policy?.PolicyTypeId ?? '';
+      const carrierCompanyId =
+        policy?.CarrierCompanyId ?? policy?.CarrierCompanyId ?? '';
+      const clientId = policy?.ClientId ?? '';
 
-  // Handlers for Policy Information
-  const handlePolicyInfoChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setPolicyInfo((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
+      reset({
+        PolicyTypeId: policy.PolicyTypeId?.toString() ?? '',
+        CarrierCompanyId: policy.CarrierCompanyId?.toString() ?? '',
+        ClientId: policy.ClientId?.toString() ?? '',
+        StartDate: policy.StartDate ?? '',
+        EndDate: policy.EndDate ?? '',
+        IsCalculateUpperPeday: policy.IsCalculateUpperPeday ?? false,
+        TotalAmount: policy.TotalAmount?.toString() ?? '',
+        WarningOnPercentage: policy.WarningOnPercentage?.toString() ?? '',
+        MembersAddedAfter6Month: policy.MembersAddedAfter6Month ?? false,
+      });
+
+      // // Set programs, pools, classes, and reimbursements from API response
+      // if (policy.ListOfProgram) {
+      //   setPrograms(Array.isArray(policy.ListOfProgram) ? policy.ListOfProgram : []);
+      // }
+      if (policy.Pools) {
+        setPools(Array.isArray(policy.Pools) ? policy.Pools : []);
+      }
+      if (policy.Classes) {
+        setClasses(Array.isArray(policy.Classes) ? policy.Classes : []);
+      }
+      if (policy.Reimbursements) {
+        setReimbursements(
+          Array.isArray(policy.Reimbursements) ? policy.Reimbursements : []
+        );
+      }
+    }
+  }, [policy, reset]);
+
+  // Convert dropdown data to format expected by components {value, label}
+  const dropdownOptions = useMemo(() => {
+    const convertToOptions = (data, idKey = 'Id', nameKey = 'Name') => {
+      if (!Array.isArray(data)) return [];
+      return data.map((item) => ({
+        value: String(item[idKey] || item.id || item.Id || ''),
+        label:
+          item[nameKey] || item.name || item.Name || item.EnglishName || '',
+      }));
+    };
+
+    return {
+      policyTypes: convertToOptions(dropdowns.policyTypes, 'Id', 'Name'),
+      carrierCompanies: convertToOptions(
+        dropdowns.carrierCompanies,
+        'Id',
+        'Name'
+      ),
+      clients: convertToOptions(dropdowns.clients, 'Id', 'EnglishName'),
+      programs: convertToOptions(dropdowns.programs, 'Id', 'Name'),
+      roomTypes: convertToOptions(dropdowns.roomTypes, 'Id', 'Name'),
+      serviceClasses: convertToOptions(dropdowns.serviceClasses, 'Id', 'Name'),
+      poolTypes: convertToOptions(dropdowns.poolTypes, 'Id', 'Name'),
+      reimbursementTypes: convertToOptions(
+        dropdowns.reimbursementTypes,
+        'Id',
+        'Name'
+      ),
+      pricelists: convertToOptions(dropdowns.pricelists, 'Id', 'Name'),
+    };
+  }, [dropdowns]);
+
+  // Form submission handler
+  const onSubmit = (data) => {
+    const payload = {
+      ...data,
+      ListOfProgram: programs,
+      ListOfPool: pools,
+      ListOfReimbursement: reimbursements,
+    };
+
+    updatePolicy(payload);
   };
 
+  // Handle program click
   const handleProgramClick = (program) => {
     setSelectedProgram(program);
   };
 
-  // Save handlers
-  const handleSavePolicyInfo = () => {
-    console.log('Saving Policy Information:', policyInfo, programs);
-    alert('Policy Information saved successfully!');
-  };
+  // Loading state
+  if (policyLoading || dropdowns.isLoading) {
+    return <Spinner />;
+  }
 
-  const handleSavePool = () => {
-    console.log('Saving Pool Information:', pools);
-    alert('Pool Information saved successfully!');
-  };
-
-  const handleSaveClass = () => {
-    console.log('Saving Class Information:', classes);
-    alert('Class Information saved successfully!');
-  };
-
-  const handleSaveReimbursement = () => {
-    console.log('Saving Reimbursement Information:', reimbursements);
-    alert('Reimbursement Information saved successfully!');
-  };
+  // Error state
+  if (policyError || !policy) {
+    return (
+      <div className="w-[95%] m-auto flex items-center justify-center p-8">
+        <p className="text-red-600">Error loading policy data</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="w-[95%] m-auto flex flex-col gap-6">
-      <MainHeader>Policy Data</MainHeader>
+    <FormProvider {...methods}>
+      <div className="w-[95%] m-auto flex flex-col gap-6">
+        <MainHeader>Policy Data</MainHeader>
 
-      {/* Policy Information Section */}
-      <div className="bg-white border border-borders rounded-2xl p-6 flex flex-col gap-6">
-        <PolicyInformationSection
-          policyInfo={policyInfo}
-          onPolicyInfoChange={handlePolicyInfoChange}
-          policyTypeOptions={policyTypeOptions}
-          carrierCompanyOptions={carrierCompanyOptions}
-          clientOptions={clientOptions}
-          showPolicyId={true}
-          showTotalAmount={true}
-          showWarningOnPercent={true}
-          onSave={handleSavePolicyInfo}
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          {/* Policy Information Section */}
+          <div className="bg-white border border-borders rounded-2xl p-6 flex flex-col gap-6">
+            <PolicyInformationSection
+              policyTypeOptions={dropdownOptions.policyTypes}
+              carrierCompanyOptions={dropdownOptions.carrierCompanies}
+              clientOptions={dropdownOptions.clients}
+              showPolicyId={true}
+              showTotalAmount={true}
+              showWarningOnPercent={true}
+            />
+
+            <ProgramsSection
+              programs={policy.ListOfProgram}
+              onProgramsChange={setPrograms}
+              onProgramClick={handleProgramClick}
+              showViewDetails={true}
+              programNameOptions={dropdownOptions.programs}
+              roomTypeOptions={dropdownOptions.roomTypes}
+            />
+          </div>
+
+          {/* Submit buttons */}
+          <div className="flex justify-end gap-4">
+            <TableBtn
+              type="clearFilter"
+              label="Cancel"
+              handleClick={() => reset()}
+            />
+            <TableBtn
+              type="AddColumn"
+              label={isUpdating ? 'Saving...' : 'Save'}
+              handleClick={handleSubmit(onSubmit)}
+              disabled={isUpdating}
+            />
+          </div>
+        </Form>
+
+        {/* Info for program Section - Dynamic */}
+        {selectedProgram && (
+          <ClassInformationSection
+            classes={selectedProgram}
+            onClassesChange={setClasses}
+            onSave={() => {
+              // Save classes - this could trigger an API call in the future
+              // For now, data is stored in state and will be saved with form submission
+            }}
+            title={`Info for program ${selectedProgram['Program Name'] || selectedProgram.Name || ''}`}
+            serviceClassOptions={dropdownOptions.serviceClasses}
+          />
+        )}
+
+        {/* Pool Information Section */}
+        <PoolInformationSection
+          pools={policy.ListOfPool}
+          onPoolsChange={setPools}
+          onSave={() => {
+            // Save pools - this could trigger an API call in the future
+            // For now, data is stored in state and will be saved with form submission
+          }}
+          poolTypeOptions={dropdownOptions.poolTypes}
         />
 
-        <ProgramsSection
-          programs={programs}
-          onProgramsChange={setPrograms}
-          onProgramClick={handleProgramClick}
-          showViewDetails={true}
-          programNameOptions={programNameOptions}
-          roomTypeOptions={roomTypeOptions}
+        {/* Reimbursement Information Section */}
+        <ReimbursementInformationSection
+          reimbursements={policy.ListOfReimbursement}
+          onReimbursementsChange={setReimbursements}
+          onSave={() => {
+            // Save reimbursements - this could trigger an API call in the future
+            // For now, data is stored in state and will be saved with form submission
+          }}
+          reimbursementTypeOptions={dropdownOptions.reimbursementTypes}
+          programOptions={dropdownOptions.programs}
+          pricelistOptions={dropdownOptions.pricelists}
         />
       </div>
-
-      {/* Info for program Section - Dynamic */}
-      {selectedProgram && (
-        <ClassInformationSection
-          classes={classes}
-          onClassesChange={setClasses}
-          onSave={handleSaveClass}
-          title={`Info for program ${selectedProgram['Program Name']}`}
-          serviceClassOptions={serviceClassOptions}
-        />
-      )}
-
-      {/* Pool Information Section */}
-      <PoolInformationSection
-        pools={pools}
-        onPoolsChange={setPools}
-        onSave={handleSavePool}
-        poolTypeOptions={poolTypeOptions}
-      />
-
-      {/* Reimbursement Information Section */}
-      <ReimbursementInformationSection
-        reimbursements={reimbursements}
-        onReimbursementsChange={setReimbursements}
-        onSave={handleSaveReimbursement}
-        reimbursementTypeOptions={reimbursementTypeOptions}
-        programOptions={programOptions}
-        pricelistOptions={pricelistOptions}
-      />
-    </div>
+    </FormProvider>
   );
 };
 

@@ -255,17 +255,19 @@ const Members = ({
         checkbox={true}
         getRowId={setSelectedRowsIds}
         // handle leading data rendering
-        leadingData={{
-          col: '',
-          render: (row) => (
-            <p
-              onClick={() => navigate(navigatationRoute(row))}
-              className="text-blue-500 text-xl"
-            >
-              <SiGoogledocs />
-            </p>
-          ),
-        }}
+        leadingData={[
+          {
+            col: '',
+            render: (row) => (
+              <p
+                onClick={() => navigate(navigatationRoute(row))}
+                className="text-blue-500 text-xl"
+              >
+                <SiGoogledocs />
+              </p>
+            ),
+          },
+        ]}
         // handle trailing data rendering
         trailingData={[
           {

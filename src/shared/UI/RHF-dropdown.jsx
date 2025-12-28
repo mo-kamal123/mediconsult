@@ -31,7 +31,7 @@ const RHFDropDown = ({
               field.onChange(val); // update RHF form value
               setValue?.(val); // update local state (clientId / branchId)
             }}
-            className={`${className} ${errors[name] ? 'border-red-500' : ''}`}
+            className={`${className} mt-2 ${errors[name] ? 'border-red-500' : ''}`}
           />
         )}
       />

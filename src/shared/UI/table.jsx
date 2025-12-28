@@ -161,7 +161,7 @@ const Table = ({
                       key={colIndex}
                       className={`px-6 py-4 whitespace-nowrap text-gray-600 border border-borders ${row[col] === undefined ? 'text-center' : 'text-left'}`}
                     >
-                      {row[col] === undefined ? (
+                      {row[col] === undefined || row[col] === null ? (
                         <span>-</span>
                       ) : col.toLowerCase().includes('status') ? (
                         <ItemStatus status={row[col]}>{row[col]}</ItemStatus>

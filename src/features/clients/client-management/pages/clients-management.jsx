@@ -145,17 +145,19 @@ const ClientsManagement = () => {
         data={clients.data}
         checkbox={false}
         // Customize leading column with Google Docs icon
-        leadingData={{
-          col: '',
-          render: (row) => (
-            <p
-              onClick={() => navigate(`${row.Id}/client-info`)}
-              className="text-blue-500 text-xl cursor-pointer"
-            >
-              <SiGoogledocs />
-            </p>
-          ),
-        }}
+        leadingData={[
+          {
+            col: '',
+            render: (row) => (
+              <p
+                onClick={() => navigate(`${row.Id}/client-info`)}
+                className="text-blue-500 text-xl cursor-pointer"
+              >
+                <SiGoogledocs />
+              </p>
+            ),
+          },
+        ]}
         // Customize trailing column with action buttons
         trailingData={[
           {

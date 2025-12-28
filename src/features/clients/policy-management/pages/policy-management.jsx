@@ -16,6 +16,9 @@ import TableActions from '../../../../shared/UI/table-actions';
 import Table from '../../../../shared/UI/table';
 import TablePagiation from '../../../../shared/UI/table-pagiation';
 import PolicyTableActions from '../components/policy-table-actions';
+import usePolicies from '../hooks/usePolicies';
+import useDebounce from '../../../../shared/hooks/useDebounce';
+import Spinner from '../../../../shared/layout/spinner';
 
 const rows = Array.from({ length: 15 }, (_, i) => ({
   Id: 3,
@@ -32,6 +35,8 @@ const rows = Array.from({ length: 15 }, (_, i) => ({
 
 const PolicyManagement = () => {
   const navigate = useNavigate();
+  const [page, setPage] = useState(1); // current page state
+  const [search, setSearch] = useState({ searchTerm: '', filterBy: 'All' }); // state to hold search term and filter column
 
   // Table headers
   const tableHeaders = [
@@ -77,12 +82,15 @@ const PolicyManagement = () => {
   const tableHeaderTitles = tableHeaders.map((col) =>
     typeof col === 'string' ? col : col.title
   );
-
-  const handleRefresh = () => {
-    console.log('Refreshing data...');
-    window.location.reload();
-  };
-
+  const debouncedSearch = useDebounce(search, 700); // Debounce the search object
+  const {
+    data: policies,
+    isLoading,
+    isError,
+  } = usePolicies({
+    page,
+    search: debouncedSearch, // Pass debounced search to the hook
+  });
   const handleAttachmentClick = (rowId) => {
     fileInputRef.current?.setAttribute('data-row-id', rowId);
     fileInputRef.current?.click();
@@ -138,6 +146,9 @@ const PolicyManagement = () => {
       onClick: () => console.log('Export clicked'),
     },
   ];
+  if (isLoading) return <Spinner />;
+  if (isError) return <p>Error loading policies</p>;
+  if (!policies) return null;
 
   return (
     <div className="w-[95%] m-auto flex flex-col gap-6">
@@ -153,12 +164,17 @@ const PolicyManagement = () => {
         accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
       />
 
-      <TableActions actions={actions} tableheaders={tableHeaderTitles} />
+      <TableActions
+        actions={actions}
+        tableheaders={tableHeaderTitles}
+        search={search}
+        setSearch={setSearch}
+      />
 
       <Table
         cols={tableHeaders}
         colkey={colkey}
-        data={rows}
+        data={policies?.Data}
         checkbox={false}
         leadingData={[
           {
@@ -196,7 +212,12 @@ const PolicyManagement = () => {
         ]}
       />
 
-      <TablePagiation totalPages={4} totalItems={38} />
+      <TablePagiation
+        totalPage={policies?.TotalPages ?? 0}
+        totalItem={policies?.TotalPolicies ?? 0}
+        page={page}
+        setPage={setPage}
+      />
     </div>
   );
 };

@@ -23,11 +23,25 @@ const PoolInformationSection = ({
 
   const poolHeaders = [
     'ID',
-    'Pool',
-    'Apply on',
+    'Pool Types',
+    'Apply On',
+    'Apply To',
     'Pool Limit',
-    'Members (%)',
-    'Members count',
+    'Member Count',
+    'Member Percentage',
+    'Limit Exceeded',
+    'Notes',
+  ];
+  const colkey = [
+    'Id',
+    'PoolTypeIds',
+    'ApplyOn',
+    'ApplyTo',
+    'PoolLimit',
+    'MemberCount',
+    'PercentageOfMember',
+    'IsLimitExceed',
+    'Notes',
   ];
 
   const handleInputChange = (e) => {
@@ -86,6 +100,7 @@ const PoolInformationSection = ({
 
       <Table
         cols={poolHeaders}
+        colkey={colkey}
         data={pools}
         checkbox={false}
         trailingData={[
