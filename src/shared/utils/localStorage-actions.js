@@ -11,5 +11,12 @@ export const removeFromLocalStorage = (key) => {
 // Get item from localStorage by key and parse it as JSON
 export const getFromLocalStorage = (key) => {
   const item = localStorage.getItem(key);
-  return JSON.parse(item);
+
+  if (!item) return null;
+
+  try {
+    return JSON.parse(item);
+  } catch (err) {
+    return item;
+  }
 };
