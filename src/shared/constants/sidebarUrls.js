@@ -22,7 +22,7 @@ export const sidebar_url = [
       { name: 'Members Management', url: '/members-management' },
       // { name: 'Deactivated Members Management', url: 'Deactivated' },
       { name: 'Members History', url: 'members-history' },
-      // { name: 'Policy Management', url: 'Policy' },
+      { name: 'Policy Management', url: '/policy' },
       // { name: 'TOB Viewer', url: 'Viewer' },
       // { name: 'TOB Builder', url: 'Builder' },
     ],
@@ -35,10 +35,10 @@ export const sidebar_url = [
       { name: 'Providers Locations', url: '/providers/locations' },
       // { name: 'Providers Finance Report', url: '/providers/finance-report' },
       { name: 'Pricelists Management', url: '/providers/pricelists' },
-      // {
-      //   name: 'Archived Pricelists Management',
-      //   url: '/providers/pricelists/archived',
-      // },
+      {
+        name: 'Archived Pricelists Management',
+        url: '/providers/pricelists/archived',
+      },
       { name: 'Master CPT Management', url: '/providers/CPT-management' },
       // { name: 'Not Found Acts Management', url: '/providers/not-found-acts' },
       // { name: 'CDT Acts Management', url: '/providers/cdt-acts' },

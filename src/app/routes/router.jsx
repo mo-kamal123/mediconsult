@@ -12,6 +12,7 @@ import { providersRoutes } from '../../features/providers/providers-management/r
 import { approvalsRoutes } from '../../features/approvals/approvals-management/routes/routes.jsx';
 import { ChronicApprovalRoutes } from '../../features/chronic-approvals/routes/routes.jsx';
 import { batchRoutes } from '../../features/batch/routes/routes.jsx';
+import { policyRoutes } from '../../features/clients/policy-management/routes/routes.jsx';
 
 /**
  * Main application router configuration
@@ -53,6 +54,8 @@ export const router = createBrowserRouter([
       ...clientsRoutes,
       // Members Management - handles member information and history
       ...memberRoutes,
+      // Policy Management - handles policy information
+      ...policyRoutes,
       // Providers Management - manages healthcare providers, locations, and pricelists
       ...providersRoutes,
       // Chronic Approvals - handles recurring/chronic condition approvals

@@ -80,17 +80,21 @@ const MemberHistory = () => {
         cols={tableHeaders}
         data={rows}
         checkbox={false}
-        leadingData={{
-          col: '',
-          render: (row) => (
-            <p
-              onClick={() => navigate(`/clients/${clientId}/members/${row.ID}`)}
-              className="text-blue-500 text-xl"
-            >
-              <SiGoogledocs />
-            </p>
-          ),
-        }}
+        leadingData={[
+          {
+            col: '',
+            render: (row) => (
+              <p
+                onClick={() =>
+                  navigate(`/clients/${clientId}/members/${row.ID}`)
+                }
+                className="text-blue-500 text-xl"
+              >
+                <SiGoogledocs />
+              </p>
+            ),
+          },
+        ]}
       />
       <TablePagiation />
     </div>

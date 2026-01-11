@@ -9,8 +9,9 @@ export const useLogin = (onSuccessCallBack) => {
     onSuccess: (data) => {
       //TODO: remove logs
       // store token in local storage
-      localStorage.setItem('token', data.data.token);
-      console.log(data.data.token);
+      localStorage.setItem('token', data.data.Token);
+      console.log(data.data.Token);
+      console.log(data);
       // ✅ success toast
       toast.success('Login successful!', {
         description: 'Welcome back 👋',

@@ -17,7 +17,7 @@ const Table = ({
   const columnCount =
     cols.length +
     (checkbox ? 1 : 0) +
-    (leadingData ? 1 : 0) +
+    (Array.isArray(leadingData) ? leadingData.length : 0) +
     (Array.isArray(trailingData) ? trailingData.length : trailingData ? 1 : 0); // Total number of columns
 
   // Handle individual row checkbox toggle
@@ -78,11 +78,15 @@ const Table = ({
             )}
 
             {/* Render leading data header if provided */}
-            {leadingData && (
-              <th className="px-6 py-4 text-left whitespace-nowrap font-semibold text-gray-700 border border-borders bg-[#F4F4F6]">
-                {leadingData.col}
-              </th>
-            )}
+            {Array.isArray(leadingData) &&
+              leadingData.map((ld, i) => (
+                <th
+                  key={`leading-header-${i}`}
+                  className="px-6 py-4 text-left whitespace-nowrap font-semibold text-gray-700 border border-borders bg-[#F4F4F6]"
+                >
+                  {ld.col}
+                </th>
+              ))}
 
             {/* Render main column headers */}
             {cols.map((col, index) => (
@@ -138,13 +142,17 @@ const Table = ({
                   )}
 
                   {/* Render leading data cell if provided */}
-                  {leadingData && (
-                    <td className="px-6 py-4 whitespace-nowrap text-left text-gray-600 border border-borders">
-                      {typeof leadingData.render === 'function'
-                        ? leadingData.render(row, rowIndex)
-                        : leadingData.data}
-                    </td>
-                  )}
+                  {Array.isArray(leadingData) &&
+                    leadingData.map((ld, i) => (
+                      <td
+                        key={`leading-data-${rowIndex}-${i}`}
+                        className="px-6 py-4 whitespace-nowrap text-left text-gray-600 border border-borders"
+                      >
+                        {typeof ld.render === 'function'
+                          ? ld.render(row, rowIndex)
+                          : ld.data}
+                      </td>
+                    ))}
 
                   {/* Render main data cells */}
                   {/* TODO: change cols with colKeys after finishing integration */}
@@ -153,7 +161,7 @@ const Table = ({
                       key={colIndex}
                       className={`px-6 py-4 whitespace-nowrap text-gray-600 border border-borders ${row[col] === undefined ? 'text-center' : 'text-left'}`}
                     >
-                      {row[col] === undefined ? (
+                      {row[col] === undefined || row[col] === null ? (
                         <span>-</span>
                       ) : col.toLowerCase().includes('status') ? (
                         <ItemStatus status={row[col]}>{row[col]}</ItemStatus>

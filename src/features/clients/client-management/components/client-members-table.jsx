@@ -11,19 +11,21 @@ const ClientMembersTable = ({ colskey, headers, members, type = 'update' }) => {
   // Only include leadingData if type === "update"
   const leadingData =
     type === 'update'
-      ? {
-          col: '',
-          render: (row) => (
-            <p
-              onClick={() =>
-                navigate(`/clients/${clientId}/members/${row.id}/member-info`)
-              }
-              className="text-blue-500 text-xl cursor-pointer"
-            >
-              <SiGoogledocs />
-            </p>
-          ),
-        }
+      ? [
+          {
+            col: '',
+            render: (row) => (
+              <p
+                onClick={() =>
+                  navigate(`/clients/${clientId}/members/${row.id}/member-info`)
+                }
+                className="text-blue-500 text-xl cursor-pointer"
+              >
+                <SiGoogledocs />
+              </p>
+            ),
+          },
+        ]
       : null;
 
   // Only include trailingData if type === "update"

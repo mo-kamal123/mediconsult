@@ -9,6 +9,7 @@ import providersLocationsSlice from '../../features/providers/providers-location
 import providersPricelistsSlice from '../../features/providers/providers-pricelist/store/pricelists-slice';
 import monthlyCronicSlice from '../../features/chronic-approvals/monthly-chronic-approvals/store/monthly-cronic-slice';
 import clientDataSlice from '../../features/clients/client-management/store/client-data-slice';
+import policySlice from '../../features/clients/policy-management/store/policy-slice';
 
 /**
  * Redux Store Configuration
@@ -30,6 +31,7 @@ export const store = configureStore({
     clients: clientsSlice,
     clientData: clientDataSlice,
     members: membersSlice,
+    policy: policySlice,
     providers: providersSlice,
     providersLocations: providersLocationsSlice,
     providersPricelists: providersPricelistsSlice,
