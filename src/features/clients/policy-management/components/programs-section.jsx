@@ -17,10 +17,10 @@ const ProgramsSection = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
-    programNameId: '',
-    limit: '',
-    roomTypeId: '',
-    note: '',
+    ProgramNameId: '',
+    Limit: '',
+    RoomTypeId: '',
+    Note: '',
   });
 
   const programHeaders = ['ID', 'Program Name', 'Limit', 'Room Class', 'Note'];
@@ -28,6 +28,7 @@ const ProgramsSection = ({
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(name,value);
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
   console.log(programs);
@@ -150,8 +151,9 @@ const ProgramsSection = ({
       >
         <DropDown
           label="Program Name"
+          name='ProgramNameId'
           data={programNameOptions}
-          value={formData.programNameId}
+          value={formData.ProgramNameId}
           onValueChange={(value) =>
             setFormData((prev) => ({ ...prev, programNameId: value }))
           }
@@ -159,16 +161,17 @@ const ProgramsSection = ({
         />
         <Input
           type="number"
-          name="limit"
+          name="Limit"
           label="Limit"
-          value={formData.limit}
+          value={formData.Limit}
           onChange={handleInputChange}
           required
         />
         <DropDown
           label="Room Type"
+          name='RoomTypeId'
           data={roomTypeOptions}
-          value={formData.roomTypeId}
+          value={formData.RoomTypeId}
           onValueChange={(value) =>
             setFormData((prev) => ({ ...prev, roomTypeId: value }))
           }
@@ -176,9 +179,9 @@ const ProgramsSection = ({
         />
         <Input
           type="text"
-          name="note"
+          name="Note"
           label="Note"
-          value={formData.note}
+          value={formData.Note}
           onChange={handleInputChange}
         />
       </Modal>

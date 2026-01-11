@@ -35,10 +35,10 @@ export const sidebar_url = [
       { name: 'Providers Locations', url: '/providers/locations' },
       // { name: 'Providers Finance Report', url: '/providers/finance-report' },
       { name: 'Pricelists Management', url: '/providers/pricelists' },
-      // {
-      //   name: 'Archived Pricelists Management',
-      //   url: '/providers/pricelists/archived',
-      // },
+      {
+        name: 'Archived Pricelists Management',
+        url: '/providers/pricelists/archived',
+      },
       { name: 'Master CPT Management', url: '/providers/CPT-management' },
       // { name: 'Not Found Acts Management', url: '/providers/not-found-acts' },
       // { name: 'CDT Acts Management', url: '/providers/cdt-acts' },
