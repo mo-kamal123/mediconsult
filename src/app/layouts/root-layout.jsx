@@ -1,10 +1,9 @@
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import Navbar from '../../shared/layout/navbar';
 import Sidebar from '../../shared/layout/sidebar';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import khusm from '../assets/Khusm.png';
-import { setNavigate } from '../../shared/utils/navigation';
 
 /**
  * RootLayout Component
@@ -19,11 +18,7 @@ import { setNavigate } from '../../shared/utils/navigation';
 const RootLayout = () => {
   // Sidebar state management - defaults to open on desktop (>500px), closed on mobile
   const [toggleSidebar, setToggleSidebar] = useState(window.innerWidth > 500);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    setNavigate(navigate);
-  }, [navigate]);
   // Get authentication status from Redux store
   const loggedIn = useSelector((state) => state.auth.isAuthenticated);
 

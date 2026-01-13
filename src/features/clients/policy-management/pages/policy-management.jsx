@@ -20,6 +20,19 @@ import usePolicies from '../hooks/usePolicies';
 import useDebounce from '../../../../shared/hooks/useDebounce';
 import Spinner from '../../../../shared/layout/spinner';
 
+const rows = Array.from({ length: 15 }, (_, i) => ({
+  Id: 3,
+  ClientId: 35,
+  ClientName: '1212',
+  StartDate: '2025-12-14',
+  EndDate: '2027-12-14',
+  PolicyTypeId: 1,
+  PolicyTypeName: 'Management',
+  CarrierCompanyId: 1,
+  CarrierCompanyName: 'Suez Canal',
+  TotalAmount: 20,
+}));
+
 const PolicyManagement = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(1); // current page state

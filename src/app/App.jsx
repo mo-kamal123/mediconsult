@@ -18,7 +18,7 @@ function App() {
   // Create a new QueryClient instance for React Query
   // This manages caching, refetching, and server state synchronization
   const queryClient = new QueryClient();
-  
+
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
