@@ -15,8 +15,7 @@ import { getFromLocalStorage } from '../../shared/utils/localStorage-actions';
  */
 const Authlayout = () => {
   // Get authentication status from Redux store
-  // const loggedIn = useSelector((state) => state.auth.isAuthenticated);
-  const loggedIn = getFromLocalStorage('token');
+    const loggedIn = useSelector((state) => state.auth.isAuthenticated);
 
   // If user is already authenticated, redirect to home page
   if (loggedIn) {

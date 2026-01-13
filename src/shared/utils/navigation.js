@@ -9,3 +9,14 @@ export const navigateTo = (path) => {
     navigateFunction(path, { replace: true });
   }
 };
+let dispatchFunction = null;
+
+export const setdispatch = (dispatch) => {
+  dispatchFunction = dispatch;
+};
+
+export const dispatchAction = (func) => {
+  if (dispatchFunction) {
+    dispatchFunction(func);
+  }
+};
