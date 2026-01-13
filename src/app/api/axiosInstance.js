@@ -3,6 +3,7 @@ import {
   getFromLocalStorage,
   removeFromLocalStorage,
 } from '../../shared/utils/localStorage-actions';
+import { navigateTo } from '../../shared/utils/navigation';
 
 export const LIMIT = 10;
 
@@ -27,7 +28,7 @@ axiosInstance.interceptors.request.use(
       return config;
     } catch (err) {
       console.error('Axios interceptor error:', err);
-      return config; // مهم جدًا
+      return config;
     }
   },
   (error) => Promise.reject(error)
@@ -47,9 +48,7 @@ axiosInstance.interceptors.response.use(
       removeFromLocalStorage('isLogged');
 
       // Optional: prevent redirect loop
-      if (!window.location.pathname.includes('/auth')) {
-        window.location.href = '/auth';
-      }
+      navigateTo('/auth');
     }
 
     return Promise.reject(error);
