@@ -1,9 +1,11 @@
-import { RouterProvider } from 'react-router-dom';
+import { RouterProvider, useNavigate } from 'react-router-dom';
 import { router } from './routes/router';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { Toaster } from 'sonner';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { setNavigate } from '../shared/utils/navigation';
 
 /**
  * Main App Component
@@ -18,6 +20,11 @@ function App() {
   // Create a new QueryClient instance for React Query
   // This manages caching, refetching, and server state synchronization
   const queryClient = new QueryClient();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setNavigate(navigate);
+  }, [navigate]);
 
   return (
     <QueryClientProvider client={queryClient}>
