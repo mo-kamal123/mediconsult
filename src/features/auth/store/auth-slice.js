@@ -5,7 +5,7 @@ import {
   removeFromLocalStorage,
 } from '../../../shared/utils/localStorage-actions';
 
-const isAuthenticated = getFromLocalStorage('isLogged'); // initial auth state from localStorage
+const isAuthenticated = getFromLocalStorage('isLogged') || false; // initial auth state from localStorage
 const initialState = {
   isAuthenticated: isAuthenticated,
 }; // initial state
