@@ -3,7 +3,8 @@ import {
   getFromLocalStorage,
   removeFromLocalStorage,
 } from '../../shared/utils/localStorage-actions';
-import { navigateTo } from '../../shared/utils/navigation';
+import { dispatchAction, navigateTo } from '../../shared/utils/navigation';
+import { logout } from '../../features/auth/store/auth-slice';
 
 export const LIMIT = 10;
 
@@ -46,6 +47,7 @@ axiosInstance.interceptors.response.use(
       // 🔥 Auto logout
       removeFromLocalStorage('token');
       removeFromLocalStorage('isLogged');
+      dispatchAction(logout())
 
       // Optional: prevent redirect loop
       navigateTo('/auth');

@@ -2,9 +2,10 @@ import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import Navbar from '../../shared/layout/navbar';
 import Sidebar from '../../shared/layout/sidebar';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import khusm from '../assets/Khusm.png';
-import { setNavigate } from '../../shared/utils/navigation';
+import { setNavigate, setdispatch } from '../../shared/utils/navigation';
+import { getFromLocalStorage } from '../../shared/utils/localStorage-actions';
 
 /**
  * RootLayout Component
@@ -20,10 +21,12 @@ const RootLayout = () => {
   // Sidebar state management - defaults to open on desktop (>500px), closed on mobile
   const [toggleSidebar, setToggleSidebar] = useState(window.innerWidth > 500);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setNavigate(navigate);
-  }, [navigate]);
+    setdispatch(dispatch);
+  }, [navigate, dispatch]);
   // Get authentication status from Redux store
   const loggedIn = useSelector((state) => state.auth.isAuthenticated);
 
