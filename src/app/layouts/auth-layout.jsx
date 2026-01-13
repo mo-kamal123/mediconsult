@@ -2,6 +2,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import auth_img from '../../features/auth/imgs/health-insurance-reuse 1.png';
 import khusm from '../assets/Khusm.png';
 import { useSelector } from 'react-redux';
+import { getFromLocalStorage } from '../../shared/utils/localStorage-actions';
 
 /**
  * AuthLayout Component
@@ -14,7 +15,8 @@ import { useSelector } from 'react-redux';
  */
 const Authlayout = () => {
   // Get authentication status from Redux store
-  const loggedIn = useSelector((state) => state.auth.isAuthenticated);
+  // const loggedIn = useSelector((state) => state.auth.isAuthenticated);
+  const loggedIn = getFromLocalStorage('token');
 
   // If user is already authenticated, redirect to home page
   if (loggedIn) {
