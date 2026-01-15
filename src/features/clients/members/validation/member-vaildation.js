@@ -1,4 +1,5 @@
 import z from 'zod';
+import { isNotFutureDate } from '../../../../shared/utils/date-validation';
 
 // ✅ Validation Schema
 export const memberInfoSchema = z.object({
@@ -10,12 +11,17 @@ export const memberInfoSchema = z.object({
   gender: z.boolean(),
   vipStatus: z.number().min(1, 'VIP Status is required'),
   jobTitle: z.string().optional(),
-  birthday: z.string().optional(),
+
+  birthday: z.string().optional().refine(isNotFutureDate, {
+    message: 'Birthday cannot be in the future',
+  }),
   nationalId: z.string().min(5, 'National ID is required'),
   companyCode: z.string().optional(),
   level: z.number().min(1, 'Level is required'),
   hofId: z.string().optional(),
-  activatedDate: z.string().nonempty('Activated Date is required'),
+  activatedDate: z.string().optional().refine(isNotFutureDate, {
+    message: 'Activated Date cannot be in the future',
+  }),
   notes: z.string().optional(),
   privateNotes: z.string().optional(),
   memberImage: z.any().optional(),

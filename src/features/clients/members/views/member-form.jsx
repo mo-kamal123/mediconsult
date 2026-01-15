@@ -61,7 +61,7 @@ const MemberForm = ({ member, memberSubmit }) => {
         mobile: member.MobileNumber || '',
         branchName: member.Branch || '',
         programName: member.Program || '',
-        gender: member.IsMale ? 'male' : 'female',
+        gender: member.IsMale,
         vipStatus: member.VipStatus || '',
         jobTitle: member.JobTitle || '',
         birthday: member.BirthDate || '',

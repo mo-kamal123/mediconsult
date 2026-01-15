@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import logo from '../../../app/assets/mediconsult_logo.png';
 import AuthForm from '../components/auth-form';
 import Btn from '../../../shared/UI/Btn';
@@ -7,12 +8,33 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { otpSchema } from '../validation/auth-validation';
 import useVerify from '../hooks/useVerify';
+import useSentOtp from '../hooks/useSentOtp';
 
 const Verify = () => {
-  const [searchParams] = useSearchParams(); // get query params
-  const phone = searchParams.get('phone'); // get phone number from query params
-  const { mutate: verify, isPending } = useVerify(phone); // verify OTP mutation hook
-  // react hook form setup
+  const [searchParams] = useSearchParams();
+  const phone = searchParams.get('phone');
+
+  const { mutate: verify, isPending: isVerifying } = useVerify(phone);
+  const { mutate: resendOtp, isPending: isResending } = useSentOtp(phone);
+
+  const [timer, setTimer] = useState(5); // countdown in seconds
+  const [canResend, setCanResend] = useState(false);
+
+  // Timer effect
+  useEffect(() => {
+    if (timer === 0) {
+      setCanResend(true);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setTimer((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timer]);
+
+  // react hook form
   const {
     control,
     handleSubmit,
@@ -22,23 +44,27 @@ const Verify = () => {
     defaultValues: { otp: '' },
   });
 
-  // ✅ Handle submit
   const onSubmit = (data) => {
-    //TODO: remove logs
     console.log('OTP Data:', data.otp);
-    console.log(phone);
-    verify({ otp: data.otp, phoneNumber: phone }); // call verify OTP mutation
+    verify({ otp: data.otp, phoneNumber: phone });
+  };
+
+  // Resend OTP handler
+  const handleResend = () => {
+    resendOtp(phone);
+    setTimer(45); // reset timer
+    setCanResend(false);
   };
 
   return (
-    <div className="flex flex-col items-center justify-between gap-20">
+    <div className="flex flex-col items-center justify-between gap-8">
       <img src={logo} alt="logo-img" className="w-80" />
+
       <AuthForm
         onSubmit={handleSubmit(onSubmit)}
-        type={'OTP'}
-        description={'we sent OTP to your phone number. Check your SMS.'}
+        type="OTP"
+        description="We sent OTP to your phone number. Check your SMS."
       >
-        {/* Controller needed because OTPInput is a custom component */}
         <Controller
           name="otp"
           control={control}
@@ -51,13 +77,28 @@ const Verify = () => {
             </div>
           )}
         />
+
         <Btn
-          disabled={isPending}
+          disabled={isVerifying}
           className={`flex items-center justify-center gap-2 w-full px-7 py-3 
-    ${isPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#1F4ED6] hover:bg-blue-800'}`}
+            ${isVerifying ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#1F4ED6] hover:bg-blue-800'}`}
         >
-          {isPending ? 'Loading...' : 'Submit'}
+          {isVerifying ? 'Verifying...' : 'Submit'}
         </Btn>
+
+        {/* Resend OTP */}
+        <div className="flex justify-center mt-4">
+          <button
+            type="button"
+            disabled={!canResend || isResending}
+            onClick={handleResend}
+            className={`text-sm font-medium ${
+              canResend ? 'text-blue-600 hover:text-blue-800' : 'text-gray-400 cursor-not-allowed'
+            }`}
+          >
+            {canResend ? 'Resend OTP' : `Resend OTP in ${timer}s`}
+          </button>
+        </div>
       </AuthForm>
     </div>
   );
