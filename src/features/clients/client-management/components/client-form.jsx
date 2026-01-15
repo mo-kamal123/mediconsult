@@ -5,7 +5,7 @@ import Input from '@/shared/UI/input';
 import RHFDropDown from '../../../../shared/UI/RHF-dropdown';
 import Form from '../../../../shared/UI/from';
 import FormBtn from '../../../../shared/UI/form-Btn';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useClientDropDowns from '../hooks/useClientDropDowns';
 
 const ClientForm = ({
@@ -27,6 +27,21 @@ const ClientForm = ({
     watch,
     setValue,
   } = methods;
+
+  useEffect(() => {
+    if (!client?.ImageUrl) return;
+
+    if (client.ImageUrl instanceof File) {
+      const objectUrl = URL.createObjectURL(client.ImageUrl);
+      setPreview(objectUrl);
+
+      return () => URL.revokeObjectURL(objectUrl);
+    }
+
+    if (typeof client.ImageUrl === 'string') {
+      setPreview(client.ImageUrl);
+    }
+  }, [client?.ImageUrl]);
 
   // ✅ Handle submit
   const onSubmit = (data) => {
@@ -121,27 +136,19 @@ const ClientForm = ({
                 className="absolute inset-0 opacity-0 cursor-pointer"
                 {...register('imageUrl', {
                   onChange: (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                      setSelectedFile(file);
-                      setPreview(URL.createObjectURL(file)); // show preview
-                      console.log(
-                        '📸 File selected:',
-                        file.name,
-                        `(${file.size} bytes)`
-                      );
-                    } else {
-                      setSelectedFile(null);
-                      setPreview(null);
-                    }
+                    const file = e.target.files?.[0];
+
+                    if (!file) return;
+                    setSelectedFile(file);
+                    setPreview(URL.createObjectURL(file));
                   },
                 })}
               />
 
               {/* If preview exists → show the uploaded image, otherwise show existing or placeholder */}
-              {preview || client?.ImageUrl ? (
+              {preview ? (
                 <img
-                  src={preview || client?.ImageUrl}
+                  src={preview}
                   alt="Client Logo"
                   className="w-full h-full object-cover"
                 />

@@ -1,37 +1,75 @@
 // src/features/client/validation/client-schema.js
 import { z } from 'zod';
 
-export const clientInfoSchema = z.object({
-  imageUrl: z.any().optional(),
-  clientCategory: z.coerce
-    .string()
-    .nonempty('Client Category is required')
-    .optional(),
-  arabicClientName: z
-    .string()
-    .min(2, 'Client Arabic Name is required')
-    .optional(),
-  englishClientName: z
-    .string()
-    .min(2, 'Client English Name is required')
-    .optional(),
-  clientType: z.coerce.string().min(1, 'Client Type is required').optional(),
-  status: z.coerce.string().nonempty('Status is required').optional(),
-  reimbursementDueDays: z.any().optional(),
-  clientShortName: z.string().optional(),
-  policyStart: z.string().optional(),
-  policyExpire: z.string().optional(),
-});
+const arabicRegex = /^[\u0600-\u06FF\s]+$/;
+const englishRegex = /^[A-Za-z\s]+$/;
 
-export const newClientSchema = z.object({
-  clientCategory: z.coerce.string().min(1, 'Client Category is required'),
-  arabicClientName: z.string().min(1, 'Arabic Client Name is required'),
-  englishClientName: z.string().min(1, 'English Client Name is required'),
-  clientType: z.coerce.string().min(1, 'Client Type is required'),
-  status: z.coerce.string().min(1, 'Status is required'),
-  reimbursementDueDays: z.any().optional(),
-  clientShortName: z.string().optional(),
-});
+const optionalArabicName = z
+  .string()
+  .transform((val) => val.trim())
+  .refine(
+    (val) => val === '' || arabicRegex.test(val),
+    'Arabic name must contain Arabic letters only'
+  )
+  .refine(
+    (val) => val === '' || val.length >= 2,
+    'Client Arabic Name must be at least 2 characters'
+  )
+  .optional();
+
+const optionalEnglishName = z
+  .string()
+  .transform((val) => val.trim())
+  .refine(
+    (val) => val === '' || englishRegex.test(val),
+    'English name must contain English letters only'
+  )
+  .refine(
+    (val) => val === '' || val.length >= 2,
+    'Client English Name must be at least 2 characters'
+  )
+  .optional();
+
+  export const clientInfoSchema = z
+  .object({
+    imageUrl: z.instanceof(File).optional(),
+    clientCategory: z.coerce.string().min(1, 'Client Category is required'),
+    arabicClientName: optionalArabicName,
+    englishClientName: optionalEnglishName,
+    clientType: z.coerce.string().min(1, 'Client Type is required'),
+    status: z.coerce.string().min(1, 'Status is required'),
+    reimbursementDueDays: z.coerce.number().optional(),
+    clientShortName: z.string().optional(),
+    policyStart: z.string().optional(),
+    policyExpire: z.string().optional(),
+  })
+  .refine(
+    (data) => data.arabicClientName || data.englishClientName,
+    {
+      message: 'Either Arabic or English name is required',
+      path: ['arabicClientName'],
+    }
+  );
+
+
+  export const newClientSchema = z
+  .object({
+    clientCategory: z.coerce.string().min(1, 'Client Category is required'),
+    arabicClientName: optionalArabicName,
+    englishClientName: optionalEnglishName,
+    clientType: z.coerce.string().min(1, 'Client Type is required'),
+    status: z.coerce.string().min(1, 'Status is required'),
+    reimbursementDueDays: z.coerce.number().optional(),
+    clientShortName: z.string().optional(),
+  })
+  .refine(
+    (data) => data.arabicClientName || data.englishClientName,
+    {
+      message: 'Either Arabic or English name is required',
+      path: ['arabicClientName'],
+    }
+  );
+
 
 export const newBranchSchema = z.object({
   BranchName: z.string().min(1, 'Branch Name is required'),

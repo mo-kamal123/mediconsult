@@ -23,7 +23,7 @@ export const otpSchema = z.object({
 // ✅ Schema validation
 export const resetPasswordSchema = z
   .object({
-    newPassword: z.string().min(8, 'Password must be at least 6 characters'),
+    newPassword: z.string().min(8, 'Password must be at least 8 characters'),
     confirmPassword: z.string().min(8, 'Please confirm your password'),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
