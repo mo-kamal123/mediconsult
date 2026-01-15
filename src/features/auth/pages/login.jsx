@@ -43,6 +43,7 @@ const Login = () => {
         type={'Login'}
         onSubmit={handleSubmit(onSubmit)}
         description={'Enter your credential to access your account.'}
+        addBackBtn={false}
       >
         <Input
           type={'text'}

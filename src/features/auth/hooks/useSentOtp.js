@@ -16,9 +16,9 @@ const useSentOtp = (phone) => {
       navigate(`/auth/verify?phone=${phone}`); // redirect to verify OTP page
     },
     onError: (error) => {
-      console.log(error.response?.data?.message);
+      console.log(error.response?.data?.Message);
       // ❌ error toast
-      toast.error(error.response?.data?.message);
+      toast.error(error.response?.data?.Message);
     },
   });
 };
