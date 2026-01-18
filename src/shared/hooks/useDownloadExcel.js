@@ -1,4 +1,6 @@
+// Hook for downloading Excel files - creates blob URL and triggers download
 const useDownloadExcel = () => {
+  // Downloads Excel file from blob - creates temporary link and clicks it
   const downloadExcel = (fileBlob, fileName = 'clients.xlsx') => {
     const url = window.URL.createObjectURL(new Blob([fileBlob]));
 

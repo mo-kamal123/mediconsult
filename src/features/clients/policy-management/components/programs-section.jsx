@@ -28,10 +28,8 @@ const ProgramsSection = ({
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name,value);
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  console.log(programs);
   const handleAddProgram = () => {
     if (!formData.programNameId || !formData.limit) {
       alert('Please fill in Program Name and Limit');

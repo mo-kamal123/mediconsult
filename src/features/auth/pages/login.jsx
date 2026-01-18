@@ -9,9 +9,13 @@ import { useForm } from 'react-hook-form';
 import { loginSchema } from '../validation/auth-validation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLogin } from '../hooks/useLogin';
+import { FaEye, FaRegEyeSlash } from 'react-icons/fa';
+import { useState } from 'react';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const [showPass, setShowPass] = useState(false);
+
   // react hook form setup
   const {
     register,
@@ -35,6 +39,7 @@ const Login = () => {
   const onSuccess = () => {
     dispatch(loggedin());
   };
+  const handleShowPass = () => setShowPass((prev) => !prev);
   const { mutate: login, isPending } = useLogin(onSuccess); // login mutation hook
   return (
     <div className="flex flex-col items-center justify-between gap-20">
@@ -51,12 +56,27 @@ const Login = () => {
           {...register('phoneNumber')}
           error={errors.phoneNumber?.message}
         />
-        <Input
-          type={'password'}
-          label={'Password'}
-          {...register('password')}
-          error={errors.password?.message}
-        />
+
+        <div className="relative w-full">
+          <Input
+            type={showPass ? 'text' : 'password'}
+            label={'Password'}
+            className=''
+            {...register('password')}
+            error={errors.password?.message}
+          />
+          {showPass ? (
+            <FaEye
+              onClick={handleShowPass}
+              className="absolute right-3 sm:right-5 top-1/2 transform translate-y-1/4 text-[#4285F4] text-xl sm:text-2xl cursor-pointer"
+            />
+          ) : (
+            <FaRegEyeSlash
+              onClick={handleShowPass}
+              className="absolute right-3 sm:right-5 top-1/2 transform translate-y-1/4 text-main text-xl sm:text-2xl cursor-pointer"
+            />
+          )}
+        </div>
         <div className="flex justify-between">
           <div className="flex gap-1">
             <input

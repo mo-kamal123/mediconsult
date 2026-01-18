@@ -122,7 +122,7 @@ const PoolInformationSection = ({
         <TableBtn
           type="clearFilter"
           label="Cancel"
-          handleClick={() => console.log('Cancel clicked')}
+          handleClick={() => {}}
         />
         <TableBtn type="AddColumn" label="Save" handleClick={onSave} />
       </div>

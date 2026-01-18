@@ -67,7 +67,6 @@ const ClientForm = ({
         imageUrl: fileToStore, // Store the actual File object
       };
 
-      console.log('📤 Create mode - passing data with file:', fileToStore);
       submitFunc(clientData);
     } else if (hasNewFile) {
       // Update mode with file - use FormData

@@ -35,7 +35,6 @@ const NewMemberForm = ({ onClose, onSave, branches }) => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Member Form Submitted:', data);
     onSave?.(data);
     onClose();
   };

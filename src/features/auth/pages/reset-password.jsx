@@ -27,8 +27,6 @@ const ResetPassword = () => {
 
   // handle form submit
   const onSubmit = (data) => {
-    //TODO: remove logs
-    console.log('Reset Password data:', { ...data, phoneNumber: phone });
     resetPassword({ ...data, phoneNumber: phone }); // call reset password mutation
   };
 

@@ -10,7 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import useDownloadExcel from '../../../../shared/hooks/useDownloadExcel';
 import { exportMembers } from '../api/membersApi';
 import useDebounce from '../../../../shared/hooks/useDebounce';
-import Spinner from '../../../../shared/layout/spinner';
+import Loading from '../../../../shared/components/loading';
+import ErrorState from '../../../../shared/components/error-state';
 import useDeleteBulkMembers from '../hooks/useDeleteBulkMembers';
 
 const MembersManagement = () => {
@@ -29,7 +30,6 @@ const MembersManagement = () => {
     page,
     search: debouncedSearch,
   });
-  console.log(members);
   const { mutate: deleteMembers } = useDeleteBulkMembers();
   const { downloadExcel } = useDownloadExcel('members', page, exportMembers);
   // Handle clear filter - reset search and page
@@ -81,29 +81,18 @@ const MembersManagement = () => {
   ];
 
   // Handle loading state
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <Loading fullScreen />;
 
   // Handle error state
   if (isError) {
     return (
       <div className="w-[95%] m-auto flex flex-col">
         <MainHeader>Members Management</MainHeader>
-        <div className="flex flex-col items-center justify-center py-20">
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md">
-            <h3 className="text-lg font-semibold text-red-800 mb-2">
-              Error Loading Members
-            </h3>
-            <p className="text-red-600">
-              Failed to load members. Please try again later.
-            </p>
-            <button
-              onClick={() => window.location.reload()}
-              className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-            >
-              Retry
-            </button>
-          </div>
-        </div>
+        <ErrorState 
+          title="Error Loading Members"
+          message="Failed to load members. Please try again later."
+          onRetry={() => window.location.reload()}
+        />
       </div>
     );
   }

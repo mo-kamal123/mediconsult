@@ -13,6 +13,8 @@ import {
 } from '../store/client-data-slice';
 import useUpdateClient from '../hooks/useUpdateClient';
 import { useQueryClient } from '@tanstack/react-query';
+import Loading from '../../../../shared/components/loading';
+import ErrorState from '../../../../shared/components/error-state';
 
 const ContactInfo = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,9 +32,6 @@ const ContactInfo = () => {
 
   const { mutate: updateClient, isPending: clientPending } =
     useUpdateClient(clientId);
-
-  console.log('Redux Contacts:', reduxContacts);
-  console.log('Client Data:', client);
 
   // Table headers
   const headers = [
@@ -87,8 +86,8 @@ const ContactInfo = () => {
     queryClient.invalidateQueries(['clients', clientId]);
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading client data</div>;
+  if (isLoading) return <Loading fullScreen />;
+  if (isError) return <ErrorState title="Error Loading Client Data" message="Failed to load client data. Please try again later." />;
 
   return (
     <div>

@@ -108,7 +108,7 @@ const NewPolicy = () => {
 
   // Loading state
   if (dropdowns.isLoading) {
-    return <Spinner />;
+    return <Loading fullScreen />;
   }
 
   return (

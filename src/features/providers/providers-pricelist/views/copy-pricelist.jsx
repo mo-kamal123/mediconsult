@@ -28,7 +28,6 @@ const CopyPricelist = () => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Copy Price List Submitted:', data);
     toast.success('Price list copied successfully!', {
       description: 'The price list has been copied with the specified changes.',
     });

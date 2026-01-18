@@ -9,16 +9,12 @@ const useUpdateMember = (id) => {
   return useMutation({
     mutationFn: (data) => updateMember(id, data),
     onSuccess: (data) => {
-      //TODO: remove logs
-      console.log(data);
       queryClient.invalidateQueries(['clients', id]); // invalidate client query to refetch updated data
 
       // ✅ success toast
       toast.success('Member updated successfully ✔');
     },
     onError: (err) => {
-      //TODO: remove logs
-      console.error(err);
       // ❌ error toast
       toast.error('faild to update Member, try again later ❌');
     },

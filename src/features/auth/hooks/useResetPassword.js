@@ -18,8 +18,6 @@ const useResetPassword = () => {
       toast.success('Your password changed ✔');
     },
     onError: (error) => {
-      //TODO: remove logs
-      console.log(error);
       // ❌ error toast
       toast.error(
         error.response?.data?.message || 'confirm that the password match'

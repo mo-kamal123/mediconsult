@@ -17,8 +17,6 @@ const NewClientMembers = () => {
   const clientData = useSelector((state) => state.clientData);
   const { mutate: createClient, isPending } = useCreateClient();
   const { formData } = useTransformClientData(clientData);
-  console.log(formData);
-  console.log(clientData.Branches);
   // Table headers
   const tableHeaders = [
     'Name',

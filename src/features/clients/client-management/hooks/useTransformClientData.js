@@ -20,35 +20,6 @@ export const useTransformClientData = (clientData) => {
   if (clientData.ImageUrl) {
     if (clientData.ImageUrl instanceof File) {
       formData.append('ImageFile', clientData.ImageUrl);
-      console.log(
-        '✅ Image file added to FormData:',
-        clientData.ImageUrl.name,
-        `(${clientData.ImageUrl.size} bytes, type: ${clientData.ImageUrl.type})`
-      );
-    } else {
-      console.log(
-        '⚠️ ImageUrl exists but is not a File object:',
-        clientData.ImageUrl
-      );
-      console.log(
-        '⚠️ ImageUrl constructor:',
-        clientData.ImageUrl?.constructor?.name
-      );
-    }
-  } else {
-    console.log('❌ No ImageUrl found in clientData');
-  }
-
-  // Debug: Log FormData
-  console.log('📤 FormData being sent:');
-  for (let pair of formData.entries()) {
-    const value = pair[1];
-    if (value instanceof File) {
-      console.log(
-        `  ${pair[0]}: File - ${value.name} (${value.size} bytes, type: ${value.type})`
-      );
-    } else {
-      console.log(`  ${pair[0]}:`, value);
     }
   }
 

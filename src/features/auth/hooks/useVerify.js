@@ -10,12 +10,9 @@ const useVerify = (phone) => {
   return useMutation({
     mutationFn: verifyOtp,
     onSuccess: (data) => {
-      //TODO: remove logs
-      console.log(data);
       navigate(`/auth/reset-password?phone=${phone}`); // redirect to reset password page
     },
     onError: (error) => {
-      console.log(error);
       // ❌ error toast
       toast.error(error.response?.data?.message);
     },

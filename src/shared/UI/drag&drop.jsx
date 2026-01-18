@@ -13,7 +13,6 @@ const DragAndDrop = ({ handleSubmit, loading }) => {
   const [dragging, setDragging] = useState(false);
   const [files, setFiles] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
-  console.log(files);
   // ✅ Only allow specific file types
   const allowedTypes = [
     'image/png',
@@ -88,7 +87,6 @@ const DragAndDrop = ({ handleSubmit, loading }) => {
     } else {
       setSelectedFiles([...selectedFiles, fileName]);
     }
-    console.log(selectedFiles);
   };
 
   return (
