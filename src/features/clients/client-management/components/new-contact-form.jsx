@@ -36,7 +36,6 @@ const NewContactForm = ({ onClose, onSave, title, data }) => {
   }, [data, setValue]);
 
   const onSubmit = (formData) => {
-    console.log('✅ Contact Form Submitted:', formData);
     onSave?.(formData);
     onClose();
   };

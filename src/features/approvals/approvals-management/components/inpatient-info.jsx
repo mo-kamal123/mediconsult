@@ -18,7 +18,7 @@ const InpatientInfo = () => {
             label={'Duration Type'}
             data={['hour', 'day', 'week']}
             className="p-6 mt-1"
-            onValueChange={(val) => console.log(val)} // Optional
+            onValueChange={(val) => {}} // Optional
           />
         </div>
       </div>

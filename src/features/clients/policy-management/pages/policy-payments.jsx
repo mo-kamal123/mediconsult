@@ -6,7 +6,8 @@ import PaymentTable from '../components/payment-table';
 import usePolicyById from '../hooks/usePolicyById';
 import usePolicyPayments from '../hooks/usePolicyPayments';
 import useGeneratePaymentSchedule from '../hooks/useGeneratePaymentSchedule';
-import Spinner from '../../../../shared/layout/spinner';
+import Loading from '../../../../shared/components/loading';
+import ErrorState from '../../../../shared/components/error-state';
 
 const PolicyPayments = () => {
   const { policyId } = useParams();
@@ -58,14 +59,14 @@ const PolicyPayments = () => {
 
   // Loading state
   if (policyLoading || paymentsLoading) {
-    return <Spinner />;
+    return <Loading fullScreen />;
   }
 
   // Error state
   if (policyError || !policy) {
     return (
-      <div className="w-[95%] m-auto flex items-center justify-center p-8">
-        <p className="text-red-600">Error loading policy data</p>
+      <div className="w-[95%] m-auto">
+        <ErrorState title="Error Loading Policy" message="Failed to load policy data. Please try again later." />
       </div>
     );
   }

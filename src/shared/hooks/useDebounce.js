@@ -1,6 +1,6 @@
-// useDebounce.js
 import { useEffect, useState, useRef } from 'react';
 
+// Debounce hook - delays value updates until specified delay passes
 export default function useDebounce(value, delay = 400) {
   const [debounced, setDebounced] = useState(value);
   const previousValueRef = useRef();
@@ -24,11 +24,12 @@ export default function useDebounce(value, delay = 400) {
       ? serialize(previousValueRef.current)
       : null;
 
-    // Only update if value actually changed
+    // Skip update if value hasn't changed
     if (currentSerialized === previousSerialized) return;
 
     previousValueRef.current = value;
 
+    // Set debounced value after delay
     const timer = setTimeout(() => {
       setDebounced(value);
     }, delay);

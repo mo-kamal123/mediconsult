@@ -7,8 +7,6 @@ const useUpdateProvider = (id) => {
   return useMutation({
     mutationFn: (data) => updateprovider(id, data),
     onSuccess: (data) => {
-      //TODO: remove logs
-      console.log(data);
       // ✅ success toast
       toast.success('Provider updated successfully ✔');
     },

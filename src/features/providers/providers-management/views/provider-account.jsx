@@ -23,14 +23,12 @@ const ProviderAccount = () => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Form Submitted:', data);
     toast.success('Provider account information saved successfully!', {
       description: 'The provider account details have been updated.',
     });
   };
 
   const handleDelete = () => {
-    console.log('Delete provider account');
     toast.error('Provider account deleted successfully!', {
       description: 'The provider account has been removed.',
     });

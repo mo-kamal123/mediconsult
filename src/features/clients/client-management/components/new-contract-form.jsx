@@ -41,7 +41,6 @@ const NewContractForm = ({ onClose, onSave, title, data }) => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Contract Form Submitted:', data);
     if (onSave) {
       onSave(data);
     }

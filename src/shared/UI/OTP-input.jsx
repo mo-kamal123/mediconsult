@@ -2,7 +2,7 @@ import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
-} from '@/components/ui/input-otp';
+} from '@/shared/UI/input-otp';
 
 const OTPInput = ({ ...props }) => {
   const maxLength = 6;

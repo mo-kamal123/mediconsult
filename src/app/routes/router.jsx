@@ -4,7 +4,7 @@ import RootLayout from '../layouts/root-layout';
 import Authlayout from '../layouts/auth-layout.jsx';
 import RouteErrorPage from '../components/route-error-page.jsx';
 
-// Route imports - Feature-specific route configurations
+// Feature route imports
 import { authRoutes } from '../../features/auth/routes/routes.jsx';
 import { clientsRoutes } from '../../features/clients/client-management/routes/routes.jsx';
 import { memberRoutes } from '../../features/clients/members/routes/routes.jsx';
@@ -14,16 +14,9 @@ import { ChronicApprovalRoutes } from '../../features/chronic-approvals/routes/r
 import { batchRoutes } from '../../features/batch/routes/routes.jsx';
 import { policyRoutes } from '../../features/clients/policy-management/routes/routes.jsx';
 
-/**
- * Main application router configuration
- * Defines all routes for the application using React Router v6
- */
+// Main router configuration - defines all app routes
 export const router = createBrowserRouter([
-  /**
-   * Authentication routes
-   * Handles login, password reset, and verification pages
-   * Uses AuthLayout wrapper for authentication pages
-   */
+  // Auth routes - login, password reset, verification pages
   {
     path: '/auth',
     element: <Authlayout />,
@@ -31,36 +24,24 @@ export const router = createBrowserRouter([
     children: [...authRoutes],
   },
 
-  /**
-   * Main application routes
-   * Protected routes that require authentication
-   * Uses RootLayout wrapper with sidebar and navbar
-   */
+  // Protected routes - require authentication, uses RootLayout with sidebar/navbar
   {
     path: '/',
     element: <RootLayout />,
     errorElement: <RouteErrorPage />,
     children: [
-      // Home page - dashboard/landing page for authenticated users
+      // Home page
       {
         index: true,
         element: <Home />,
       },
-
-      // Feature-specific routes
-      // Approvals Management - handles approval requests and workflows
+      // Feature routes
       ...approvalsRoutes,
-      // Clients Management - manages client data, branches, contacts, and contracts
       ...clientsRoutes,
-      // Members Management - handles member information and history
       ...memberRoutes,
-      // Policy Management - handles policy information
       ...policyRoutes,
-      // Providers Management - manages healthcare providers, locations, and pricelists
       ...providersRoutes,
-      // Chronic Approvals - handles recurring/chronic condition approvals
       ...ChronicApprovalRoutes,
-      // Batch Processing - handles batch claims, scanning, and processing
       ...batchRoutes,
     ],
   },

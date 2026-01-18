@@ -11,7 +11,6 @@ const NewClientInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const clientData = useSelector((state) => state.clientData);
-  console.log('📦 Current Redux Store:', clientData);
 
   const methods = useForm({
     resolver: zodResolver(newClientSchema),
@@ -30,7 +29,6 @@ const NewClientInfo = () => {
   // If user navigates back, reset form with stored data
   useEffect(() => {
     if (clientData.ArabicName || clientData.EnglishName) {
-      console.log('🔄 Resetting form with stored data');
       methods.reset({
         clientCategory: clientData.CategoryId || '',
         arabicClientName: clientData.ArabicName || '',
@@ -46,8 +44,6 @@ const NewClientInfo = () => {
 
   // Submit Handler
   const onSubmit = (data) => {
-    console.log('📥 Client Info Submitted (raw data):', data);
-
     // Handle file: could be File object (from client-form) or FileList (direct from form)
     let imageFile = null;
     if (data.imageUrl) {
@@ -68,13 +64,6 @@ const NewClientInfo = () => {
       ShortName: data.clientShortName || '',
       ImageUrl: imageFile, // Store the actual File object
     };
-
-    console.log('✅ Saving to Redux:', {
-      ...clientInfoData,
-      ImageUrl: imageFile
-        ? `File: ${imageFile.name} (${imageFile.size} bytes, type: ${imageFile.type})`
-        : 'null',
-    });
 
     dispatch(addClientInfo(clientInfoData));
 

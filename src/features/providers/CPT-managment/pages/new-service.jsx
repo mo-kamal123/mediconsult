@@ -25,14 +25,12 @@ const NewService = () => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Form Submitted:', data);
     toast.success('Provider information saved successfully!', {
       description: 'The provider details have been updated.',
     });
   };
 
   const handleDelete = () => {
-    console.log('Delete provider');
     toast.error('Provider deleted successfully!', {
       description: 'The provider has been removed.',
     });

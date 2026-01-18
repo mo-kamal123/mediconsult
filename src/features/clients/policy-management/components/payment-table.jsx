@@ -4,7 +4,8 @@ import Modal from '../../../../shared/UI/modal';
 import Input from '../../../../shared/UI/input';
 import useCreatePolicyPayment from '../hooks/useCreatePolicyPayment';
 import useDeletePolicyPayment from '../hooks/useDeletePolicyPayment';
-import Spinner from '../../../../shared/layout/spinner';
+import Loading from '../../../../shared/components/loading';
+import ErrorState from '../../../../shared/components/error-state';
 
 const PaymentTable = ({ policyId, payments = [], isLoading, isError }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -120,15 +121,13 @@ const PaymentTable = ({ policyId, payments = [], isLoading, isError }) => {
 
   // Loading state
   if (isLoading) {
-    return <Spinner />;
+    return <Loading />;
   }
 
   // Error state
   if (isError) {
     return (
-      <div className="w-full p-4 text-center">
-        <p className="text-red-600">Error loading payments</p>
-      </div>
+      <ErrorState title="Error Loading Payments" message="Failed to load payments. Please try again later." className="w-full p-4" />
     );
   }
 

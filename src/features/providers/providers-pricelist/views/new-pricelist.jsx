@@ -23,7 +23,6 @@ const NewPricelist = () => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Form Submitted:', data);
     toast.success('Price list created successfully!', {
       description: 'The new price list has been added.',
     });

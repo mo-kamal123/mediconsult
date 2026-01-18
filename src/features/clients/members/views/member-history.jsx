@@ -60,7 +60,7 @@ const MemberHistory = () => {
             data={['moo', 'bar', 'baz']}
             classNamex="p-5"
             value="moo" // ✅ Matches an item in the list
-            onValueChange={(val) => console.log(val)} // Optional
+            onValueChange={(val) => {}} // Optional
           />
 
           <div className="flex items-center gap-5 ">

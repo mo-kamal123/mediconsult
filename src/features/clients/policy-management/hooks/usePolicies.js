@@ -25,7 +25,6 @@ const usePolicies = ({ page, search }) => {
   });
   useEffect(() => {
     if (query.data) {
-      console.log('Fetched policies:', query.data.Data);
       dispatch(changepolicyData(query.data.Data));
     }
   }, [query.data]);

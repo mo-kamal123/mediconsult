@@ -45,7 +45,6 @@ const Verify = () => {
   });
 
   const onSubmit = (data) => {
-    console.log('OTP Data:', data.otp);
     verify({ otp: data.otp, phoneNumber: phone });
   };
 

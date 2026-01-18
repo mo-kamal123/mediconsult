@@ -26,35 +26,6 @@ export const useTransformMemberData = () => {
     if (memberData.memberImage) {
       if (memberData.memberImage[0] instanceof File) {
         formData.append('ImageFile', memberData.memberImage[0]);
-        console.log(
-          '✅ Image file added to FormData:',
-          memberData.memberImage.name,
-          `(${memberData.memberImage.size} bytes, type: ${memberData.memberImage.type})`
-        );
-      } else {
-        console.log(
-          '⚠️ memberImage exists but is not a File object:',
-          memberData.memberImage
-        );
-        console.log(
-          '⚠️ memberImage constructor:',
-          memberData.memberImage?.constructor?.name
-        );
-      }
-    } else {
-      console.log('❌ No memberImage found in memberData');
-    }
-
-    // Debug: Log FormData
-    console.log('📤 FormData being sent:');
-    for (let pair of formData.entries()) {
-      const value = pair[1];
-      if (value instanceof File) {
-        console.log(
-          `  ${pair[0]}: File - ${value.name} (${value.size} bytes, type: ${value.type})`
-        );
-      } else {
-        console.log(`  ${pair[0]}:`, value);
       }
     }
 

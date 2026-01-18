@@ -35,7 +35,6 @@ const NewBatch = () => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Submitted Batch Data:', data);
     navigate(-1);
   };
 

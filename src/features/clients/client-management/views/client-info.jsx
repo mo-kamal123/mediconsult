@@ -4,7 +4,7 @@ import { clientInfoSchema } from '../validation/client-validation';
 import useClientById from '../hooks/useClientById';
 import { useParams, useNavigate } from 'react-router-dom';
 import useUpdateClient from '../hooks/useUpdateClient';
-import Spinner from '../../../../shared/layout/spinner';
+import Loading from '../../../../shared/components/loading';
 import ClientForm from '../components/client-form';
 import { useEffect, useState, useCallback } from 'react';
 import { addClientInfo } from '../store/client-data-slice';
@@ -93,7 +93,7 @@ const ClietntInfo = () => {
     setIsDeleteModalOpen(false);
   }, []);
 
-  if (isPending || clientPending) return <Spinner />;
+  if (isPending || clientPending) return <Loading fullScreen />;
   if (!client) return null;
 
   return (

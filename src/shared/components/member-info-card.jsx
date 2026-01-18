@@ -16,9 +16,9 @@ const MemberInfoCard = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // ------------ Member Data (Replace with API Data) ------------
+  // Member data - replace with API data
   const member = {
-    image: '', // you can pass your uploaded image here
+    image: '',
     name: 'Ibrahim Hamdy Ibrahim',
     gender: 'Male',
     jobTitle: 'Accountant',

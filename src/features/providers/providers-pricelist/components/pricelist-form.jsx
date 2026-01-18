@@ -30,14 +30,12 @@ const PricelistForm = () => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Form Submitted:', data);
     toast.success('Pricelist information saved successfully!', {
       description: 'The pricelist details have been updated.',
     });
   };
 
   const handleDelete = () => {
-    console.log('Delete pricelist');
     toast.error('Pricelist deleted successfully!', {
       description: 'The pricelist has been removed.',
     });

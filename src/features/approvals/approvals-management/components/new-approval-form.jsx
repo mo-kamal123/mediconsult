@@ -44,7 +44,6 @@ const NewApprovalForm = () => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Form Submitted:', data);
     toast.success('Approval information saved successfully!', {
       description: 'The approval details have been updated.',
     });

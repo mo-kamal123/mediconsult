@@ -10,7 +10,8 @@ import useChangeMemberStatus from '../../members/hooks/useChangeMemberStatus';
 import { useState } from 'react';
 import useActivateBulkMembers from '../../members/hooks/useActivateBulkMembers';
 import useDeactivateBulkMembers from '../../members/hooks/useDeactivateBulkMembers';
-import Spinner from '../../../../shared/layout/spinner';
+import Loading from '../../../../shared/components/loading';
+import ErrorState from '../../../../shared/components/error-state';
 import Modal from '../../../../shared/UI/modal';
 import DragAndDrop from '../../../../shared/UI/drag&drop';
 import useDownloadExcel from '../../../../shared/hooks/useDownloadExcel';
@@ -72,8 +73,6 @@ const Members = ({
     clientId
       ? `/clients/${clientId}/members/${row.Id}/member-info`
       : `/member-management/${row.Id}/member-info`;
-
-  console.log(selectedRowsIds);
 
   const handleSubmit = async (e, files) => {
     e.preventDefault();
@@ -192,16 +191,10 @@ const Members = ({
             ]}
           />
         </TableActions>
-        <div className="flex flex-col items-center justify-center py-20">
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md">
-            <h3 className="text-lg font-semibold text-red-800 mb-2">
-              Error Loading Members
-            </h3>
-            <p className="text-red-600">
-              Failed to load members data. Please try again later.
-            </p>
-          </div>
-        </div>
+        <ErrorState 
+          title="Error Loading Members"
+          message="Failed to load members data. Please try again later."
+        />
       </div>
     );
   }

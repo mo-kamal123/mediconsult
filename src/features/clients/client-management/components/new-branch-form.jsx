@@ -38,7 +38,6 @@ const NewBranchForm = ({ onClose, onSave, title, data }) => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Branch Form Submitted:', data);
     if (onSave) {
       onSave(data);
     }
