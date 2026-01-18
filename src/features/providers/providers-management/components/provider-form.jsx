@@ -41,7 +41,6 @@ const ProviderForm = ({ provider, updateProvider, deleteProvider }) => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Form Submitted:', data);
     updateProvider(data);
     // toast.success('Provider information saved successfully!', {
     //   description: 'The provider details have been updated.',
@@ -49,7 +48,6 @@ const ProviderForm = ({ provider, updateProvider, deleteProvider }) => {
   };
 
   const handleDelete = () => {
-    console.log('Delete provider');
     deleteProvider();
   };
 

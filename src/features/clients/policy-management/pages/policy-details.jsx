@@ -10,43 +10,35 @@ import ClassInformationSection from '../components/class-information-section';
 import ReimbursementInformationSection from '../components/reimbursement-information-section';
 import TableBtn from '../../../../shared/UI/table-Btn';
 import Form from '../../../../shared/UI/from';
-import Spinner from '../../../../shared/layout/spinner';
+import Loading from '../../../../shared/components/loading';
+import ErrorState from '../../../../shared/components/error-state';
 import usePolicyById from '../hooks/usePolicyById';
 import useUpdatePolicy from '../hooks/useUpdatePolicy';
 import usePolicyDropDowns from '../hooks/usePolicyDropDowns';
 import { policyInfoSchema } from '../validation/policy-validation';
 
-/**
- * PolicyDetails Component
- * View and edit policy details page
- *
- * Features:
- * - Displays policy information fetched from API
- * - Allows editing policy information using react-hook-form
- * - Manages programs, pools, classes, and reimbursements
- * - Uses dropdown data from API
- */
+// Policy details page - view and edit policy information
 const PolicyDetails = () => {
   const { policyId } = useParams();
   const [selectedProgram, setSelectedProgram] = useState(null);
 
-  // Fetch policy data
+  // Fetch policy data by ID
   const {
     data: policy,
     isLoading: policyLoading,
     isError: policyError,
   } = usePolicyById(policyId);
 
-  // Update policy mutation
+  // Update policy mutation hook
   const { mutate: updatePolicy, isPending: isUpdating } =
     useUpdatePolicy(policyId);
 
-  // Fetch dropdown data
+  // Fetch dropdown data for form selects
   const dropdowns = usePolicyDropDowns({
     clientId: policy?.ClientId,
   });
 
-  // React Hook Form setup
+  // React Hook Form setup with validation
   const methods = useForm({
     resolver: zodResolver(policyInfoSchema),
     defaultValues: {
@@ -64,13 +56,13 @@ const PolicyDetails = () => {
 
   const { handleSubmit, reset } = methods;
 
-  // Tables data - managed separately from form (similar to new-policy pattern)
+  // Tables data - managed separately from form
   const [programs, setPrograms] = useState([]);
   const [pools, setPools] = useState([]);
   const [classes, setClasses] = useState([]);
   const [reimbursements, setReimbursements] = useState([]);
 
-  // Reset form values when policy data loads
+  // Reset form when policy data loads
   useEffect(() => {
     if (policy) {
       // Convert API response to form values
@@ -160,14 +152,14 @@ const PolicyDetails = () => {
 
   // Loading state
   if (policyLoading || dropdowns.isLoading) {
-    return <Spinner />;
+    return <Loading fullScreen />;
   }
 
   // Error state
   if (policyError || !policy) {
     return (
-      <div className="w-[95%] m-auto flex items-center justify-center p-8">
-        <p className="text-red-600">Error loading policy data</p>
+      <div className="w-[95%] m-auto">
+        <ErrorState title="Error Loading Policy" message="Failed to load policy data. Please try again later." />
       </div>
     );
   }

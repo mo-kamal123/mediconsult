@@ -1,5 +1,6 @@
 import { Loader } from 'lucide-react';
 
+// Base loading spinner used by Loading component
 const Spinner = () => (
   <div className="flex justify-center items-center w-full h-svh bg-white rounded-2xl border border-borders -mt-30 pl-10">
     <Loader className="h-10 w-10 animate-spin text-gray-700" />

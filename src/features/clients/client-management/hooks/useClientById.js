@@ -19,7 +19,6 @@ const useClientById = (id, options = {}) => {
   useEffect(() => {
     if (query.data && !hasInitialized.current) {
       dispatch(updateClientInfo(query.data));
-      console.log('Fetched client:', query.data);
       hasInitialized.current = true;
 
       // Call user-provided callback if exists

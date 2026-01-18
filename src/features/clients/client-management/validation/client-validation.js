@@ -32,8 +32,10 @@ const optionalEnglishName = z
 
   export const clientInfoSchema = z
   .object({
-    imageUrl: z.instanceof(File).optional(),
-    clientCategory: z.coerce.string().min(1, 'Client Category is required'),
+    imageUrl: z
+    .union([z.instanceof(File), z.null()])
+    .optional(),
+      clientCategory: z.coerce.string().min(1, 'Client Category is required'),
     arabicClientName: optionalArabicName,
     englishClientName: optionalEnglishName,
     clientType: z.coerce.string().min(1, 'Client Type is required'),

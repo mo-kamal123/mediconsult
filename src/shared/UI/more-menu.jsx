@@ -63,7 +63,6 @@ export default function MoreMenu({ actions = [] }) {
                 onClick={() => {
                   action.onClick?.(); // execute action
                   setOpen(false); // ✅ CLOSE MENU
-                  console.log(action);
                 }}
                 disabled={action.disabled}
                 className="block w-full text-left text-sm px-4 py-2 hover:bg-gray-50"

@@ -34,14 +34,12 @@ const ProviderExtraFinance = () => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Form Submitted:', data);
     toast.success('Provider extra finance information saved successfully!', {
       description: 'The provider extra finance details have been updated.',
     });
   };
 
   const handleDelete = () => {
-    console.log('Delete provider extra finance');
     toast.error('Provider extra finance deleted successfully!', {
       description: 'The provider extra finance has been removed.',
     });

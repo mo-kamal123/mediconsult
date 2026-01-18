@@ -42,9 +42,6 @@ const MemberForm = ({ member, memberSubmit }) => {
       memberImage: null,
     },
   });
-  console.log(member);
-  console.log(clientId);
-  console.log(branchId);
   const {
     register,
     handleSubmit,
@@ -78,9 +75,7 @@ const MemberForm = ({ member, memberSubmit }) => {
   }, [member, reset]);
   const onSubmit = (data) => {
     const transformedData = transformData(data);
-    console.log(transformedData);
     memberSubmit(transformedData);
-    console.log('✅ Member Info Submitted:', data);
   };
   const { clients, status, levels, vipStatuses } = useMemberDropDowns();
   const { data: branches } = useBranchesDropDown(clientId);

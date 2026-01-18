@@ -47,7 +47,6 @@ const ClientMembers = () => {
       onClick: () => navigate('/members/new'),
     },
   ];
-  console.log('Members response:', members);
   return (
     <div className="">
       <Members

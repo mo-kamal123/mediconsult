@@ -29,7 +29,6 @@ const NewClientContracts = () => {
     'TotalMembers',
     'InsuranceCompanyId',
   ];
-  console.log(clientData);
 
   const handleSaveContract = (contract) => {
     dispatch(addContract(contract));

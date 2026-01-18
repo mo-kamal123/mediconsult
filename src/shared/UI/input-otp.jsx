@@ -2,7 +2,7 @@ import * as React from 'react';
 import { OTPInput, OTPInputContext } from 'input-otp';
 import { MinusIcon } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils/utils';
 
 function InputOTP({ className, containerClassName, ...props }) {
   return (
@@ -61,3 +61,4 @@ function InputOTPSeparator({ ...props }) {
 }
 
 export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator };
+

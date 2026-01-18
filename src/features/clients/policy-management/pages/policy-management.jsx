@@ -18,7 +18,8 @@ import TablePagiation from '../../../../shared/UI/table-pagiation';
 import PolicyTableActions from '../components/policy-table-actions';
 import usePolicies from '../hooks/usePolicies';
 import useDebounce from '../../../../shared/hooks/useDebounce';
-import Spinner from '../../../../shared/layout/spinner';
+import Loading from '../../../../shared/components/loading';
+import ErrorState from '../../../../shared/components/error-state';
 
 const PolicyManagement = () => {
   const navigate = useNavigate();
@@ -92,7 +93,6 @@ const PolicyManagement = () => {
         ...prev,
         [rowId]: [...(prev[rowId] || []), ...files],
       }));
-      console.log(`Files attached to row ${rowId}:`, files);
       alert(
         `Attached ${files.length} file(s) to Policy ID ${rowId}: ${files.map((f) => f.name).join(', ')}`
       );
@@ -102,15 +102,12 @@ const PolicyManagement = () => {
   };
 
   const handlePolicyGrid = (row) => {
-    console.log('Grid clicked', row);
   };
 
   const handlePolicyCopy = (row) => {
-    console.log('Copy clicked', row);
   };
 
   const handlePolicyDelete = (row) => {
-    console.log('Delete policy', row);
   };
 
   const actions = [
@@ -124,17 +121,17 @@ const PolicyManagement = () => {
     {
       type: 'clearFilter',
       label: 'Clear Filter',
-      onClick: () => console.log('Clear Filter clicked'),
+      onClick: () => {},
     },
     {
       type: 'export',
       label: 'Export',
       Icon: FileSpreadsheet,
-      onClick: () => console.log('Export clicked'),
+      onClick: () => {},
     },
   ];
-  if (isLoading) return <Spinner />;
-  if (isError) return <p>Error loading policies</p>;
+  if (isLoading) return <Loading fullScreen />;
+  if (isError) return <ErrorState title="Error Loading Policies" message="Failed to load policies. Please try again later." />;
   if (!policies) return null;
 
   return (

@@ -12,7 +12,6 @@ const NewClientContacts = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const clientData = useSelector((state) => state.clientData);
-  console.log(clientData);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const headers = ['Name', 'Job Title', 'Email', 'Mobile', 'Address', 'Note'];
   const colskey = ['Name', 'JobTitle', 'Email', 'Mobile', 'Address', 'Note'];

@@ -27,7 +27,6 @@ const NewLocationForm = ({ data, onClose }) => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Form Submitted:', data);
     toast.success('Location information saved successfully!', {
       description: 'The location details have been updated.',
     });

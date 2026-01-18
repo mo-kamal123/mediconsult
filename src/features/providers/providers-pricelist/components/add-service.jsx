@@ -26,7 +26,6 @@ const AddService = () => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log('✅ Form Submitted:', data);
     toast.success('Service added successfully!', {
       description: 'The service has been added to the list.',
     });

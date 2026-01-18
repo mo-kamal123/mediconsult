@@ -10,13 +10,9 @@ const useSentOtp = (phone) => {
   return useMutation({
     mutationFn: sendOTP,
     onSuccess: (data) => {
-      //TODO: remove logs
-      console.log(phone);
-      console.log(data);
       navigate(`/auth/verify?phone=${phone}`); // redirect to verify OTP page
     },
     onError: (error) => {
-      console.log(error.response?.data?.Message);
       // ❌ error toast
       toast.error(error.response?.data?.Message);
     },

@@ -39,7 +39,7 @@ const ClaimInfo = () => {
           <DropDown
             data={['moo', 'bar', 'baz']}
             classNamex="p-5"
-            onValueChange={(val) => console.log(val)} // Optional
+            onValueChange={(val) => {}} // Optional
           />
 
           <div className="flex items-center gap-5 ">

@@ -22,7 +22,6 @@ const ProvidersManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const { data: providers, isPending, isError } = useProviders(1);
-  console.log(providers);
   const tableRows = useSelector((state) => state.providers); // Get providers data from Redux store
   // Table headers
   const tableHeaders = [

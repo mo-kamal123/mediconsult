@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import TablePagination from '../../../../shared/UI/table-pagiation';
 import useClients from '../hooks/useClients';
 import { useEffect, useState, useMemo, useCallback } from 'react';
-import Spinner from '../../../../shared/layout/spinner';
+import Loading from '../../../../shared/components/loading';
+import ErrorState from '../../../../shared/components/error-state';
 import { useDispatch } from 'react-redux';
 import { resetClientData } from '../store/client-data-slice';
 import useChangeClientStatus from '../hooks/useChangeClientStatus';
@@ -17,19 +18,7 @@ import { exportClients } from '../api/clientApi';
 import useDebounce from '../../../../shared/hooks/useDebounce';
 import useDownloadExcel from '../../../../shared/hooks/useDownloadExcel';
 
-/**
- * ClientsManagement Component
- * Main page for managing clients - displays list of all clients with search, filter, and actions
- *
- * Features:
- * - Client list table with pagination
- * - Search and filter functionality
- * - Export clients to Excel
- * - Change client status (Activate, Deactivate, Hold, Pending)
- * - Navigate to client details or create new client
- */
-
-// Table column headers for display
+// Clients management page - displays list with search, filter, and actions
 const tableHeaders = [
   'ID',
   'Name',
@@ -40,7 +29,7 @@ const tableHeaders = [
   'Status',
 ];
 
-// Table column keys matching API response data structure
+// Column keys matching API response
 const colKeys = [
   'Id',
   'EnglishName',
@@ -52,13 +41,16 @@ const colKeys = [
 ];
 
 const ClientsManagement = () => {
-  const [page, setPage] = useState(1); // current page state
-  const [search, setSearch] = useState({ searchTerm: '', filterBy: 'All' }); // state to hold search term and filter column
+  // Current page state
+  const [page, setPage] = useState(1);
+  // Search term and filter column state
+  const [search, setSearch] = useState({ searchTerm: '', filterBy: 'All' });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const debouncedSearch = useDebounce(search, 700); // Debounce the search object
+  // Debounce search to avoid excessive API calls
+  const debouncedSearch = useDebounce(search, 700);
 
   const {
     data: clients,
@@ -66,17 +58,17 @@ const ClientsManagement = () => {
     isError,
   } = useClients({
     page,
-    search: debouncedSearch, // Pass debounced search to the hook
+    search: debouncedSearch,
   });
 
   // Hook for changing client status (activate, deactivate, hold, pending)
   const { mutate: changeStatus, isLoading: statusLoading } =
     useChangeClientStatus();
 
-  // Hook for downloading clients data as Excel file
+  // Hook for downloading clients as Excel
   const { downloadExcel } = useDownloadExcel('clients', page, exportClients);
 
-  // Handle clear filter - reset search and page
+  // Clear filter - reset search and page
   const handleClearFilter = useCallback(() => {
     setSearch({ searchTerm: '', filterBy: 'All' });
     setPage(1); // Reset to first page when clearing filters
@@ -126,9 +118,9 @@ const ClientsManagement = () => {
     }
   }, [clients, isLoading, isError, dispatch]);
 
-  if (isLoading) return <Spinner />;
-  if (isError) return <p>Error loading clients</p>;
-  if (!clients) return <p>No clients found</p>;
+  if (isLoading) return <Loading fullScreen />;
+  if (isError) return <ErrorState title="Error Loading Clients" message="Failed to load clients. Please try again later." />;
+  if (!clients) return <ErrorState title="No Clients Found" message="No clients data available." showRetry={false} />;
 
   return (
     <section className="w-[95%] m-auto">
