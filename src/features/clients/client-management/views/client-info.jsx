@@ -106,11 +106,14 @@ const ClietntInfo = () => {
       />
 
       {/* Delete Confirmation Modal */}
-      <Modal isOpen={isDeleteModalOpen} onClose={handleCancelDelete}>
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onClose={handleCancelDelete}
+        title="Delete Client"
+        submitLabel={isDeleting ? 'Deleting...' : 'Delete'}
+        onSubmit={handleConfirmDelete}
+      >
         <div className="p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">
-            Delete Client
-          </h2>
           <p className="text-gray-600 mb-2">
             Are you sure you want to delete the client{' '}
             <span className="font-semibold text-gray-900">
@@ -121,22 +124,6 @@ const ClietntInfo = () => {
           <p className="text-sm text-red-600 mb-6">
             This action cannot be undone.
           </p>
-          <div className="flex justify-end gap-4">
-            <Btn
-              onClick={handleCancelDelete}
-              disabled={isDeleting}
-              className="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 disabled:opacity-50"
-            >
-              Cancel
-            </Btn>
-            <Btn
-              onClick={handleConfirmDelete}
-              disabled={isDeleting}
-              className="px-4 py-2 bg-red-600 text-white hover:bg-red-700 disabled:opacity-50"
-            >
-              {isDeleting ? 'Deleting...' : 'Delete'}
-            </Btn>
-          </div>
         </div>
       </Modal>
     </>

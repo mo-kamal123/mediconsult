@@ -81,25 +81,16 @@ const ClientContactsTable = ({
       ></Table>
 
       {/* Modal */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={modalType === 'delete' ? 'Delete Contact' : 'Edit Contact'}
+        submitLabel={modalType === 'delete' ? 'Delete' : 'Save'}
+        onSubmit={modalType === 'delete' ? handleDeleteContact : undefined}
+      >
         {modalType === 'delete' ? (
           <div className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Delete Contact</h2>
             <p>Are you sure you want to delete this contact?</p>
-            <div className="flex justify-end gap-4 mt-6">
-              <Btn
-                onClick={() => setIsModalOpen(false)}
-                className="px-4 py-2 bg-gray-300 hover:bg-gray-400"
-              >
-                Cancel
-              </Btn>
-              <Btn
-                onClick={handleDeleteContact}
-                className="px-4 py-2 bg-red-600 text-white hover:bg-red-700"
-              >
-                Delete
-              </Btn>
-            </div>
           </div>
         ) : (
           <div className="p-6">

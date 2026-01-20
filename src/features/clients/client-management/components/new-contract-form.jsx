@@ -44,7 +44,6 @@ const NewContractForm = ({ onClose, onSave, title, data }) => {
     if (onSave) {
       onSave(data);
     }
-    onClose();
   };
 
   return (
@@ -105,24 +104,6 @@ const NewContractForm = ({ onClose, onSave, title, data }) => {
               data={insuranceCompanies}
             />
           </div>
-        </div>
-
-        {/* Buttons */}
-        <div className="flex gap-4 justify-end">
-          <FormBtn
-            type="button"
-            role="delete"
-            onClick={() => {
-              methods.reset();
-              onClose();
-            }}
-          >
-            Cancel
-          </FormBtn>
-
-          <FormBtn role="save" type="submit">
-            Save
-          </FormBtn>
         </div>
       </Form>
     </FormProvider>
