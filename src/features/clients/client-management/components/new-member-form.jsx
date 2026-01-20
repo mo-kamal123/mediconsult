@@ -36,7 +36,6 @@ const NewMemberForm = ({ onClose, onSave, branches }) => {
 
   const onSubmit = (data) => {
     onSave?.(data);
-    onClose();
   };
 
   return (
@@ -112,22 +111,6 @@ const NewMemberForm = ({ onClose, onSave, branches }) => {
               error={errors.HofCode?.message}
             />
           </div>
-        </div>
-
-        <div className="flex gap-4 justify-end">
-          <FormBtn
-            type="button"
-            role="delete"
-            onClick={() => {
-              methods.reset();
-              onClose();
-            }}
-          >
-            Cancel
-          </FormBtn>
-          <FormBtn role="save" type="submit">
-            Save
-          </FormBtn>
         </div>
       </Form>
     </FormProvider>

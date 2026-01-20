@@ -64,7 +64,7 @@ const Modal = ({ isOpen, onClose, children, submitLabel, title, onSubmit }) => {
           <TableBtn type="clearFilter" label="Cancel" handleClick={onClose} />
           <TableBtn
             type="AddColumn"
-            label={submitLabel}
+            label={submitLabel || 'Save'}
             handleClick={(e) => {
               e.preventDefault();
               onSubmit(e);

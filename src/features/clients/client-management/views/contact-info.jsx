@@ -129,7 +129,12 @@ const ContactInfo = () => {
       </div>
 
       {/* Modal */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Add New Contact"
+        submitLabel={"Save"}
+      >
         <NewContactForm
           onClose={() => setIsModalOpen(false)}
           onSave={handleSaveNewContact}
