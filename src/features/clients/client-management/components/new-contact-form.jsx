@@ -37,7 +37,6 @@ const NewContactForm = ({ onClose, onSave, title, data }) => {
 
   const onSubmit = (formData) => {
     onSave?.(formData);
-    onClose();
   };
 
   return (
@@ -91,23 +90,6 @@ const NewContactForm = ({ onClose, onSave, title, data }) => {
               className="flex-1 min-w-[200px]"
             />
           </div>
-        </div>
-
-        <div className="flex gap-4 justify-end">
-          <FormBtn
-            type="button"
-            role={'delete'}
-            onClick={() => {
-              methods.reset();
-              onClose();
-            }}
-          >
-            Cancel
-          </FormBtn>
-
-          <FormBtn role={'save'} type="submit">
-            Save
-          </FormBtn>
         </div>
       </Form>
     </FormProvider>

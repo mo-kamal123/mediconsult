@@ -41,7 +41,6 @@ const NewBranchForm = ({ onClose, onSave, title, data }) => {
     if (onSave) {
       onSave(data);
     }
-    onClose();
   };
   return (
     <FormProvider {...methods}>
@@ -82,24 +81,6 @@ const NewBranchForm = ({ onClose, onSave, title, data }) => {
               className="flex-1 min-w-[200px]"
             />
           </div>
-        </div>
-
-        {/* Buttons */}
-        <div className="flex gap-4 justify-end">
-          <FormBtn
-            type="button"
-            role="delete"
-            onClick={() => {
-              methods.reset();
-              onClose();
-            }}
-          >
-            cancel
-          </FormBtn>
-
-          <FormBtn role="save" type="submit">
-            Save
-          </FormBtn>
         </div>
       </Form>
     </FormProvider>

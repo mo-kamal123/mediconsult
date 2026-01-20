@@ -4,31 +4,17 @@ import { z } from 'zod';
 const arabicRegex = /^[\u0600-\u06FF\s]+$/;
 const englishRegex = /^[A-Za-z\s]+$/;
 
-const optionalArabicName = z
+const arabicName = z
   .string()
-  .transform((val) => val.trim())
-  .refine(
-    (val) => val === '' || arabicRegex.test(val),
-    'Arabic name must contain Arabic letters only'
-  )
-  .refine(
-    (val) => val === '' || val.length >= 2,
-    'Client Arabic Name must be at least 2 characters'
-  )
-  .optional();
+  .trim()
+  .min(2, 'Client Arabic Name must be at least 2 characters')
+  .regex(arabicRegex, 'Arabic name must contain Arabic letters only');
 
-const optionalEnglishName = z
+const englishName = z
   .string()
-  .transform((val) => val.trim())
-  .refine(
-    (val) => val === '' || englishRegex.test(val),
-    'English name must contain English letters only'
-  )
-  .refine(
-    (val) => val === '' || val.length >= 2,
-    'Client English Name must be at least 2 characters'
-  )
-  .optional();
+  .trim()
+  .min(2, 'Client English Name must be at least 2 characters')
+  .regex(englishRegex, 'English name must contain English letters only');
 
   export const clientInfoSchema = z
   .object({
@@ -36,8 +22,8 @@ const optionalEnglishName = z
     .union([z.instanceof(File), z.null()])
     .optional(),
       clientCategory: z.coerce.string().min(1, 'Client Category is required'),
-    arabicClientName: optionalArabicName,
-    englishClientName: optionalEnglishName,
+    arabicClientName: arabicName,
+    englishClientName: englishName,
     clientType: z.coerce.string().min(1, 'Client Type is required'),
     status: z.coerce.string().min(1, 'Status is required'),
     reimbursementDueDays: z.coerce.number().optional(),
@@ -57,8 +43,8 @@ const optionalEnglishName = z
   export const newClientSchema = z
   .object({
     clientCategory: z.coerce.string().min(1, 'Client Category is required'),
-    arabicClientName: optionalArabicName,
-    englishClientName: optionalEnglishName,
+    arabicClientName: arabicName,
+    englishClientName: englishName,
     clientType: z.coerce.string().min(1, 'Client Type is required'),
     status: z.coerce.string().min(1, 'Status is required'),
     reimbursementDueDays: z.coerce.number().optional(),
